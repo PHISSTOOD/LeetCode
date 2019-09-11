@@ -1,0 +1,74 @@
+Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? 
+Find all unique triplets in the array which gives the sum of zero.
+
+
+//第一次提交（超时）：
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        ArrayList<List<Integer>> list = new ArrayList<>();
+        Arrays.sort(nums);
+        int i, j, k, n;
+        n = nums.length;
+        for(i = 0; i<n-2; i++)
+        {
+            for(j = i+1; j<n-1; j++)
+            {
+                for(k = j+1; k<n;k++)
+                {
+                    if(nums[i]+nums[j]+nums[k] == 0)
+                    {
+                        ArrayList<Integer> num = new ArrayList<>();
+                        num.add(nums[i]);
+                        num.add(nums[j]);
+                        num.add(nums[k]);
+                          if(!list.contains(num))
+                            {
+                                list.add(num);
+                            }
+                    }
+
+                }
+            }
+        }
+        return list;
+    }
+}
+
+//第二次：
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        ArrayList<List<Integer>> list = new ArrayList<>();
+        Arrays.sort(nums);
+        int i, j, k, n;
+        n = nums.length;
+        for(i = 0; i<n-2; i++)
+        {
+            for(j = i+1,k = nums.length - 1;j<k;)
+            {
+                if(nums[i]+nums[j]+nums[k] == 0)
+                {
+                    ArrayList<Integer> num = new ArrayList<>();
+                    num.add(nums[i]);
+                    num.add(nums[j]);
+                    num.add(nums[k]);
+                    if(!list.contains(num))
+                    {
+                        list.add(num);
+                    }
+                    j++;
+                    k--;
+                }
+                else if(nums[i]+nums[j]+nums[k] < 0)
+                {
+                    j++;
+                }
+                else
+                {
+                    k--;
+                }
+            }
+        }
+        return list;
+    }
+}
+
