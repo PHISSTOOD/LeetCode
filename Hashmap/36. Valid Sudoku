@@ -1,0 +1,93 @@
+Determine if a 9x9 Sudoku board is valid. Only the filled cells need to be validated according to the following rules:
+Each row must contain the digits 1-9 without repetition.
+Each column must contain the digits 1-9 without repetition.
+Each of the 9 3x3 sub-boxes of the grid must contain the digits 1-9 without repetition.
+
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        int i,j,n;
+        for(i = 0;i<9;i++)
+        {
+            Map<Character,Integer>pre = new HashMap<>(board[0].length);
+            //Set<Character> set = new HashSet<>();
+            for(j = 0;j<9;j++)
+            {
+                if(board[i][j]!='.')
+                {
+                    /*if(!set.add(board[i][j]))
+                    {
+                        return false;
+                    }*/
+                    
+                    if(pre.containsKey(board[i][j]))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        pre.put(board[i][j],j);
+                    }
+                    
+                }
+            }
+        }
+        for(i = 0;i<9;i++)
+        {
+            Map<Character,Integer>pre = new HashMap<>(board[0].length);
+            //Set<Character> set = new HashSet<>();
+            for(j = 0;j<9;j++)
+            {
+                if(board[j][i]!='.')
+                {
+                    /*if(!set.add(board[j][i]))
+                    {
+                        return false;
+                    }*/
+                    
+                    if(pre.containsKey(board[j][i]))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        pre.put(board[j][i],j);
+                    }
+                    
+                }
+            }
+        }
+        for(i = 0;i<3;i++)
+        {
+            for(j = 0;j<3;j++)
+            {
+                Map<Character,Integer>pre = new HashMap<>(board[0].length);
+                //Set<Character> set = new HashSet<>();
+                for(int k = 0;k<9;k++)
+                {
+                    int k1,k2;
+                    k1 = k/3;
+                    k2 = k%3;
+                    if(board[3*i+k1][3*j+k2]!='.')
+                    {
+                        /*if(!set.add(board[3*i+k1][3*j+k2]))
+                        {
+                            return false;
+                        }*/
+                        
+                        if(pre.containsKey(board[3*i+k1][3*j+k2]))
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            pre.put(board[3*i+k1][3*j+k2],k);
+                        }
+                        
+                    }
+                }
+                
+            }
+        }
+        return true;
+    }
+}
