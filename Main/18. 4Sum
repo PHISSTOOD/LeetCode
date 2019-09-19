@@ -1,0 +1,45 @@
+Given an array nums of n integers and an integer target, are there elements a, b, c, and d in nums 
+such that a + b + c + d = target? Find all unique quadruplets in the array which gives the sum of target.
+
+class Solution {
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        ArrayList<List<Integer>> list = new ArrayList<>();
+        Arrays.sort(nums);
+        int i, j, k, l, n;
+        n = nums.length;
+        for(i = 0; i<n-3; i++)
+        {
+            for(l = i+1;l<n-2;l++)
+            {
+                for(j = l+1,k = nums.length - 1;j<k;)
+                {
+                    if(nums[i]+nums[l]+nums[j]+nums[k] == target)
+                    {
+                        ArrayList<Integer> num = new ArrayList<>();
+                        num.add(nums[i]);
+                        num.add(nums[l]);
+                        num.add(nums[j]);
+                        num.add(nums[k]);
+                        
+                        if(!list.contains(num))
+                        {
+                            list.add(num);
+                        }
+                        j++;
+                        k--;
+                    }
+                    else if(nums[i]+nums[l]+nums[j]+nums[k] < target)
+                    {
+                        j++;
+                    }
+                    else    
+                    {
+                        k--;
+                    }
+                }
+            }
+        }
+        return list;
+    }
+
+}

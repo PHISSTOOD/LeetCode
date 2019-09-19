@@ -1,0 +1,62 @@
+Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+For example, given n = 3, a solution set is:
+
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> combination = new ArrayList();
+        generateAll(new char[2*n], 0 ,combination);
+        /*if(N == 0)
+        {
+            return [''];
+        }*/
+        return combination;
+    }
+    
+    public void generateAll(char[] current, int num , List<String> result)
+    {
+        if (num == current.length)
+        {
+            if(ifvalid(current))
+            {
+                result.add(new String(current));
+            }
+        }
+        else
+        {
+            current[num]='(';
+            generateAll(current,num+1,result);
+            current[num]=')';
+            generateAll(current,num+1,result);
+        }
+    }
+   
+    public boolean ifvalid (char[] current)
+    {
+        int i,n,count;
+        count = 0;
+        n = current.length;
+        for(i = 0;i<n;i++)
+        {
+            if(current[i]=='(')
+            {
+                count++;
+            }
+            else if(current[i]==')')
+            {
+                count--;
+                if(count<0)
+                {
+                return false;
+                }
+            }
+
+        }
+        
+        return (count == 0);
+    }
+    
+
+}
+
+
+
