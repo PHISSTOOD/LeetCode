@@ -1,0 +1,53 @@
+Write a program to solve a Sudoku puzzle by filling the empty cells.
+A sudoku solution must satisfy all of the following rules:
+Each of the digits 1-9 must occur exactly once in each row.
+Each of the digits 1-9 must occur exactly once in each column.
+Each of the the digits 1-9 must occur exactly once in each of the 9 3x3 sub-boxes of the grid.
+Empty cells are indicated by the character '.'.
+
+class Solution {
+    public void solveSudoku(char[][] board) {
+        solve(0, 0, board);
+    }
+    private boolean solve(int r, int c, char[][] board){
+        if(r==9 || (r==8 && c==9)){   // finished
+            return true;
+        }
+        if(c==9){  // go to next row and reset col to 0
+            c=0;r++;
+        }
+
+        for(int j=c; j<9; j++){
+            if(board[r][j]=='.'){
+                for(char k='1'; k<='9'; k++)
+                {
+                    if(valid(r, j, k, board))
+                    {
+                        board[r][j]=k;
+                        if (solve(r, j+1, board))
+                        {
+                            return true;
+                        }
+                        board[r][j]='.'; // backtrack since previour choices proved to be incorrect.
+                    }
+                }
+                return false;
+            }
+        }
+        return solve(r+1, 0, board);
+    }
+    private boolean valid(int x, int y, char k, char[][] board){
+        for(int j=0; j<9; j++){
+            if(board[x][j]==k) return false;
+        }
+        for(int i=0; i<9; i++){
+            if(board[i][y]==k) return false;
+        }
+        for(int i=3*(x/3); i<3*(x/3)+3; i++){
+            for(int j=3*(y/3); j<3*(y/3)+3; j++){
+                if(board[i][j]==k) return false;
+            }
+        }
+        return true;
+    }
+}
