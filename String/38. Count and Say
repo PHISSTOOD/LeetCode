@@ -1,0 +1,50 @@
+The count-and-say sequence is the sequence of integers with the first five terms as following:
+1.     1
+2.     11
+3.     21
+4.     1211
+5.     111221
+
+class Solution {
+    public String countAndSay(int n) {
+        String result = "1";
+        if (n==1)
+        {
+            return "1";
+        }
+        else
+        {
+            result = count(1,result,n);
+        }
+        return result;
+        
+    }
+    private String count(int i, String result,int n)
+    {
+        i++;
+        StringBuilder mid = new StringBuilder();
+        for(int j = 0, num =1;j<result.length();j++)
+        {
+            if(j+1<result.length()&&result.charAt(j)==result.charAt(j+1))
+            {
+                num++;
+            }
+            else
+            {
+                mid.append(num);
+                mid.append(result.charAt(j));
+                num = 1;
+            }
+        }
+        result = mid.toString();
+        if( i == n)
+        {
+            return result;
+        }
+        else
+        {
+            result = count(i,result,n);
+        }
+        return result;
+    }
+}
