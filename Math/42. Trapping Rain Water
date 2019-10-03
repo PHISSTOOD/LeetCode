@@ -1,0 +1,86 @@
+Given n non-negative integers representing an elevation map where the width of each bar is 1, 
+compute how much water it is able to trap after raining.
+
+class Solution {
+    int flag = 0;
+    public int trap(int[] height) {
+        int length = height.length;
+        int sum=0;
+        int start = 0;
+        if(length == 0)
+        {
+            return 0;
+        }
+        if(height[0]==0)
+        {
+            start = findnext (0, length, height);
+        }
+        else
+        {
+            start = 0;
+        }
+        while(start<length && start >=0)
+        {
+            int side = findnext (start, length, height);
+            if(side==-1)
+            {
+                /*start++;
+                if(start >= length)
+                {
+                    break;
+                }*/
+                if(flag ==1)
+                {
+                    break;
+                }
+                reverseint (start,length-1,height);
+                continue;
+            }
+            sum = sum + calculate(start,side,height);
+            flag = 0;
+            start = side;
+        }
+        return sum;
+    }
+    private int findnext (int start, int tail, int []height)
+    {
+        if(start==tail)
+        {
+            return -1;
+        }
+        int h1 = height[start];
+        for(int i = start+1;i<tail;i++)
+        {
+            if(height[i]>=h1)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+    private int calculate(int start,int side,int[] height)
+    {
+        if(start == side)
+        {
+            return 0;
+        }
+        int square = 0;
+        int high  = Math.min(height[start],height[side]);
+        for(int i = start+1;i<side;i++)
+        {
+            square =square+(high-height[i]);
+        }
+        return square;
+    }
+    private void reverseint(int start,int tail,int[] height)
+    {
+        int help;
+        for(int i = 0;i<=(tail-start)/2;i++)
+        {
+            help = height[start+i];
+            height[start+i] = height[tail-i];
+            height[tail-i] = help;
+        }
+        flag = 1;
+    }
+}
