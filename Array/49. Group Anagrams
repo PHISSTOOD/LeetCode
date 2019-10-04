@@ -1,0 +1,30 @@
+Given an array of strings, group anagrams together.
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> result = new ArrayList<>();
+        HashMap<String,List<String>> hm = new HashMap<String, List<String>>();
+        for(int i = 0;i<strs.length;i++)
+        {
+            if(hm.containsKey(sort(strs[i])))
+            {
+                hm.get(sort(strs[i])).add(strs[i]);
+            }
+            else
+            {
+                List<String> newarray = new ArrayList<>();
+                newarray.add(strs[i]);
+                hm.put(sort(strs[i]),newarray);
+            }
+        }
+        result = new ArrayList(hm.values());
+        return result;
+    }
+    private String sort(String str)
+    {
+        char[] c = str.toCharArray();
+        Arrays.sort(c);
+        return String.valueOf(c);
+    }
+}
+
