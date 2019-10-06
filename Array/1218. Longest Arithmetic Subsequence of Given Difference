@@ -1,0 +1,23 @@
+Given an integer array arr and an integer difference, return the length of the longest subsequence in arr 
+which is an arithmetic sequence such that the difference between adjacent elements in the subsequence equals difference.
+
+class Solution {
+    public int longestSubsequence(int[] arr, int difference) {
+        HashMap<Integer,Integer> mymap = new HashMap<>();
+        int count = 0;
+        for(int i = 0;i<arr.length;i++)
+        {
+            if(mymap.containsKey(arr[i]-difference))
+            {
+                mymap.put(arr[i],mymap.get(arr[i]-difference)+1);
+                count = Math.max(count,mymap.get(arr[i]));
+            }
+            else
+            {
+                mymap.put(arr[i],1);
+                count = Math.max(count,mymap.get(arr[i]));
+            }
+        }
+        return count;
+    }
+}
