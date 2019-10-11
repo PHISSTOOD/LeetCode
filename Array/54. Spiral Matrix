@@ -1,0 +1,49 @@
+Given a matrix of m x n elements (m rows, n columns), return all elements of the matrix in spiral order.
+
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> result = new ArrayList<>();
+        int k = matrix.length;
+        if(k==0)
+        {
+            return result;
+        }
+        int l = matrix[0].length;
+        int help = Math.min(l,k);
+        int flag = help%2;
+        for(int i = 0;i<(help/2);i++)
+        {
+            for(int j =0;j<l-2*i-1;j++)
+            {
+                result.add(matrix[i][i+j]);
+            }
+            for(int j =0;j<k-2*i-1;j++)
+            {
+                result.add(matrix[i+j][l-i-1]);
+            }
+            for(int j =0;j<l-2*i-1;j++)
+            {
+                result.add(matrix[k-1-i][l-1-i-j]);
+            }
+            for(int j =0;j<k-2*i-1;j++)
+            {
+                result.add(matrix[k-1-i-j][i]);
+            }
+        }
+        if(flag==1 && l<k)
+        {
+            for(int i = help/2;i<Math.max(l,k)-help/2;i++)
+            {
+                result.add(matrix[i][l/2]);
+            }
+        }
+        if(flag==1 && k<=l)
+        {
+            for(int i = help/2;i<Math.max(l,k)-help/2;i++)
+            {
+                result.add(matrix[k/2][i]);
+            }
+        }
+        return result;
+    }
+}
