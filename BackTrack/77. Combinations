@@ -1,0 +1,22 @@
+Given two integers n and k, return all possible combinations of k numbers out of 1 ... n.
+
+class Solution {
+    public List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> result = new ArrayList<>();
+        bt(result,n,k,0,new ArrayList<>());
+        return result;
+    }
+    private void bt(List<List<Integer>> list,int n,int k, int start, List<Integer> temp)
+    {
+        if(temp.size()==k)
+        {
+            list.add(new ArrayList<>(temp));
+        }
+        for(int i = start;i<n;i++)
+        {
+            temp.add(i+1);
+            bt(list,n,k,i+1,temp);
+            temp.remove(temp.size()-1);
+        }
+    }
+}
