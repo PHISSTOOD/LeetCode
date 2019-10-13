@@ -1,0 +1,24 @@
+You have a list of points in the plane. Return the area of the largest triangle that can be formed by any 3 of the points.
+
+class Solution {
+    public double largestTriangleArea(int[][] points) {
+        double sum = 0;
+        for(int i = 0;i<points.length-2;i++)
+        {
+            for(int j = i+1;j<points.length-1;j++)
+            {
+                for(int k = j+1;k<points.length;k++)
+                {
+                    double s = square(i,j,k,points);
+                    sum = Math.max(s,sum);
+                }
+            }
+        }
+        return sum;
+    }
+    private double square (int i,int j,int k,int[][]points)
+    {
+        return 0.5 * Math.abs(points[i][0]*points[j][1] + points[j][0]*points[k][1] + points[k][0]*points[i][1]
+                             -points[i][1]*points[j][0] - points[j][1]*points[k][0] - points[k][1]*points[i][0]);
+    }
+}
