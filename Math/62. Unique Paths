@@ -1,0 +1,38 @@
+A robot is located at the top-left corner of a m x n grid (marked 'Start' in the diagram below).
+The robot can only move either down or right at any point in time. 
+The robot is trying to reach the bottom-right corner of the grid (marked 'Finish' in the diagram below).
+How many possible unique paths are there?
+
+class Solution {
+    int count = 0;
+    public int uniquePaths(int m, int n) {
+        if(m==1 || n==1)
+        {
+            return 1;
+        }
+        int[][] count = new int[n-1][m-1];
+        for(int i=m-2;i>=0;i--)
+        {
+            for(int j = n-2;j>=0;j--)
+            {
+                if(i==m-2 && j==n-2)
+                {
+                    count[j][i] = 2;
+                }
+                else if(i==m-2)
+                {
+                    count[j][i] = 1 + count[j+1][i];
+                }
+                else if(j == n-2)
+                {
+                    count[j][i] = 1 + count[j][i+1];
+                }
+                else 
+                {
+                    count[j][i] = count[j+1][i] + count[j][i+1];
+                }
+            }
+        }
+        return count[0][0];
+    }
+}
