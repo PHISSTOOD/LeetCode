@@ -1,0 +1,69 @@
+A robot is located at the top-left corner of a m x n grid (marked 'Start' in the diagram below).
+The robot can only move either down or right at any point in time. 
+The robot is trying to reach the bottom-right corner of the grid (marked 'Finish' in the diagram below).
+Now consider if some obstacles are added to the grids. How many unique paths would there be?
+
+class Solution {
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        int m = obstacleGrid[0].length;
+        int n = obstacleGrid.length;
+        boolean block = false;
+        int[][] count = new int[n][m];
+        for(int i = m-1;i>=0;i--)
+        {
+            if(block)
+            {
+                count[n-1][i] = 0;
+            }
+            else if(obstacleGrid[n-1][i] == 1)
+            {
+                count[n-1][i] = 0;
+                block = true;
+            }
+            else
+            {
+                count[n-1][i] = 1;
+            }
+        }
+        if(n==1)
+        {
+            return count[0][0];
+        }
+        block = false;
+        for(int i = n-1;i>=0;i--)
+        {
+            if(block)
+            {
+                count[i][m-1] = 0;
+            }
+            else if(obstacleGrid[i][m-1] == 1)
+            {
+                count[i][m-1] = 0;
+                block = true;
+            }
+            else
+            {
+                count[i][m-1] = 1;
+            }
+        }
+        if(m==1)
+        {
+            return count[0][0];
+        }
+        for(int i=m-2;i>=0;i--)
+        {
+            for(int j = n-2;j>=0;j--)
+            {
+                if(obstacleGrid[j][i]==1)
+                {
+                    count[j][i] = 0;
+                }
+                else
+                {
+                    count[j][i] = count[j+1][i] + count[j][i+1];
+                }
+            }
+        }
+        return count[0][0];
+    }
+}
