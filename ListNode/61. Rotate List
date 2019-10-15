@@ -1,0 +1,46 @@
+Given a linked list, rotate the list to the right by k places, where k is non-negative.
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    int length = 0;
+    public ListNode rotateRight(ListNode head, int k) {
+        if(head==null)
+        {
+            return head;
+        }
+        ListNode tail = findlast(head);
+        k = k % length;
+        if(k==0)
+        {
+            return head;
+        }
+        ListNode split,cur;
+        cur = head;
+        for(int i = 1;i<(length-k);i++)
+        {
+            cur = cur.next;
+        }
+        tail.next = head;
+        split = cur.next;
+        cur.next = null;
+        return split;
+    }
+    
+    private ListNode findlast(ListNode node)
+    {
+        length++;
+        while(node.next!=null)
+        {
+            length++;
+            node = node.next;
+        }
+        return node;
+    }
+}
