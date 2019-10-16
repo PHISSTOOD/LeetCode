@@ -1,0 +1,113 @@
+Given an array of words and a width maxWidth, 
+format the text such that each line has exactly maxWidth characters and is fully (left and right) justified.
+You should pack your words in a greedy approach; that is, pack as many words as you can in each line. 
+Pad extra spaces ' ' when necessary so that each line has exactly maxWidth characters.
+Extra spaces between words should be distributed as evenly as possible. 
+If the number of spaces on a line do not divide evenly between words, 
+the empty slots on the left will be assigned more spaces than the slots on the right.
+For the last line of text, it should be left justified and no extra space is inserted between words.
+Note:
+A word is defined as a character sequence consisting of non-space characters only.
+Each word's length is guaranteed to be greater than 0 and not exceed maxWidth.
+The input array words contains at least one word.
+
+class Solution {
+    String[] words;
+    int maxWidth;
+    public List<String> fullJustify(String[] words, int maxWidth) {
+        this.words = words;
+        this.maxWidth = maxWidth;
+        List<String> result = new ArrayList<>();
+        for(int j = 0;j<words.length;)
+        {
+            int count = 0;
+            int i = j;
+            for(;j<words.length;j++)
+            {
+                count += words[j].length();
+                if(count>maxWidth-j+i)
+                {
+                    count = count - words[j].length();
+                    form(i,j-1,count,result);
+                    break;
+                }else if(count == maxWidth-j+i || count == maxWidth-j+i-1)
+                {
+                    form(i,j,count,result);
+                    j++;
+                    break;
+                }else if(j==words.length-1)
+                {
+                    form(i,j,count,result);
+                    j++;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+    private void form(int i ,int j,int length, List<String> result)
+    {
+        int num = j-i;
+        int space = maxWidth-length;
+        StringBuilder sb = new StringBuilder();
+        if(num==0 || j==words.length-1)
+        {
+            if(num==0)
+            {
+                sb.append(words[i]);
+                for(int m = 0;m<space;m++)
+                {
+                    sb.append(' ');
+                }
+            }else
+            {
+                for(int n = i;n<j;n++)
+                {
+                    sb.append(words[n]);
+                    sb.append(' ');
+                }
+                sb.append(words[j]);
+                for(int m = 0;m<space-num;m++)
+                {
+                    sb.append(' ');
+                }
+            }
+            
+        }else if(space%num==0)
+        {
+            for(int n = i;n<j;n++)
+            {
+                sb.append(words[n]);
+                for(int m = 0;m<space/num;m++)
+                {
+                    sb.append(' ');
+                }
+            }
+            sb.append(words[j]);
+        }else
+        {
+            int num1 = space%num;
+            for(int n = i;n<i+num1;n++)
+            {
+                sb.append(words[n]);
+                for(int m = 0;m<space/num+1;m++)
+                {
+                    sb.append(' ');
+                }
+            }
+            for(int n = i+num1;n<j;n++)
+            {
+                sb.append(words[n]);
+                for(int m = 0;m<space/num;m++)
+                {
+                    sb.append(' ');
+                }
+            }
+            sb.append(words[j]);
+        }
+        result.add(sb.toString());
+        
+    }
+}
+
+
