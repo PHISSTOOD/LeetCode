@@ -1,0 +1,43 @@
+Given a 2D board and a word, find if the word exists in the grid.
+The word can be constructed from letters of sequentially adjacent cell, 
+where "adjacent" cells are those horizontally or vertically neighboring. 
+The same letter cell may not be used more than once.
+
+class Solution {
+    //char[][] theboard;
+    //char[] words;
+    public boolean exist(char[][] board, String word) {
+        //this.theboard = board;
+        char[] words = word.toCharArray();
+        for(int i = 0;i<board[0].length;i++)
+        {
+            for(int j = 0;j<board.length;j++)
+            {
+                if(find(i,j,0,board,words))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    private boolean find(int x,int y,int i,char[][] theboard,char[] words)
+    {
+        if(x<0||y<0||x>=theboard[0].length||y>=theboard.length||theboard[y][x]!=words[i])
+        {
+            return false;
+        }
+        if(i == words.length-1)
+        {
+            return true;
+        }
+        char originalChar = theboard[y][x];
+        theboard[y][x] = '0';
+        boolean isMatch = find(x+1, y, i+1,theboard,words) || 
+                            find(x-1, y, i+1,theboard,words) ||
+                            find(x, y+1, i+1,theboard,words) ||
+                            find(x, y-1, i+1,theboard,words) ;
+        theboard[y][x] = originalChar;
+        return isMatch;
+    }
+}
