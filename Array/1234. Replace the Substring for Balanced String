@@ -1,0 +1,32 @@
+You are given a string containing only 4 kinds of characters 'Q', 'W', 'E' and 'R'.
+A string is said to be balanced if each of its characters appears n/4 times where n is the length of the string.
+Return the minimum length of the substring that can be replaced with any other string of the same length to make the original string s balanced.
+Return 0 if the string is already balanced.
+
+
+class Solution {
+    public int balancedString(String s) {
+        int [] count = new int [128];
+        int length = s.length();
+        int result = s.length();
+        int i = 0;
+        for(int j = 0;j<length;j++)
+        {
+            count[s.charAt(j)] = count[s.charAt(j)]+1;
+        }
+        for(int j = 0;j<length;j++)
+        {
+            count[s.charAt(j)] = count[s.charAt(j)]-1;
+            while(i<length && count['Q']<=length/4 && count['W']<=length/4 && count['E']<=length/4 && count['R']<=length/4)
+            {
+                result = Math.min(result,j-i+1);
+                ++count[s.charAt(i++)];
+            }
+        }
+        return result;
+    }
+}
+
+
+
+
