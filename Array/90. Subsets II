@@ -1,0 +1,36 @@
+Given a collection of integers that might contain duplicates, nums, return all possible subsets (the power set).
+Note: The solution set must not contain duplicate subsets.
+
+class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> tail = new ArrayList<>();
+        List<Integer> cur = new ArrayList<>();
+        result.add(tail);
+        for(int i = 1;i<=nums.length;i++)
+        {
+            getsubset(result,cur,i,0,nums);
+        }
+        return result;
+    }
+    private void getsubset(List<List<Integer>> mid,List<Integer> cur, int size, int start, int[] nums)
+    {
+        if(cur.size()==size)
+        {
+            mid.add(new ArrayList<>(cur));
+        }else
+        {
+            for(int i = start;i<nums.length;i++)
+            {
+                if(i>start && nums[i]==nums[i-1])
+                {
+                    continue;
+                }
+                cur.add(nums[i]);
+                getsubset(mid,cur,size,i+1,nums);
+                cur.remove(cur.size()-1);
+            }
+        }
+    }
+}
