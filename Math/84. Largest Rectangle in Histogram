@@ -1,0 +1,85 @@
+Given n non-negative integers representing the histogram's bar height where the width of each bar is 1, 
+find the area of largest rectangle in the histogram.
+
+
+方法1:
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        int result = 0;
+        for(int i = 0;i<heights.length;i++)
+        {
+            int sum = calculate(i,heights);
+            result = Math.max(sum,result);
+        }
+        return result;
+    }
+    private int calculate(int i,int[]heights)
+    {
+        int high = heights[i];
+        int length = 1;
+        if(i!=0)
+        {
+            for(int n = i-1;n>=0;n--)
+            {
+                if(heights[n]>=high)
+                {
+                    length++;
+                }else
+                {
+                    break;
+                }
+            }
+        }
+        if(i!=heights.length-1)
+        {
+            for(int n = i+1;n<heights.length;n++)
+            {
+                if(heights[n]>=high)
+                {
+                    length++;
+                }else
+                {
+                    break;
+                }
+            }
+        }
+        return high*length;
+    }
+}
+
+faster than 15.73% of Java online submissions for Largest Rectangle in Histogram.
+Memory Usage: 40.4 MB, less than 90.91% of Java online submissions for Largest Rectangle in Histogram.
+
+
+方法2
+
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        Stack <Integer> st = new Stack();
+        int result = 0;
+        for(int i = 0;i<=heights.length;i++)
+        {
+            int temp = -1;
+            if(i<heights.length)
+            {
+                temp = heights[i];
+            }
+            while(!st.isEmpty() && heights[st.peek()]>temp)
+            {
+                int idex = st.pop();
+                int h = heights[idex];
+                if(st.isEmpty())
+                {
+                    result = Math.max(i*h,result);
+                }else
+                {
+                    result = Math.max((i-st.peek()-1)*h,result);
+                }
+            }
+            st.push(i);
+        }
+        return result;
+    }
+}
+
+ faster than 49.56% of Java online submissions for Largest Rectangle in Histogram.Memory Usage: 41.3 MB, less than 63.64%
