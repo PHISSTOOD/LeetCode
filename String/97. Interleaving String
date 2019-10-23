@@ -1,0 +1,44 @@
+Given s1, s2, s3, find whether s3 is formed by the interleaving of s1 and s2.
+
+class Solution {
+    public boolean isInterleave(String s1, String s2, String s3) {
+        char[] c1 = s1.toCharArray();
+        char[] c2 = s2.toCharArray();
+        char[] c3 = s3.toCharArray();
+        if(c3.length != c1.length + c2.length)
+        {
+            return false;
+        }
+        int[][] dp = new int[c1.length+1][c2.length+1];
+        return valid (c1,c2,c3,0,0,dp);
+        
+        
+    }
+    private boolean valid(char[] c1, char[] c2, char[] c3, int i,int j,int[][] dp)
+    {
+        if(i==c1.length && j==c2.length)
+        {
+            return true;
+        }
+        int k = i+j;
+        if(dp[i][j]==1)
+        {
+            return true;
+        }else if(dp[i][j]==-1)
+        {
+            return false;
+        }
+        if(i<c1.length && c3[k] == c1[i] && valid(c1,c2,c3,i+1,j,dp) ||
+          j<c2.length && c3[k] == c2[j] && valid(c1,c2,c3,i,j+1,dp))
+        {
+            dp[i][j]=1;
+        }else
+        {
+            dp[i][j]=-1;
+        }
+        return dp[i][j]==1;
+    }
+    
+}
+
+
