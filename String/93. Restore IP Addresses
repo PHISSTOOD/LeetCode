@@ -1,0 +1,34 @@
+Given a string containing only digits, restore it by returning all possible valid IP address combinations.
+
+class Solution {
+    public List<String> restoreIpAddresses(String s) {
+        List<String> result = new ArrayList<>();
+        if(s.length()>12)
+        {
+            return result;
+        }
+        IP(result,s,0,"",0);
+        return result;
+    }
+    private void IP(List<String> result, String s, int index, String cur,int count)
+    {
+        if(index == s.length() && count==4)
+        {
+            result.add(cur.substring(0,cur.length()-1));
+        }
+        else
+        {
+            int num = 0;
+            for(int i = index;i<=index+3 && i<s.length();i++)
+            {
+                num = num*10 + (s.charAt(i)-'0');
+                if(num<256)
+                {
+                    IP(result,s,i+1,cur+num+'.',count+1);
+                }
+                if (i == index && s.charAt(i) == '0') break;
+            }
+        }
+    }
+}
+
