@@ -1,0 +1,91 @@
+Given a binary tree, return the bottom-up level order traversal of its nodes' values. (ie, from left to right, level by level from leaf to root).
+For example:
+Given binary tree [3,9,20,null,null,15,7],
+
+方法1:
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+
+class Solution {
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if(root == null)
+        {
+            return result;
+        }
+        create(result,root,0);
+        Collections.reverse(result);
+        return result;
+        
+    }
+    private void create(List<List<Integer>>result, TreeNode cur, int level)
+    {
+        if(cur==null)
+        {
+            return;
+        }
+        if(level>=result.size())
+        {
+            List<Integer> list = new ArrayList<>();
+            result.add(list);
+        }
+        result.get(level).add(cur.val);
+        create(result,cur.left,level+1);
+        create(result,cur.right,level+1);
+    }
+}
+
+
+方法2:
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    Stack<List<Integer>> st = new Stack<>();
+    List<List<Integer>> result = new ArrayList<>();
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        if(root == null)
+        {
+            return result;
+        }
+        Queue<TreeNode> qu = new LinkedList<>();
+        qu.add(root);
+        while(!qu.isEmpty())
+        {
+            int length = qu.size();
+            List<Integer> list = new ArrayList<>();
+            for(int i = 0;i<length;i++)
+            {
+                TreeNode cur = qu.poll();
+                list.add(cur.val);
+                if(cur.left!=null)
+                {
+                    qu.add(cur.left);
+                }
+                if(cur.right!=null)
+                {
+                    qu.add(cur.right);
+                }
+            }
+            st.push(list);
+        }
+        while(!st.isEmpty())
+        {
+            result.add(st.pop());
+        }
+        return result;
+    }
+}
