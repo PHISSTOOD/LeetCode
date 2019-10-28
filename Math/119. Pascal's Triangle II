@@ -1,0 +1,29 @@
+Given a non-negative index k where k ≤ 33, return the kth index row of the Pascal's triangle.
+Note that the row index starts from 0.
+
+class Solution {
+    public List<Integer> getRow(int rowIndex) {
+        List<Integer> result = new ArrayList<>();
+        int cur = 0;
+        while(cur<rowIndex+1)
+        {
+            List<Integer> row = new ArrayList<>();
+            for(int j = 0;j<=cur;j++)
+            {
+                if(j==0 || j==cur)
+                {
+                    row.add(1);
+                }else
+                {
+                    row.add(result.get(j-1)+result.get(j));
+                }
+                
+            }
+            result = row;
+            cur++;
+        }
+        return result;
+    }
+}
+
+
