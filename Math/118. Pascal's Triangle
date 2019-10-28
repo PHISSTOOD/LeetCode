@@ -1,0 +1,26 @@
+Given a non-negative integer numRows, generate the first numRows of Pascal's triangle.
+
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> result = new ArrayList<>();
+        int cur = 0;
+        while(cur<numRows)
+        {
+            List<Integer> row = new ArrayList<>();
+            for(int j = 0;j<=cur;j++)
+            {
+                if(j==0 || j==cur)
+                {
+                    row.add(1);
+                }else
+                {
+                    row.add(result.get(cur-1).get(j-1)+result.get(cur-1).get(j));
+                }
+                
+            }
+            result.add(row);
+            cur++;
+        }
+        return result;
+    }
+}
