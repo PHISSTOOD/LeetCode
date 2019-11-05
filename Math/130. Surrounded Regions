@@ -1,0 +1,71 @@
+Given a 2D board containing 'X' and 'O' (the letter O), capture all regions surrounded by 'X'.
+A region is captured by flipping all 'O's into 'X's in that surrounded region.
+
+class Solution {
+    public void solve(char[][] board) {
+        int width = board.length;
+        if(width==0)
+        {
+            return;
+        }
+        int length = board[0].length;
+        if(length==0)
+        {
+            return;
+        }
+        int[][] flag = new int[width][length];
+        for(int i =0;i<width;i++)
+        {
+            find(board,flag,i,0);
+        }
+        for(int i =0;i<width;i++)
+        {
+            find(board,flag,i,length-1);
+        }
+        for(int i =0;i<length;i++)
+        {
+            find(board,flag,0,i);
+        }
+        for(int i =0;i<length;i++)
+        {
+            find(board,flag,width-1,i);
+        }
+        for(int i = 0;i<width;i++)
+        {
+            for(int j = 0;j<length;j++)
+            {
+                if(flag[i][j]!=1)
+                {
+                    board[i][j] = 'X';
+                }
+            }
+        }
+    }
+    private void find(char[][]board,int[][] flag,int i,int j)
+    {
+        if(flag[i][j]==1)
+        {
+            return;
+        }
+        if(board[i][j]=='O')
+        {
+            flag[i][j] = 1;
+            if(i>0)
+            {
+                find(board,flag,i-1,j);
+            }
+            if(j>0)
+            {
+                find(board,flag,i,j-1);
+            }
+            if(i<board.length-1)
+            {
+                find(board,flag,i+1,j);
+            }
+            if(j<board[0].length-1)
+            {
+                find(board,flag,i,j+1);
+            }
+        }
+    }
+}
