@@ -1,0 +1,44 @@
+Evaluate the value of an arithmetic expression in Reverse Polish Notation.
+Valid operators are +, -, *, /. Each operand may be an integer or another expression.
+Note:
+Division between two integers should truncate toward zero.
+The given RPN expression is always valid.
+That means the expression would always evaluate to a result and there won't be any divide by zero operation.
+
+class Solution {
+    public int evalRPN(String[] tokens) {
+        Stack<Integer> st =new Stack();
+        for(String t : tokens)
+        {
+            if(t.equals("+"))
+            {
+                int i1 = Integer.valueOf(st.pop());
+                int i2 = Integer.valueOf(st.pop());
+                int cur = i2+i1;
+                st.push(cur);  
+            }else if(t.equals("-"))
+            {
+                int i1 = Integer.valueOf(st.pop());
+                int i2 = Integer.valueOf(st.pop());
+                int cur = i2-i1;
+                st.push(cur);  
+            }else if(t.equals("*"))
+            {
+                int i1 = Integer.valueOf(st.pop());
+                int i2 = Integer.valueOf(st.pop());
+                int cur = i2*i1;
+                st.push(cur);  
+            }else if(t.equals("/"))
+            {
+                int i1 = Integer.valueOf(st.pop());
+                int i2 = Integer.valueOf(st.pop());
+                int cur = i2/i1;
+                st.push(cur);  
+            }else
+            {
+                st.push(Integer.valueOf(t));
+            }
+        }
+        return st.pop();
+    }
+}
