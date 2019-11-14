@@ -1,0 +1,53 @@
+Compare two version numbers version1 and version2.
+If version1 > version2 return 1; if version1 < version2 return -1;otherwise return 0.
+You may assume that the version strings are non-empty and contain only digits and the . character.
+The . character does not represent a decimal point and is used to separate number sequences.
+For instance, 2.5 is not "two and a half" or "half way to version three", 
+it is the fifth second-level revision of the second first-level revision.
+You may assume the default revision number for each level of a version number to be 0. For example, 
+version number 3.4 has a revision number of 3 and 4 for its first and second level revision number. 
+Its third and fourth level revision number are both 0.
+
+
+
+class Solution {
+    public int compareVersion(String version1, String version2) {
+        String[] version1split = version1.split("\\.");
+        String[] version2split = version2.split("\\.");
+        int i = 0;
+        for(;i<version1split.length && i<version2split.length;i++)
+        {
+            int s1 = Integer.parseInt(version1split[i]);
+            int s2 = Integer.parseInt(version2split[i]);
+            if(s1<s2)
+            {
+                return -1;
+            }else if(s1>s2)
+            {
+                return 1;
+            }
+        }
+        if(version1split.length>version2split.length)
+        {
+            for(;i<version1split.length;i++)
+            {
+                int s1 = Integer.parseInt(version1split[i]);
+                if(s1!=0)
+                {
+                    return 1;
+                }
+            }
+        }else if(version1split.length<version2split.length)
+        {
+            for(;i<version2split.length;i++)
+            {
+                int s2 = Integer.parseInt(version2split[i]);
+                if(s2!=0)
+                {
+                    return -1;
+                }
+            }
+        }
+        return 0;
+    }
+}
