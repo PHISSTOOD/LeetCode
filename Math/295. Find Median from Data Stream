@@ -1,0 +1,72 @@
+Median is the middle value in an ordered integer list. If the size of the list is even, 
+there is no middle value. So the median is the mean of the two middle value.
+For example,
+[2,3,4], the median is 3
+[2,3], the median is (2 + 3) / 2 = 2.5
+Design a data structure that supports the following two operations:
+void addNum(int num) - Add a integer number from the data stream to the data structure.
+double findMedian() - Return the median of all elements so far.
+
+class MedianFinder {
+
+    List<Integer> list = new ArrayList<>();
+    /** initialize your data structure here. */
+    public MedianFinder() {
+        
+    }
+    
+    public void addNum(int num) {
+        if(list.size()==0)
+        {
+            this.list.add(num);
+        }
+        else
+        {
+            if(mid(num)==list.size())
+            {
+                this.list.add(num);
+            }else
+            {
+                this.list.add(mid(num),num);
+            }
+        }
+        
+    }
+    
+    public double findMedian() {
+        int length = list.size();
+        if(length%2==1)
+        {
+            return list.get(length/2);
+        }
+        else
+        {
+            return ((double)list.get(length/2-1)+(double)list.get(length/2))/2;
+        }
+    }
+    public int mid(int num)
+    {
+        int l = 0;
+        int r = this.list.size()-1;
+        while(l<=r)
+        {
+            int help = (l+r)/2;
+            if(num>this.list.get(help))
+            {
+                l = help+1;
+            }
+            else
+            {
+                r = help-1;
+            }
+        }
+        return l;
+    }
+}
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder obj = new MedianFinder();
+ * obj.addNum(num);
+ * double param_2 = obj.findMedian();
+ */
