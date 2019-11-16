@@ -1,0 +1,15 @@
+Given a column title as appear in an Excel sheet, return its corresponding column number.
+
+class Solution {
+    public int titleToNumber(String s) {
+        int len = s.length();
+        int cur = 0;
+        int sum = 0;
+        for(int i = 0;i<len;i++)
+        {
+            cur = (int)s.charAt(i)-64;
+            sum = sum*26 + cur;
+        }
+        return sum;
+    }
+}
