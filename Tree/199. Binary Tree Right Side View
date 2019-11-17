@@ -1,0 +1,32 @@
+Given a binary tree, imagine yourself standing on the right side of it, 
+return the values of the nodes you can see ordered from top to bottom.
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> result = new ArrayList();
+        find(result,1,root);
+        return result;
+    }
+    private void find(List<Integer> result, int deep, TreeNode cur)
+    {
+        if(cur==null)
+        {
+            return;
+        }
+        if(deep>result.size())
+        {
+            result.add(cur.val);
+        }
+        find(result,deep+1,cur.right);
+        find(result,deep+1,cur.left);
+    }
+}
