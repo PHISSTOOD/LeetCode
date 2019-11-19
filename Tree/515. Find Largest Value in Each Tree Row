@@ -1,0 +1,39 @@
+You need to find the largest value in each row of a binary tree.
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<Integer> largestValues(TreeNode root) {
+        List result = new ArrayList();
+        find(result,0,root);
+        return result;
+    }
+    private void find(List<Integer> result,int deep,TreeNode cur)
+    {
+        if(cur==null)
+        {
+            return;
+        }
+        if(deep>=result.size())
+        {
+            result.add(cur.val);
+        }
+        else
+        {
+            int num = result.get(deep);
+            if(cur.val>num)
+            {
+                result.set(deep,cur.val);
+            }
+        }
+        find(result,deep+1,cur.left);
+        find(result,deep+1,cur.right);
+    }
+}
