@@ -1,0 +1,81 @@
+Given a singly linked list L: L0→L1→…→Ln-1→Ln,
+reorder it to: L0→Ln→L1→Ln-1→L2→Ln-2→…
+You may not modify the values in the list's nodes, only nodes itself may be changed.
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+/*class Solution {
+    public void reorderList(ListNode head) {
+        ListNode cur = head;
+        int length = 0;
+        while(cur!=null)
+        {
+            length++;
+            cur = cur.next;
+        }
+        length--;
+        if(length<=1)
+        {
+            return;
+        }
+        cur = head;
+        ListNode cur1;
+        for(;;)
+        {
+            if(cur.next == null || cur.next.next==null)
+            {
+                break;
+            }
+            ListNode last = findtail(head,length);
+            cur1 = cur.next;
+            cur.next = last.next;
+            last.next.next = cur1;
+            last.next = null;
+            cur = cur1;
+        }
+    }
+    private ListNode findtail(ListNode head,int n)
+    {
+        for(int i = 0;i<n-1;i++)
+        {
+            head = head.next;
+        }
+        return head;
+    }
+}*/
+
+class Solution {
+    public void reorderList(ListNode head) {
+        head = deque(head);
+    }
+    public ListNode deque(ListNode head){
+        Deque<ListNode> dq = new LinkedList<ListNode>();
+        while(head!=null){
+            dq.add(head);
+            head = head.next;
+        }
+        ListNode dh = new ListNode(-1);
+        dh.next = head;
+        ListNode result = dh;
+        boolean isFirst = true;
+        while(!dq.isEmpty()){
+            ListNode temp;
+            if(isFirst){
+                temp = dq.removeFirst();
+            } else{
+                temp = dq.removeLast();
+            }
+                dh.next = temp;
+                dh = dh.next;
+            isFirst = !isFirst;
+        }
+        dh.next=null;
+        return result.next;
+    }
+}
