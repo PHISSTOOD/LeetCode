@@ -1,0 +1,107 @@
+In a row of trees, the i-th tree produces fruit with type tree[i].
+You start at any tree of your choice, then repeatedly perform the following steps:
+Add one piece of fruit from this tree to your baskets.  If you cannot, stop.
+Move to the next tree to the right of the current tree.  If there is no tree to the right, stop.
+Note that you do not have any choice after the initial choice of starting tree: you must perform step 1, 
+then step 2, then back to step 1, then step 2, and so on until you stop.
+You have two baskets, and each basket can carry any quantity of fruit, 
+but you want each basket to only carry one type of fruit each.
+What is the total amount of fruit you can collect with this procedure?
+
+class Solution {
+    public int totalFruit(int[] tree) {
+
+        List<Integer> list = new ArrayList();
+        int last = tree[0];
+        int block = 0;
+        int result = 0;
+        for(int i = 0;i<tree.length;i++)
+        {
+            if(tree[i]==last)
+            {
+                block++;
+            }else
+            {
+                list.add(block);
+                block = 1;
+                last = tree[i];
+            }
+            if(i==tree.length-1)
+            {
+                list.add(block);
+            }
+        }
+        for(int i = 0,j = 0;i<tree.length;)
+        {
+            HashSet <Integer> set = new HashSet();
+            int count = 0;
+            int l = j;
+            for(int k = i;k<tree.length && set.size()<3;)
+            {
+                if(!set.contains(tree[k]))
+                {
+                    set.add(tree[k]);
+                }
+                count+=list.get(l);
+                k += list.get(l);
+                l++;
+            }
+            if(set.size()==3)
+            {
+                count-=list.get(--l);
+            }
+            result = Math.max(result,count);
+            i+=list.get(j);
+            j++;
+        }
+        return result;
+    }
+}
+
+
+
+
+class Solution {
+    public int totalFruit(int[] tree) {
+        // We'll make a list of indexes for which a block starts.
+        List<Integer> blockLefts = new ArrayList();
+
+        // Add the left boundary of each block
+        for (int i = 0; i < tree.length; ++i)
+            if (i == 0 || tree[i-1] != tree[i])
+                blockLefts.add(i);
+
+        // Add tree.length as a sentinel for convenience
+        blockLefts.add(tree.length);
+
+        int ans = 0, i = 0;
+        search: while (true) {
+            // We'll start our scan at block[i].
+            // types : the different values of tree[i] seen
+            // weight : the total number of trees represented
+            //          by blocks under consideration
+            Set<Integer> types = new HashSet();
+            int weight = 0;
+
+            // For each block from the i-th and going forward,
+            for (int j = i; j < blockLefts.size() - 1; ++j) {
+                // Add each block to consideration
+                types.add(tree[blockLefts.get(j)]);
+                weight += blockLefts.get(j+1) - blockLefts.get(j);
+
+                // If we have 3+ types, this is an illegal subarray
+                if (types.size() >= 3) {
+                    i = j - 1;
+                    continue search;
+                }
+
+                // If it is a legal subarray, record the answer
+                ans = Math.max(ans, weight);
+            }
+
+            break;
+        }
+
+        return ans;
+    }
+}
