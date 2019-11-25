@@ -1,0 +1,46 @@
+Implement a basic calculator to evaluate a simple expression string.
+The expression string contains only non-negative integers, +, -, *, / operators and empty spaces . 
+The integer division should truncate toward zero.
+
+class Solution {
+    public int calculate(String s) {
+        int currentOperand = 0;
+        
+        int value = 1;
+        char prevOperator = '*';
+        
+        int stackValue = 0;
+        char stackOp = '+';
+        
+        for (char ch: s.toCharArray()) {
+            switch(ch) {
+                case ' ':
+                    break;
+                case '+':
+                case '-':
+                    value = calculateValue(value, currentOperand, prevOperator);
+                    stackValue = (stackOp == '+') ? stackValue + value: stackValue - value;
+                    stackOp = ch;
+                    
+                    currentOperand = 0;
+                    value = 1;
+                    prevOperator = '*';
+                    break;
+                case '*':
+                case '/':
+                    value = calculateValue(value, currentOperand, prevOperator);
+                    currentOperand = 0;
+                    prevOperator = ch;
+                    break;
+                default:
+                    currentOperand = currentOperand * 10 + (ch - '0');
+            }    
+        }
+        value = calculateValue(value, currentOperand, prevOperator);
+        return (stackOp == '+') ? stackValue + value: stackValue - value;
+    }
+    
+    private int calculateValue(int value, int currentOperand, char prevOperator) {
+        return prevOperator == '*'? value * currentOperand: value / currentOperand;   
+    }
+}
