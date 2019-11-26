@@ -1,0 +1,71 @@
+Implement the following operations of a queue using stacks.
+push(x) -- Push element x to the back of queue.
+pop() -- Removes the element from in front of queue.
+peek() -- Get the front element.
+empty() -- Return whether the queue is empty.
+
+
+class MyQueue {
+    Stack<Integer> st;
+    int len;
+    /** Initialize your data structure here. */
+    public MyQueue() {
+        this.st = new Stack();
+        this.len = 0;
+    }
+    
+    /** Push element x to the back of queue. */
+    public void push(int x) {
+        this.st.push(x);
+        this.len++;
+    }
+    
+    /** Removes the element from in front of queue and returns that element. */
+    public int pop() {
+        Stack<Integer> help = new Stack();
+        for(int i = 0;i<len-1;i++)
+        {
+            help.push(this.st.pop());
+        }
+        int num = this.st.pop();
+        for(int i = 0;i<len-1;i++)
+        {
+            this.st.push(help.pop());
+        }
+        len--;
+        return num;
+    }
+    
+    /** Get the front element. */
+    public int peek() {
+        Stack<Integer> help = new Stack();
+        for(int i = 0;i<len;i++)
+        {
+            help.push(this.st.pop());
+        }
+        int num = help.peek();
+        for(int i = 0;i<len;i++)
+        {
+            this.st.push(help.pop());
+        }
+        return num;
+    }
+    
+    /** Returns whether the queue is empty. */
+    public boolean empty() {
+        if(this.st.empty())
+        {
+            return true;
+        }
+        return false;
+    }
+}
+
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * MyQueue obj = new MyQueue();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.peek();
+ * boolean param_4 = obj.empty();
+ */
