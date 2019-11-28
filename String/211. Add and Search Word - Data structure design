@@ -1,0 +1,97 @@
+Design a data structure that supports the following two operations:
+void addWord(word)
+bool search(word)
+search(word) can search a literal word or a regular expression string containing only letters a-z or .. A . 
+means it can represent any one letter.
+
+class WordDictionary {
+    TrieNode root;
+     /** Initialize your data structure here. */
+    public WordDictionary() {
+        root = new TrieNode();
+    }
+    
+    /** Adds a word into the data structure. */
+    public void addWord(String word) {
+        TrieNode node = root;
+        
+        for (int i = 0; i < word.length(); i++) {
+            char ch = word.charAt(i);
+            if (!node.contains(ch)) node.put(ch);
+            node = node.get(ch);
+        }
+        node.setEnd();
+    }
+    
+    /** Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter. */
+    public boolean search(String word) {
+        return isMatch(word, 0, root);
+    }
+    
+    private boolean isMatch(String word, int index, TrieNode node) {
+        if (index == word.length()) return node.isEnd();
+        else {
+            char ch = word.charAt(index);
+            if (ch == '.') {
+                if (!node.isFilled()) return false;
+                for (int i = 0; i < node.links.length; i++) {
+                    if (node.links[i] != null) {
+                        if (isMatch(word, index+1, node.links[i])) 
+                            return true;
+                    }
+                }
+            } else {
+                return node.get(ch) != null && isMatch(word, index+1, node.get(ch));
+            }
+        }
+        
+        return false;
+    }
+    
+}
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * WordDictionary obj = new WordDictionary();
+ * obj.addWord(word);
+ * boolean param_2 = obj.search(word);
+ */
+
+class TrieNode {
+    public TrieNode[] links;
+    
+    private static final int R = 26;
+    
+    private boolean isEnd;
+    private boolean isFilled;
+    
+    public TrieNode() {
+        links = new TrieNode[R];
+    }
+    
+    public void put(char ch) {
+        links[ch - 'a'] = new TrieNode();
+        isFilled = true;
+    }
+    
+    public TrieNode get(char ch) {
+        return links[ch - 'a'];
+    }
+    
+    public boolean contains(char ch) {
+        TrieNode node = get(ch);
+        return node != null;
+    }
+    
+    public void setEnd() {
+        isEnd = true;
+    }
+    
+    public boolean isEnd() {
+        return isEnd;
+    }
+    
+    public boolean isFilled() {
+        return isFilled;
+    }
+}
