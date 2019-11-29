@@ -1,0 +1,17 @@
+Given a non-negative integer num, repeatedly add all its digits until the result has only one digit.
+
+class Solution {
+    public int addDigits(int num) {
+        while(num>9)
+        {
+            int count = 0;
+            while(num>0)
+            {
+                count += num%10;
+                num = num/10;
+            }
+            num = count;
+        }
+        return num;
+    }
+}
