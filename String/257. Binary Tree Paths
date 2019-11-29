@@ -1,0 +1,32 @@
+Given a binary tree, return all root-to-leaf paths.
+Note: A leaf is a node with no children.
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<String> binaryTreePaths(TreeNode root) {
+        List<String> list = new ArrayList<>();
+        bfs(list, "", root);
+        return list;
+    }
+
+    private void bfs(List<String> list, String s, TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        s += "->" + node.val;
+        if (node.left == null && node.right == null) {
+            list.add(s.substring(2));//remove "->" in the beginning
+        } else {
+            bfs(list, s, node.left);
+            bfs(list, s, node.right);
+        }
+    }
+}
