@@ -1,0 +1,32 @@
+Write a program to find the n-th ugly number.
+Ugly numbers are positive numbers whose prime factors only include 2, 3, 5. 
+
+class Solution {
+    public int nthUglyNumber(int n) {
+        List<Integer> num = new ArrayList();
+        num.add(1);
+        int p2 = 0;
+        int p3 = 0;
+        int p5 = 0;
+        while(num.size()<n)
+        {
+            int num2 = num.get(p2)*2;
+            int num3 = num.get(p3)*3;
+            int num5 = num.get(p5)*5;
+            int min = Math.min(num2,Math.min(num3,num5));
+            if(min == num2){
+                p2++;
+            }
+            if(min == num3){
+                p3++;
+            }
+            if(min == num5){
+                p5++;
+            }
+            num.add(min);
+        }
+        return num.get(n-1);
+    }
+    
+
+}
