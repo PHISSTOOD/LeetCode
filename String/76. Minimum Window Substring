@@ -1,0 +1,66 @@
+Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n).
+
+class Solution {
+    public String minWindow(String s, String t) {
+        int start = 0;
+        int end = 0;
+        int flag = 1;
+        int count =  Integer.MAX_VALUE;
+        String result = "";
+        
+        if(s.length()==0 || t.length()==0)
+        {
+            return result;
+        }
+        HashMap<Character,Integer> sm = new HashMap();
+        HashMap<Character,Integer> tm = new HashMap();
+        for(int i = 0;i<t.length();i++)
+        {
+            char c = t.charAt(i);
+            if(tm.containsKey(c))
+            {
+                tm.put(c,tm.get(c)+1);
+            }else
+            {
+                tm.put(c,1);
+            }
+        }
+        for(;start<=end&&end<s.length();)
+        {
+            if(flag==1)
+            {
+                char c = s.charAt(end);
+                int num = sm.getOrDefault(c,0);
+                sm.put(c,num+1);
+            }
+            if(contain(sm,tm))
+            {
+                if((end-start+1)<count)
+                {
+                    count = end - start +1;
+                    result = s.substring(start,end+1);
+                }
+                char d = s.charAt(start);
+                sm.put(d,sm.get(d)-1);
+                start++;
+                flag = 0;
+            }else
+            {
+                end++;
+                flag =1;
+            }
+        }
+        return result;
+    }
+    private boolean contain(HashMap<Character,Integer> sm,HashMap<Character,Integer> tm)
+    {
+        for(Map.Entry<Character,Integer> entry:tm.entrySet())
+        {
+            if(!sm.containsKey(entry.getKey()) || sm.get(entry.getKey())<tm.get(entry.getKey()))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+}
