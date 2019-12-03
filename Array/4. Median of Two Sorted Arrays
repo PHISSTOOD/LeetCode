@@ -1,0 +1,76 @@
+There are two sorted arrays nums1 and nums2 of size m and n respectively.
+Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).
+You may assume nums1 and nums2 cannot be both empty.
+
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int m = nums1.length;
+        int n = nums2.length;
+        int result = 0;
+        int n1 = 0;
+        int n2 = 0;
+        if((m+n)%2==1)
+        {
+            int count = 0;
+            while(n1<nums1.length || n2<nums2.length)
+            {
+                if(n1<nums1.length && n2<nums2.length &&nums1[n1]<=nums2[n2])
+                {
+                    count++;
+                    if(count==(m+n)/2+1) return (double)nums1[n1];
+                    n1++;
+                }else if(n1<nums1.length && n2<nums2.length &&nums1[n1]>nums2[n2])
+                {
+                    count++;
+                    if(count==(m+n)/2+1) return (double)nums2[n2];
+                    n2++;
+                }else if(n1<nums1.length)
+                {
+                    count++;
+                    if(count==(m+n)/2+1) return (double)nums1[n1];
+                    n1++;
+                }else
+                {
+                    count++;
+                    if(count==(m+n)/2+1) return (double)nums2[n2];
+                    n2++;
+                }
+                
+            }
+        }else
+        {
+            int count = 0;
+            int s1 = 0;
+            int s2 = 0;
+            while(n1<nums1.length || n2<nums2.length)
+            {
+                if(n1<nums1.length && n2<nums2.length &&nums1[n1]<=nums2[n2])
+                {
+                    count++;
+                    if(count==(m+n)/2) s1 = nums1[n1];
+                    if(count==(m+n)/2+1) return (double)(s1+nums1[n1])/2;
+                    n1++;
+                }else if(n1<nums1.length && n2<nums2.length &&nums1[n1]>nums2[n2])
+                {
+                    count++;
+                    if(count==(m+n)/2) s1 = nums2[n2];
+                    if(count==(m+n)/2+1) return (double)(s1+nums2[n2])/2;
+                    n2++;
+                }else if(n1<nums1.length)
+                {
+                    count++;
+                    if(count==(m+n)/2) s1 = nums1[n1];
+                    if(count==(m+n)/2+1) return (double)(s1+nums1[n1])/2;
+                    n1++;
+                }else
+                {
+                    count++;
+                    if(count==(m+n)/2) s1 = nums2[n2];
+                    if(count==(m+n)/2+1) return (double)(s1+nums2[n2])/2;
+                    n2++;
+                }
+            }
+        }
+        return 0;
+    }
+}
