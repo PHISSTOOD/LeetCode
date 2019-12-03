@@ -1,0 +1,55 @@
+You are given a perfect binary tree where all leaves are on the same level, 
+and every parent has two children. The binary tree has the following definition:
+
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+    public Node next;
+
+    public Node() {}
+
+    public Node(int _val,Node _left,Node _right,Node _next) {
+        val = _val;
+        left = _left;
+        right = _right;
+        next = _next;
+    }
+};
+*/
+
+class Solution {
+    public Node connect(Node root) {
+        Queue<Node> qu = new LinkedList();
+        if(root==null)
+        {
+            return root;
+        }
+        qu.add(root);
+        while(qu.size()!=0)
+        {
+            Node cur = null;
+            Node last = null;
+            int n = qu.size();
+            for(int i = 0;i<n;i++)
+            {
+                cur = qu.poll();
+                if(cur.left==null)
+                {
+                    break;
+                }
+                if(last!=null)
+                {
+                    last.right.next = cur.left;
+                }
+                cur.left.next = cur.right;
+                last = cur;
+                if(cur.left!=null) qu.offer(cur.left);
+                if(cur.right!=null) qu.offer(cur.right);
+            }
+        }
+        return root;
+    }
+}
