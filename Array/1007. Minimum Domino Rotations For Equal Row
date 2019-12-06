@@ -42,6 +42,7 @@ class Solution {
     }
 }
 
+
 class Solution {
     public int minDominoRotations(int[] A, int[] B) {
         int up = getMin(A, B, A[0]);
