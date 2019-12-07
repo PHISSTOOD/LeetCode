@@ -1,0 +1,83 @@
+Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        if(lists.length<1)
+        {
+            return null;
+        }
+        ListNode head = new ListNode(0);
+        ListNode cur = head;
+        while(true)
+        {
+            int i = findmin(lists);
+            if(i == -1)
+            {
+                break;
+            }else
+            {
+                cur.next = new ListNode(lists[i].val);
+                lists[i] = lists[i].next;
+                cur = cur.next;
+            }
+        }
+        return head.next;
+    }
+    private int findmin(ListNode[] lists)
+    {
+        int result = -1;
+        int val = Integer.MAX_VALUE;
+        for(int i = 0;i<lists.length;i++)
+        {
+            if(lists[i]==null)
+            {
+                continue;
+            }else
+            {
+                if(lists[i].val<val)
+                {
+                    val = lists[i].val;
+                    result = i;
+                }
+            }
+        }
+        return result;
+    }
+}
+
+
+/*class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        ListNode head = new ListNode(0);
+        ListNode cur = head;
+        PriorityQueue<ListNode> heap = new PriorityQueue<>((n1,n2)->n1.val-n2.val);
+        for(ListNode node:lists)
+        {
+            if(node!=null)
+            {
+                heap.add(node);
+            }
+        }
+        while(!heap.isEmpty())
+        {
+            ListNode min = heap.remove();
+            if(min.next!=null)
+            {
+                heap.add(min.next);
+            }
+            cur.next = min;
+            cur = cur.next;
+        }
+        return head.next;
+    }
+    
+
+}*/
