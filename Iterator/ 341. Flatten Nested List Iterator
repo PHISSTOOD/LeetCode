@@ -57,3 +57,7 @@ public class NestedIterator implements Iterator<Integer> {
  * NestedIterator i = new NestedIterator(nestedList);
  * while (i.hasNext()) v[f()] = i.next();
  */
+ 
+ 
+ faster than 100.00% of Java online submissions for Flatten Nested List Iterator.
+Memory Usage: 37.6 MB, less than 100.00% 
