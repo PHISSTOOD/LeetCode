@@ -69,3 +69,7 @@ public class Codec {
 // Your Codec object will be instantiated and called as such:
 // Codec codec = new Codec();
 // codec.deserialize(codec.serialize(root));
+
+
+Runtime: 6 ms, faster than 80.14% of Java online submissions for Serialize and Deserialize BST.
+Memory Usage: 37.2 MB, less than 100.00% of Java online submissions for Serialize and Deserialize BST.
