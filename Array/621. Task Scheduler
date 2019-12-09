@@ -37,7 +37,8 @@ class Solution {
     }
 }
 
-
+Runtime: 9 ms, faster than 57.97% of Java online submissions for Task Scheduler.
+Memory Usage: 37.8 MB, less than 91.18% of Java online submissions for Task Scheduler.
 
 class Solution {
     public int leastInterval(char[] tasks, int n) {
