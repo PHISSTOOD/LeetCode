@@ -59,9 +59,11 @@ public class Codec {
         
         return cur;
     }
-
-
 }
+
+
+Runtime: 8 ms, faster than 97.17% of Java online submissions for Serialize and Deserialize Binary Tree.
+Memory Usage: 40.2 MB, less than 31.43% of Java online submissions for Serialize and Deserialize Binary Tree.
 
 
 // Your Codec object will be instantiated and called as such:
