@@ -18,3 +18,7 @@ class Solution {
         return result;
     }
 }
+
+
+Runtime: 5 ms, faster than 81.89% of Java online submissions for Bitwise AND of Numbers Range.
+Memory Usage: 35.7 MB, less than 10.00% of Java online submissions for Bitwise AND of Numbers Range.
