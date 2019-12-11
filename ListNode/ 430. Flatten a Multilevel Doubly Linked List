@@ -59,3 +59,7 @@ class Solution {
         return cur;
     }
 }
+
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Flatten a Multilevel Doubly Linked List.
+Memory Usage: 35.6 MB, less than 100.00% of Java online submissions for Flatten a Multilevel Doubly Linked List.
+
