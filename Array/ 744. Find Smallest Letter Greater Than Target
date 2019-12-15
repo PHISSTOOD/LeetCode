@@ -14,3 +14,7 @@ class Solution {
         return letters[0];
     }
 }
+
+
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Find Smallest Letter Greater Than Target.
+Memory Usage: 39.3 MB, less than 100.00% of Java online submissions for Find Smallest Letter Greater Than Target.
