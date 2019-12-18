@@ -1,0 +1,104 @@
+Design a simplified version of Twitter where users can post tweets, 
+follow/unfollow another user and is able to see the 10 most recent tweets in the user's news feed. 
+Your design should support the following methods:\
+postTweet(userId, tweetId): Compose a new tweet.
+getNewsFeed(userId): Retrieve the 10 most recent tweet ids in the user's news feed. 
+Each item in the news feed must be posted by users who the user followed or by the user herself. 
+Tweets must be ordered from most recent to least recent.
+follow(followerId, followeeId): Follower follows a followee.
+unfollow(followerId, followeeId): Follower unfollows a followee.
+
+class Twitter {
+
+    HashMap<Integer,HashSet<Integer>> user ;
+    List<int[]> tweets;
+    
+    public Twitter() {
+        user = new HashMap();
+        tweets = new ArrayList();
+    }
+    
+    /** Compose a new tweet. */
+    public void postTweet(int userId, int tweetId) {
+        int[] a = {userId,tweetId};
+        if(user.containsKey(userId))
+        {
+            tweets.add(a);
+        }else
+        {
+            HashSet<Integer> cur = new HashSet();
+            user.put(userId,new HashSet(cur));
+            tweets.add(a);
+        }
+    }
+    
+    /** Retrieve the 10 most recent tweet ids in the user's news feed. Each item in the news feed must be posted by users who the user followed or by the user herself. Tweets must be ordered from most recent to least recent. */
+    public List<Integer> getNewsFeed(int userId) {
+        List<Integer> result = new ArrayList();
+        if(!user.containsKey(userId))
+        {
+            return result;
+        }
+        HashSet<Integer> set = new HashSet(user.get(userId));
+        for(int i = tweets.size()-1, j = 10;i>=0&&j>=1;i--)
+        {
+            int[] cur = tweets.get(i);
+            if(set.contains(cur[0])||userId==cur[0])
+            {
+                result.add(cur[1]);
+                j--;
+            }
+        }
+        return result;
+    }
+    
+    /** Follower follows a followee. If the operation is invalid, it should be a no-op. */
+    public void follow(int followerId, int followeeId) {
+        if(!user.containsKey(followerId))
+        {
+            HashSet<Integer> cur = new HashSet();
+            user.put(followerId,new HashSet(cur));
+        }
+        if(!user.containsKey(followeeId))
+        {
+            HashSet<Integer> cur = new HashSet();
+            user.put(followeeId,new HashSet(cur));
+        }
+        HashSet<Integer> cur = new HashSet(user.get(followerId));
+        cur.add(followeeId);
+        user.put(followerId,new HashSet(cur));
+    }
+    
+    /** Follower unfollows a followee. If the operation is invalid, it should be a no-op. */
+    public void unfollow(int followerId, int followeeId) {
+        if(!user.containsKey(followerId))
+        {
+            HashSet<Integer> cur = new HashSet();
+            user.put(followerId,new HashSet(cur));
+        }
+        if(!user.containsKey(followeeId))
+        {
+            HashSet<Integer> cur = new HashSet();
+            user.put(followeeId,new HashSet(cur));
+        }
+        HashSet<Integer> cur = new HashSet(user.get(followerId));
+        if(cur.contains(followeeId))
+        {
+            cur.remove(followeeId);
+        }
+        user.put(followerId,new HashSet(cur));
+    }
+}
+
+/**
+ * Your Twitter object will be instantiated and called as such:
+ * Twitter obj = new Twitter();
+ * obj.postTweet(userId,tweetId);
+ * List<Integer> param_2 = obj.getNewsFeed(userId);
+ * obj.follow(followerId,followeeId);
+ * obj.unfollow(followerId,followeeId);
+ */
+ 
+ 
+Runtime: 66 ms, faster than 48.52% of Java online submissions for Design Twitter.
+Memory Usage: 49.4 MB, less than 66.67% of Java online submissions for Design Twitter.
