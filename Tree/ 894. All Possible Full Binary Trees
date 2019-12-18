@@ -29,3 +29,6 @@ class Solution {
         return memo.get(N);
     }
 }
+
+Runtime: 2 ms, faster than 89.50% of Java online submissions for All Possible Full Binary Trees.
+Memory Usage: 42.9 MB, less than 100.00% of Java online submissions for All Possible Full Binary Trees.
