@@ -1,0 +1,24 @@
+We have a string S of lowercase letters, and an integer array shifts.
+Call the shift of a letter, the next letter in the alphabet, (wrapping around so that 'z' becomes 'a'). 
+For example, shift('a') = 'b', shift('t') = 'u', and shift('z') = 'a'.
+Now for each shifts[i] = x, we want to shift the first i+1 letters of S, x times.
+Return the final string after all such shifts to S are applied.
+
+class Solution {
+    public String shiftingLetters(String S, int[] shifts) {
+        char[] c = S.toCharArray();
+        for(int i = S.length()-2;i>=0;i--)
+        {
+            shifts[i] = (shifts[i]+shifts[i+1])%26;
+        }
+        for(int i = 0;i<shifts.length;i++)
+        {
+            int dif =( c[i]- 'a' + shifts[i])%26;
+            c[i] = (char)(97+dif);
+        }
+        return new String(c);
+    }
+}
+
+Runtime: 2 ms, faster than 100.00% of Java online submissions for Shifting Letters.
+Memory Usage: 40.4 MB, less than 100.00% of Java online submissions for Shifting Letters.
