@@ -1,0 +1,40 @@
+Given an array A of 0s and 1s, we may change up to K values from 0 to 1.
+Return the length of the longest (contiguous) subarray that contains only 1s. 
+
+class Solution {
+    public int longestOnes(int[] A, int k) {
+        if (A == null || A.length == 0) return 0;
+        int left = 0;
+        int right = 0;
+        int maxLen = 0;
+        while(right < A.length) {
+            if (A[right] == 1) 
+            {
+                if(right==A.length-1)
+                {
+                    maxLen = Math.max(maxLen, right - left + 1);
+                }
+                right++;
+            } else if(A[right] == 0 && k > 0) 
+            {
+                if(right==A.length-1)
+                {
+                    maxLen = Math.max(maxLen, right - left + 1);
+                }
+                right++;
+                k--;
+            } else if(A[right] == 0 && k == 0) {
+                maxLen = Math.max(maxLen, right - left);
+                while(k == 0) 
+                {
+                    if (A[left++] == 0) 
+                        k++;
+                }
+            }
+        }
+        return maxLen;
+    }
+}
+
+Runtime: 5 ms, faster than 42.74% of Java online submissions for Max Consecutive Ones III.
+Memory Usage: 39.7 MB, less than 100.00% of Java online submissions for Max Consecutive Ones III.
