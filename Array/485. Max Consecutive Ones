@@ -1,0 +1,28 @@
+Given a binary array, find the maximum number of consecutive 1s in this array.
+
+class Solution {
+    public int findMaxConsecutiveOnes(int[] nums) {
+        int left = 0;
+        int right = 0;
+        int result = 0;
+        while(right<nums.length && left<nums.length)
+        {
+            if(nums[right]==1)
+            {
+                if(right == nums.length-1)
+                {
+                    result = Math.max(result,right-left+1);
+                }
+                right++;
+            }else if(nums[right]!=1)
+            {
+                result = Math.max(result,right-left);
+                left = ++right;
+            }
+        }
+        return result;
+    }
+}
+
+Runtime: 2 ms, faster than 99.73% of Java online submissions for Max Consecutive Ones.
+Memory Usage: 38.4 MB, less than 100.00% of Java online submissions for Max Consecutive Ones.
