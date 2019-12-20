@@ -1,0 +1,42 @@
+Given an array of integers, 1 ≤ a[i] ≤ n (n = size of array), some elements appear twice and others appear once.
+Find all the elements that appear twice in this array.
+Could you do it without extra space and in O(n) runtime?
+
+solution 1: 
+class Solution {
+    public List<Integer> findDuplicates(int[] nums) {
+        List<Integer> result = new ArrayList();
+        HashMap<Integer,Integer> map = new HashMap();
+        for(int i : nums)
+        {
+            if(map.containsKey(i))
+            {
+                result.add(i);
+            }else
+            {
+                map.put(i,1);
+            }
+        }
+        return result;
+    }
+}
+
+
+solution 2:
+class Solution {
+    public List<Integer> findDuplicates(int[] nums) {
+        //values will always be greater-than 1 and less than nums.length
+        int[] counts = new int[nums.length + 1];
+        List<Integer> duplicates = new ArrayList<>();
+        for(int i = 0; i < nums.length; i++) {
+            counts[nums[i]] += 1;
+        }
+        for(int i = 0; i < counts.length; i++) {
+            if (counts[i] >= 2) duplicates.add(i);
+        }
+        return duplicates;
+    }
+}
+
+Runtime: 4 ms, faster than 100.00% of Java online submissions for Find All Duplicates in an Array.
+Memory Usage: 46.6 MB, less than 100.00% of Java online submissions for Find All Duplicates in an Array.
