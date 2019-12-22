@@ -1,0 +1,58 @@
+Given two arrays of integers with equal lengths, return the maximum value of:
+|arr1[i] - arr1[j]| + |arr2[i] - arr2[j]| + |i - j|
+where the maximum is taken over all 0 <= i, j < arr1.length.
+
+class Solution {
+    public int maxAbsValExpr(int[] arr1, int[] arr2) {
+        // |a-b|==|b-a|
+        // |a-b|  - original values of single array
+        // |b-a|  - values mult. by -1 
+        // we have to check all combinations of array1 and array, keep tracking index i of item slot
+        // since index i is involved into overall diff
+        
+        
+        int best = Integer.MIN_VALUE;
+        
+        int min; 
+        int max;
+        
+        min = Integer.MAX_VALUE;
+        max = Integer.MIN_VALUE;
+        for(int i=0;i<arr1.length;i++){
+            min = Math.min(min,arr1[i] + arr2[i] + i);
+            max = Math.max(max,arr1[i] + arr2[i] + i);
+        }
+        best = Math.max(best, max-min);
+        
+        min = Integer.MAX_VALUE;
+        max = Integer.MIN_VALUE;
+        for(int i=0;i<arr1.length;i++){
+            min = Math.min(min,arr1[i] - arr2[i] + i);
+            max = Math.max(max,arr1[i] - arr2[i] + i);
+        }
+        best = Math.max(best, max-min);
+        
+        min = Integer.MAX_VALUE;
+        max = Integer.MIN_VALUE;
+        for(int i=0;i<arr1.length;i++){
+            min = Math.min(min,-arr1[i] + arr2[i] + i);
+            max = Math.max(max,-arr1[i] + arr2[i] + i);
+        }
+        best = Math.max(best, max-min);
+        
+        min = Integer.MAX_VALUE;
+        max = Integer.MIN_VALUE;
+        for(int i=0;i<arr1.length;i++){
+            min = Math.min(min,-arr1[i] - arr2[i] + i);
+            max = Math.max(max,-arr1[i] - arr2[i] + i);
+        }
+        best = Math.max(best, max-min);
+        
+        return best;
+        
+    }
+}
+
+
+Runtime: 4 ms, faster than 94.23% of Java online submissions for Maximum of Absolute Value Expression.
+Memory Usage: 46.5 MB, less than 100.00% of Java online submissions for Maximum of Absolute Value Expression.
