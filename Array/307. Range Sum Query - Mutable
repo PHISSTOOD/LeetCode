@@ -1,0 +1,31 @@
+Given an integer array nums, find the sum of the elements between indices i and j (i ≤ j), inclusive.
+The update(i, val) function modifies nums by updating the element at index i to val.
+
+class NumArray {
+    int[] sum;
+    public NumArray(int[] nums) {
+        int count = 0;
+        sum = new int[nums.length+1];
+        for(int i = 0;i<nums.length;i++)
+        {
+            sum[i] = count;
+            count += nums[i];
+        }
+        sum[sum.length-1] = count;
+    }
+    
+    public void update(int i, int val) {
+        int dif = sum[i+1]-sum[i]-val;
+        for(int n = i+1;n<sum.length;n++)
+        {
+            sum[n] = sum[n]-dif;
+        }
+    }
+    
+    public int sumRange(int i, int j) {
+        return sum[j+1]-sum[i];
+    }
+}
+
+Runtime: 150 ms, faster than 26.48% of Java online submissions for Range Sum Query - Mutable.
+Memory Usage: 63.8 MB, less than 18.75% of Java online submissions for Range Sum Query - Mutable.
