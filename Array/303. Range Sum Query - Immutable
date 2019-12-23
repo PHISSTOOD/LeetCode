@@ -1,0 +1,23 @@
+Given an integer array nums, find the sum of the elements between indices i and j (i ≤ j), inclusive.
+
+class NumArray {
+
+    List<Integer> list = new ArrayList();
+    public NumArray(int[] nums) {
+        int count = 0;
+        for(int i:nums)
+        {
+            list.add(count);
+            count+=i;
+        }
+        list.add(count);
+    }
+    
+    public int sumRange(int i, int j) {
+        return list.get(j+1)-list.get(i);
+    }
+}
+
+
+Runtime: 14 ms, faster than 72.24% of Java online submissions for Range Sum Query - Immutable.
+Memory Usage: 41 MB, less than 95.12% of Java online submissions for Range Sum Query - Immutable.
