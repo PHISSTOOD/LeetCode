@@ -1,0 +1,47 @@
+Given a non negative integer number num.
+For every numbers i in the range 0 ≤ i ≤ num calculate the number of 1's in their binary representation and return them as an array.
+
+class Solution {
+    public int[] countBits(int num) {
+        int[] result = new int[num+1];
+        Arrays.fill(result,0);
+        for(int i = 0;Math.pow(2,i)<=num;i++)
+        {
+            result[(int)Math.pow(2,i)] = 1;
+        }
+        for(int i  =2;i<=num;i+=2)
+        {
+            if(result[i]==0)
+            {
+                result[i] = result[i - (int)Math.pow(2, Math.floor(Math.log(i) / Math.log(2)))] + 1;
+            }
+            if(i + 1 <= num) result[i + 1] = result[i] + 1;
+        }
+        return result;
+    }
+}
+Runtime: 7 ms, faster than 8.19% of Java online submissions for Counting Bits.
+Memory Usage: 38.1 MB, less than 5.88% of Java online submissions for Counting Bits.
+
+class Solution {
+    public int[] countBits(int num) {
+        int[] result = new int[num+1];
+        Arrays.fill(result,0);
+        if(num>0)
+        {
+            result[1] = 1;
+        }
+        for(int i = 2;i<=num;i*=2)
+        {
+            int next = Math.min(i*2,num+1);
+            for(int j = i;j<next;j++)
+            {
+                result[j] = result[j-i]+1;
+            }
+        }
+        return result;
+    }
+}
+
+Runtime: 2 ms, faster than 34.52% of Java online submissions for Counting Bits.
+Memory Usage: 38.4 MB, less than 5.88% of Java online submissions for Counting Bits.
