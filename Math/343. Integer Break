@@ -1,0 +1,35 @@
+Given a positive integer n, break it into the sum of at least two positive integers and maximize the product of those integers.
+Return the maximum product you can get.
+
+class Solution {
+    public int integerBreak(int n) {
+        int[] dp = new int[n+1];
+        Arrays.fill(dp,-1);
+        return product(dp,n);
+    }
+    private int product(int[] dp, int n)
+    {
+        if(n==2 || n==1)
+        {
+            return 1;
+        }
+        if(dp[n]!=-1)
+        {
+            return dp[n];
+        }
+        int max = 0;
+        for(int i = 1;i<=(n+1)/2;i++)
+        {
+            int j = n-i;
+            int left = product(dp,i);
+            int right = product(dp,j);
+            int curmax = Math.max(Math.max(i*j,i*right),Math.max(left*j,left*right));
+            max = Math.max(curmax,max);
+        }
+        dp[n] = max;
+        return max;
+    }
+}
+
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Integer Break.
+Memory Usage: 33.2 MB, less than 14.29% of Java online submissions for Integer Break.
