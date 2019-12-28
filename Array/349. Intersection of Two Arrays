@@ -1,0 +1,27 @@
+Given two arrays, write a function to compute their intersection
+
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        Set<Integer> set = new HashSet();
+        int[] result = new int[nums1.length];
+        for(int i : nums1)
+        {
+            set.add(i);
+        }
+        int cur = 0;
+        for(int i :nums2)
+        {
+            if(set.contains(i))
+            {
+                result[cur] = i;
+                set.remove(i);
+                cur++;
+            }
+        }
+        int [] ans = Arrays.copyOf(result,cur);
+        return ans;
+    }
+}
+
+Runtime: 2 ms, faster than 96.84% of Java online submissions for Intersection of Two Arrays.
+Memory Usage: 36.6 MB, less than 89.19% of Java online submissions for Intersection of Two Arrays.
