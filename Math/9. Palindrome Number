@@ -1,0 +1,69 @@
+Determine whether an integer is a palindrome. An integer is a palindrome when it reads the same backward as forward.
+
+public class Solution {
+    public boolean isPalindrome(int x) {
+        if(x < 0 ) {
+            return false;
+        }
+        int oldx = x;
+        int revertedNumber = 0;
+        while(x > 0) {
+            revertedNumber = revertedNumber * 10 + x % 10;
+            x /= 10;
+        }
+        return oldx == revertedNumber;
+    }
+}
+
+Runtime: 7 ms, faster than 76.04% of Java online submissions for Palindrome Number.
+Memory Usage: 36.7 MB, less than 5.02% of Java online submissions for Palindrome Number.
+
+class Solution {
+    public boolean isPalindrome(int x) {
+        if(x<0)
+        {
+            return false;
+        }
+        List<Integer> list = new ArrayList();
+        while(x>0)
+        {
+            list.add(x%10);
+            x/=10;
+        }
+        int start = 0;
+        int end = list.size()-1;
+        while(start<end)
+        {
+            if(list.get(start)==list.get(end))
+            {
+                start++;
+                end--;
+            }else
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+Runtime: 8 ms, faster than 41.36% of Java online submissions for Palindrome Number.
+Memory Usage: 36.7 MB, less than 5.02% of Java online submissions for Palindrome Number.
+
+class Solution {
+    public boolean isPalindrome(int x) {
+        if (x < 0) {
+            return false;
+        }
+        String s = String.valueOf(x);
+        for (int i = 0; i < s.length() / 2; i++) {
+            if (s.charAt(i) != s.charAt(s.length() - 1 - i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+Runtime: 8 ms, faster than 41.36% of Java online submissions for Palindrome Number.
+Memory Usage: 36.4 MB, less than 5.02% of Java online submissions for Palindrome Number.
