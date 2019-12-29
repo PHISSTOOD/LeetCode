@@ -1,0 +1,43 @@
+Given an input string (s) and a pattern (p), implement regular expression matching with support for '.' and '*'.
+
+class Solution {
+    public boolean isMatch(String s, String p) {
+        int[][] memo = new int[s.length() + 1][p.length() + 1];
+        return ismatch(s, 0, p, 0, memo);
+    }
+    private boolean ismatch(String s,int i,String p,int j,int[][]memo)
+    {
+        if(memo[i][j]!=0)
+        {
+            return memo[i][j]==1;
+        }
+        if(j==p.length())
+        {
+            return i==s.length();
+        }
+        boolean firstmatch = (i!=s.length() && (s.charAt(i)==p.charAt(j)||p.charAt(j)=='.'));
+        if(j+1<p.length() && p.charAt(j+1)=='*')
+        {
+            if(firstmatch)
+            {
+                memo[i][j] = ismatch(s,i,p,j+2,memo)||ismatch(s,i+1,p,j,memo)?1:-1;
+            }else
+            {
+                memo[i][j] = ismatch(s, i, p, j + 2, memo) ? 1 : -1;
+            }
+        }else
+        {
+            if(firstmatch)
+            {
+                memo[i][j] = ismatch(s,i+1,p,j+1,memo)?1:-1;
+            }else
+            {
+                memo[i][j] = -1;
+            }
+        }
+        return memo[i][j] == 1;
+    }
+}
+
+Runtime: 1 ms, faster than 99.87% of Java online submissions for Regular Expression Matching.
+Memory Usage: 36.9 MB, less than 100.00% of Java online submissions for Regular Expression Matching.
