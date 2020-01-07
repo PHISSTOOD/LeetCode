@@ -1,0 +1,47 @@
+Given a linked list, swap every two adjacent nodes and return its head.
+You may not modify the values in the list's nodes, only nodes itself may be changed.
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode swapPairs(ListNode head) {
+        if(head==null)
+        {
+            return null;
+        }
+        ListNode dim = new ListNode(0);
+        dim.next = head;
+        ListNode pre = null;
+        ListNode start = dim;
+        ListNode cur = head;
+        int count = 0;
+        while(cur!=null)
+        {
+            count++;
+            if(count%2 ==0)
+            {
+                ListNode temp = cur.next;
+                start.next = cur;
+                cur.next = pre;
+                pre.next = temp;
+                start = pre;
+                cur = start.next;
+            }
+            else
+            {
+                pre = cur;
+                cur = cur.next;
+            }
+        }
+        return dim.next;
+    }
+}
+
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Swap Nodes in Pairs.
+Memory Usage: 34.4 MB, less than 100.00% of Java online submissions for Swap Nodes in Pairs.
