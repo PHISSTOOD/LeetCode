@@ -16,3 +16,5 @@ class Solution{
      }
 }
 
+Runtime: 18 ms, faster than 96.10% of Java online submissions for Sum of Subsequence Widths.
+Memory Usage: 41.7 MB, less than 100.00% of Java online submissions for Sum of Subsequence Widths.
