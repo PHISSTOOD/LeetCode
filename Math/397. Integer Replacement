@@ -1,0 +1,58 @@
+Given a positive integer n and you can do operations as follow:
+If n is even, replace n with n/2.
+If n is odd, you can replace n with either n + 1 or n - 1.
+What is the minimum number of replacements needed for n to become 1?
+
+class Solution {
+    int result = Integer.MAX_VALUE;
+    public int integerReplacement(int n) {
+        count(0,(long)n);
+        return result;
+    }
+    private void count(int n,long num){
+        if(num==1){
+            result = Math.min(n,result);
+            return;
+        }
+        if(num%2==0)
+        {
+            count(n+1,num/2);
+        }else{
+            count(n+1,num+1);
+            count(n+1,num-1);
+        }
+    }
+}
+
+Details 
+Runtime: 2 ms, faster than 33.75% of Java online submissions for Integer Replacement.
+Memory Usage: 33.5 MB, less than 10.00% of Java online submissions for Integer Replacement.
+
+class Solution {
+    int result = Integer.MAX_VALUE;
+    public int integerReplacement(int n) {
+        int result = 0;
+        long num = (long)n;
+        while(num>1){
+            if(num==3){
+                return result+2;
+            }
+            if(num%4 == 0 || num%4==2){
+                num /= 2;
+                result++;
+            }else if(num%4 == 1){
+                num--;
+                num /= 4;
+                result += 3;
+            }else{
+                num++;
+                num /= 4;
+                result += 3;
+            }
+        }
+        return result;
+    }
+}
+
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Integer Replacement.
+Memory Usage: 33.5 MB, less than 10.00% of Java online submissions for Integer Replacement.
