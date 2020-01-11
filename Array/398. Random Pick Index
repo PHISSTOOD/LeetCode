@@ -1,0 +1,55 @@
+Given an array of integers with possible duplicates, randomly output the index of a given target number. 
+You can assume that the given target number must exist in the array.
+Note:
+The array size can be very large. Solution that uses too much extra space will not pass the judge.
+
+class Solution {
+    Map<Integer,List<Integer>> map = new HashMap();
+    public Solution(int[] nums) {
+        for(int i = 0;i<nums.length;i++){
+            List<Integer> cur = map.getOrDefault(nums[i],new ArrayList());
+            cur.add(i);
+            map.put(nums[i],cur);
+        }
+    }
+    
+    public int pick(int target) {
+        List cur = map.get(target);
+        int num = new Random().nextInt(cur.size()-1-0+1)+0;
+        int result =  Integer.parseInt(cur.get(num).toString());
+        return result;
+    }
+}
+
+Runtime: 88 ms, faster than 17.61% of Java online submissions for Random Pick Index.
+Memory Usage: 56.3 MB, less than 23.53% of Java online submissions for Random Pick Index.
+
+class Solution {
+    private int[] nums;
+    public Solution(int[] nums) {
+        this.nums = nums;
+    }    
+    public int pick(int target) {
+        int counter = 0;
+        for (int i=0; i<nums.length; i++) {
+            if (nums[i] == target) {
+                counter++;
+            }
+        }      
+        if (counter == 0)
+            return -1;        
+        int rand = Math.abs(new Random().nextInt()) % counter;       
+        counter = 0;
+        for (int i=0; i<nums.length; i++) {
+            if (nums[i] == target) {
+                if (counter == rand)
+                    return i;               
+                counter++;                
+            }
+        }        
+        return -1;
+    }
+}
+
+Runtime: 54 ms, faster than 66.62% of Java online submissions for Random Pick Index.
+Memory Usage: 54.9 MB, less than 35.29% of Java online submissions for Random Pick Index.
