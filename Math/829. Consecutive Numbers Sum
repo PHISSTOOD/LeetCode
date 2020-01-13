@@ -1,0 +1,19 @@
+Given a positive integer N, how many ways can we write it as a sum of consecutive positive integers?
+
+class Solution {
+    public int consecutiveNumbersSum(int N) {
+        int result = 0;
+        for(int i = 1;;i++){
+            int cur = N - (i*(i-1)/2);
+            if(cur<=0){
+                break;
+            }else if(cur%i==0){
+                result++;
+            }
+        }
+        return result;
+    }
+}
+
+Runtime: 3 ms, faster than 87.65% of Java online submissions for Consecutive Numbers Sum.
+Memory Usage: 33.6 MB, less than 9.09% of Java online submissions for Consecutive Numbers Sum.
