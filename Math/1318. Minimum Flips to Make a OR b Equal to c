@@ -1,0 +1,33 @@
+Given 3 positives numbers a, b and c. Return the minimum flips required in some bits of a and b to make ( a OR b == c ). 
+(bitwise OR operation).
+Flip operation consists of change any single bit 1 to 0 or change the bit 0 to 1 in their binary representation.
+
+class Solution {
+    public int minFlips(int a, int b, int c) {
+        int result = 0;
+        for(int i = 0;i<32;i++){
+            int s = 1<<i;
+            int a1 = (a & s);
+            int b1 = (b & s);
+            int c1 = (c & s);
+            int cur = a1|b1;
+            if(cur==c1){
+                continue;
+            }else{
+                if(c1!=0){
+                    result++;
+                }else{
+                    if(a1!=0 && b1!=0){
+                        result+=2;
+                    }else{
+                        result++;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+}
+
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Minimum Flips to Make a OR b Equal to c.
+Memory Usage: 33.9 MB, less than 100.00% of Java online submissions for Minimum Flips to Make a OR b Equal to c.
