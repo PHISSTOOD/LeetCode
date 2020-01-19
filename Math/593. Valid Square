@@ -1,0 +1,25 @@
+Given the coordinates of four points in 2D space, return whether the four points could construct a square.
+The coordinate (x,y) of a point is represented by an integer array with two integers.
+
+
+class Solution {
+    public boolean validSquare(int[] p1, int[] p2, int[] p3, int[] p4) {
+        Map<Integer, Integer> map = new HashMap();
+        int[] side = new int[]{dis(p1,p2),dis(p1,p3),dis(p1,p4),dis(p2,p3),dis(p2,p4),dis(p3,p4)};
+        int max = 0;
+        for(int len : side){
+            max = Math.max(max,len);
+            map.put(len,map.getOrDefault(len,0)+1);
+        }
+        return map.get(max)==2 && map.size()==2;
+    }
+    private int dis(int[] p1, int[] p2)
+    {
+        int x = p2[0]-p1[0];
+        int y = p2[1]-p1[1];
+        return x*x+y*y;
+    }
+}
+
+Runtime: 1 ms, faster than 85.52% of Java online submissions for Valid Square.
+Memory Usage: 40.6 MB, less than 12.50% of Java online submissions for Valid Square.
