@@ -1,0 +1,21 @@
+Find the nth digit of the infinite integer sequence 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ...
+
+class Solution {
+    public int findNthDigit(int n) {
+        int start = 1;
+        int len = 1;
+        long base = 9;
+        while( n > len * base){
+            n = n-len*(int)base;
+            len++;
+            start *= 10;
+            base *= 10;
+        }
+        int target = start+(n-1)/len;
+        int reminder = (n-1)%len;
+        return Integer.toString(target).charAt(reminder)-'0';
+    }
+}
+
+Runtime: 1 ms, faster than 13.53% of Java online submissions for Nth Digit.
+Memory Usage: 41.1 MB, less than 10.00% of Java online submissions for Nth Digit.
