@@ -1,0 +1,45 @@
+Find the length of the longest substring T of a given string (consists of lowercase letters only) 
+such that every character in T appears no less than k times.
+
+class Solution {
+    public int longestSubstring(String s, int k) {
+        char[] t = s.toCharArray();
+        int[] check = new int[26];
+        int max = 0;
+        for(int h = 1;h<=26;h++){
+            Arrays.fill(check, 0);
+            int i = 0; 
+            int j = 0;
+            int unique = 0;
+            int noLessThanK = 0;
+            int idx = 0;
+            while (j < t.length) {
+                if (unique <= h) {
+                    idx = t[j] - 'a';
+                    if (check[idx] == 0)
+                        unique++;
+                    check[idx]++;
+                    if (check[idx] == k)
+                        noLessThanK++;
+                    j++;
+                }
+                else {
+                    idx = t[i] - 'a';
+                    if (check[idx] == k)
+                        noLessThanK--;
+                    check[idx]--;
+                    if (check[idx] == 0)
+                        unique--;
+                    i++;
+                }
+                if (unique == h && unique == noLessThanK){
+                    max = Math.max(j - i, max);
+                }
+            }
+        }
+        return max;
+    }
+}
+
+Runtime: 20 ms, faster than 24.74% of Java online submissions for Longest Substring with At Least K Repeating Characters.
+Memory Usage: 41.8 MB, less than 10.00% of Java online submissions for Longest Substring with At Least K Repeating Characters.
