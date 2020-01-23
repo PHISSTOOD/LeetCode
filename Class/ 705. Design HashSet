@@ -33,10 +33,5 @@ class MyHashSet {
     }
 }
 
-/**
- * Your MyHashSet object will be instantiated and called as such:
- * MyHashSet obj = new MyHashSet();
- * obj.add(key);
- * obj.remove(key);
- * boolean param_3 = obj.contains(key);
- */
+Runtime: 77 ms, faster than 13.59% of Java online submissions for Design HashSet.
+Memory Usage: 77.3 MB, less than 11.11% of Java online submissions for Design HashSet.
