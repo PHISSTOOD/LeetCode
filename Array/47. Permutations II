@@ -1,0 +1,38 @@
+Given a collection of numbers that might contain duplicates, return all possible unique permutations.
+
+class Solution {
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        List<List<Integer>> result = new LinkedList<List<Integer>>();
+        dfs(0,result, nums);  
+        return result;
+            
+    }
+    private void dfs(int idx,List<List<Integer>> result, int[] nums){
+        if(idx == nums.length){
+            List<Integer> list = new ArrayList<>();
+            for(int i : nums){
+                list.add(i);
+            }
+            
+            result.add(list);
+            return;
+        }
+        dfs(idx + 1,result, nums);
+        Set<Integer> set = new HashSet<>();
+        for(int i = idx; i < nums.length; i++){
+            if(nums[idx] != nums[i] && set.add(nums[i])){
+                swap(idx, i, nums);
+                dfs(idx + 1,result, nums);
+                swap(idx, i, nums);
+            }
+        }
+    }
+    private void swap(int a, int b, int[] nums){
+        int temp = nums[a];
+        nums[a] = nums[b];
+        nums[b] = temp;
+    }
+}
+
+Runtime: 1 ms, faster than 100.00% of Java online submissions for Permutations II.
+Memory Usage: 41.7 MB, less than 11.94% of Java online submissions for Permutations II.
