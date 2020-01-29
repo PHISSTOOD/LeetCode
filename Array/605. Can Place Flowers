@@ -1,0 +1,31 @@
+Suppose you have a long flowerbed in which some of the plots are planted and some are not.
+However, flowers cannot be planted in adjacent plots - they would compete for water and both would die.
+Given a flowerbed (represented as an array containing 0 and 1, where 0 means empty and 1 means not empty), 
+and a number n, return if n new flowers can be planted in it without violating the no-adjacent-flowers rule.
+
+class Solution {
+    public boolean canPlaceFlowers(int[] flowerbed, int n) {
+        boolean flag = true;
+        if(flowerbed.length<n){
+            return false;
+        }
+        int count = 0;
+        for(int i = 0;i<flowerbed.length-1;i++){
+            if(flowerbed[i]==0 && flag == true && flowerbed[i+1]==0){
+                count++;
+                flag = false;
+            }else if(flowerbed[i]==0 && flag == false){
+                flag = true;
+            }else{
+                flag = false;
+            }
+        }
+        if(flag==true && flowerbed[flowerbed.length-1]==0){
+            count++;
+        }
+        return count>=n;
+    }
+}
+
+Runtime: 1 ms, faster than 99.91% of Java online submissions for Can Place Flowers.
+Memory Usage: 42.7 MB, less than 7.14% of Java online submissions for Can Place Flowers.
