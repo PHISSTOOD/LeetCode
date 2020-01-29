@@ -1,0 +1,33 @@
+Given two strings s1 and s2, write a function to return true if s2 contains the permutation of s1. 
+In other words, one of the first string's permutations is the substring of the second string.
+
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        if(s1.length()>s2.length()){
+            return false;
+        }
+        int[] check = new int[26];
+        for(int i = 0;i<s1.length();i++){
+            check[s1.charAt(i)-'a']++;
+        }
+        int count = s1.length();
+        for(int end = 0,start = 0;end<s2.length();){
+            if(check[s2.charAt(end)-'a']>0){
+                count--;
+                check[s2.charAt(end)-'a']--;
+                end++;
+            }else if(check[s2.charAt(end)-'a']==0){
+                check[s2.charAt(start)-'a']++;
+                count++;
+                start++;
+            }
+            if(count==0){
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+Runtime: 4 ms, faster than 92.61% of Java online submissions for Permutation in String.
+Memory Usage: 38.7 MB, less than 30.77% of Java online submissions for Permutation in String.
