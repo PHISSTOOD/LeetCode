@@ -1,0 +1,33 @@
+Given a string s1, we may represent it as a binary tree by partitioning it to two non-empty substrings recursively.
+Below is one possible representation of s1 = "great":
+
+class Solution {
+    public boolean isScramble(String s1, String s2) {
+        int l1 = s1.length();
+        int l2 = s2.length();
+        if(s1.equals(s2)) return true;
+        if(l1!=l2) return false;
+        int[] fre = new int[26];
+        for(int i=0;i<l1;i++){
+            fre[s1.charAt(i)-'a']++;
+            fre[s2.charAt(i)-'a']--;
+        }
+        for(int  i : fre){
+            if(i!=0){
+                return false;
+            }
+        }
+        for(int i = 1;i<l1;i++)
+        {
+            if(isScramble(s1.substring(0,i),s2.substring(0,i))&& isScramble(s1.substring(i),s2.substring(i)))
+                return true;
+            if(isScramble(s1.substring(0,i),s2.substring(l1 - i))&& isScramble(s1.substring(i),s2.substring(0,l1 - i)))
+                return true;   
+        }
+        return false;   
+    }
+    
+}
+
+Runtime: 2 ms, faster than 96.19% of Java online submissions for Scramble String.
+Memory Usage: 39.9 MB, less than 37.50% of Java online submissions for Scramble String.
