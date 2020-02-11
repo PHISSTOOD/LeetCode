@@ -1,0 +1,45 @@
+Given a m x n matrix mat and an integer threshold. 
+Return the maximum side-length of a square with a sum less than or equal to threshold or return 0 if there is no such square.
+
+class Solution {
+    public int maxSideLength(int[][] mat, int threshold) {
+        int[][] dp = new int[mat.length][mat[0].length];
+        dp[0][0] = mat[0][0];
+        for(int i = 1;i<dp.length;i++){
+            dp[i][0] = dp[i-1][0] + mat[i][0];
+        }
+        for(int i = 1;i<dp[0].length;i++){
+            dp[0][i] = dp[0][i-1] + mat[0][i];
+        }
+        for(int i = 1;i<dp.length;i++){
+            for(int j = 1;j<dp[0].length;j++){
+                dp[i][j] = dp[i-1][j] + dp[i][j-1] - dp[i-1][j-1] + mat[i][j];
+            }
+        }
+        int side = Math.min(dp.length,dp[0].length);
+        for(;side>0;side--){
+            for (int i = 0; (i+side) <= mat.length; i++) {
+                for (int j = 0; (j+side) <= mat[0].length; j++) {
+                    if(calculate(mat,i,j,threshold,dp,side)){
+                        return side;
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+    private boolean calculate(int[][] mat, int i, int j, int threshold, int[][] dp,int s) {
+        int s0=0,s1=0,s2=0;
+        if (i-1 >=0 && j-1 >= 0)  s0 = dp[i-1][j-1];
+        if (i-1 >=0) s1 = dp[i-1][j+s-1];
+        if (j-1 >=0) s2 = dp[i+s-1][j-1];
+        int size = (dp[i+s-1][j+s-1] - s1-s2+s0);
+        if (size<=threshold){
+            return true;
+        }
+        return false;
+    }
+}
+
+Runtime: 138 ms, faster than 25.20% of Java online submissions for Maximum Side Length of a Square with Sum Less than or Equal to Threshold.
+Memory Usage: 53.5 MB, less than 100.00% of Java online submissions for Maximum Side Length of a Square with Sum Less than or Equal to Threshold.
