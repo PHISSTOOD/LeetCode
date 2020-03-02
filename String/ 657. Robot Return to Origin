@@ -30,3 +30,6 @@ class Solution {
         return x==0 &&y==0;
     }
 }
+
+Runtime: 3 ms, faster than 99.51% of Java online submissions for Robot Return to Origin.
+Memory Usage: 41.8 MB, less than 5.40% of Java online submissions for Robot Return to Origin.
