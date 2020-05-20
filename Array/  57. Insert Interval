@@ -1,6 +1,12 @@
 Given a set of non-overlapping intervals, insert a new interval into the intervals (merge if necessary).
 You may assume that the intervals were initially sorted according to their start times.
 
+Summary of problem-solving idea：
+
+Iterate all parameters in this intervals and compare with newInterval, is the current interval[1] is bigger than newInterval[0], thus,
+we will know the position to insert newInterval. Then, merge the newInterval and Intervals which are overlap with newInterval. Then, 
+add other Intervals in new arraylist.
+
 class Solution {
     public int[][] insert (int[][] intervals, int[] newInterval){
         if(intervals.length == 0)
