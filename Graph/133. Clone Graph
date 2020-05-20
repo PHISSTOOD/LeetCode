@@ -1,0 +1,50 @@
+Given a reference of a node in a connected undirected graph.
+Return a deep copy (clone) of the graph.
+Each node in the graph contains a val (int) and a list (List[Node]) of its neighbors.
+
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public List<Node> neighbors;
+    
+    public Node() {
+        val = 0;
+        neighbors = new ArrayList<Node>();
+    }
+    
+    public Node(int _val) {
+        val = _val;
+        neighbors = new ArrayList<Node>();
+    }
+    
+    public Node(int _val, ArrayList<Node> _neighbors) {
+        val = _val;
+        neighbors = _neighbors;
+    }
+}
+*/
+
+class Solution {
+    public Node cloneGraph(Node node) {
+        if(node==null){
+            return null;
+        }
+        HashMap<Integer,Node> map = new HashMap();
+        return clone(node,map);
+    }
+    public Node clone(Node node, HashMap<Integer,Node> map){
+        if(map.containsKey(node.val)){
+            return map.get(node.val);
+        }
+        Node copy = new Node (node.val);
+        map.put(node.val,copy);
+        for(Node neighbor : node.neighbors){
+            copy.neighbors.add(clone(neighbor,map));
+        }
+        return copy;
+    }
+}
+
+Runtime: 27 ms, faster than 73.89% of Java online submissions for Clone Graph.
+Memory Usage: 39.9 MB, less than 5.88% of Java online submissions for Clone Graph.
