@@ -1,0 +1,34 @@
+Given a collection of intervals, merge all overlapping intervals.
+
+class Solution {
+    public static final int[][] NONE = new int[0][];
+    public int[][] merge(int[][] intervals) {
+        if (intervals.length == 0) {
+            return NONE;
+        }
+        if (intervals.length == 1) {
+            return intervals;
+        }
+        
+        Arrays.sort(intervals, (o1, o2) -> o1[0] - o2[0]);
+        int[][] result = new int[intervals.length][];
+        int resultIdx = 0;
+        result[resultIdx] = new int[] {intervals[0][0], intervals[0][1]};
+        
+        for (int i = 1; i < intervals.length; ++i) {
+            int[] currInterval = intervals[i];
+            if (currInterval[0] <= result[resultIdx][1]) {
+                // merge in
+                result[resultIdx][1] = Math.max(result[resultIdx][1], currInterval[1]);
+            } else {
+                // time to create a new merge
+                result[++resultIdx] = new int[] {currInterval[0], currInterval[1]};
+            }
+        }
+        return Arrays.copyOf(result, resultIdx + 1);
+        
+    }
+}
+
+Runtime: 5 ms, faster than 95.24% of Java online submissions for Merge Intervals.
+Memory Usage: 42.3 MB, less than 48.55% of Java online submissions for Merge Intervals.
