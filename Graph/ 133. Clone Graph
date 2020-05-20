@@ -2,6 +2,10 @@ Given a reference of a node in a connected undirected graph.
 Return a deep copy (clone) of the graph.
 Each node in the graph contains a val (int) and a list (List[Node]) of its neighbors.
 
+Summary of question soulution idea:
+Use DFS to copy the graph. Copy the first node and store it in a map. Then add it neighbors into map, of the map already contains 
+the node return it and store next neighbor.
+
 /*
 // Definition for a Node.
 class Node {
