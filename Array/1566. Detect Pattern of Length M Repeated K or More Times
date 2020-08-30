@@ -1,0 +1,88 @@
+Given an array of positive integers arr,  find a pattern of length m that is repeated k or more times.
+A pattern is a subarray (consecutive sub-sequence) that consists of one or more values, repeated multiple times consecutively without overlapping.
+A pattern is defined by its length and the number of repetitions.
+Return true if there exists a pattern of length m that is repeated k or more times, otherwise return false.
+
+
+##Solution 1##
+###Solution description###
+Convert arrau to string, so this problem can be convert into find consecutive substring in original string. Because the length of substring is m, so we just need 
+to start from 0~m-1, then if next substring is same with th current, count++, else change the current tring.
+
+###Solution###
+class Solution {
+    public boolean containsPattern(int[] arr, int m, int k) {
+        if(arr.length<m*k){
+            return false;
+        }
+        if(k == 1){
+            return true;
+        }
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0;i<arr.length;i++){
+            sb.append(arr[i]);
+        }
+        String st = sb.toString();
+        for(int i =0;i<m;i++){
+            String temp = new String();
+            int count=0;
+            for(int j = 0;i+j<st.length()-m+1;){
+                if(i+j<m){
+                    temp = st.substring(i+j,i+j+m);
+                    count = 1;
+                    j+=m;
+                }else{
+                    String sub = st.substring(i+j,i+j+m);
+                    if(sub.equals(temp)){
+                        count++;
+                        if(count>=k){
+                            return true;
+                        }
+                        j += m;
+                    }else{
+                        temp = sub;
+                        count = 1;
+                        j+=m;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+}
+
+###Result###
+Runtime: 1 ms, faster than 25.00% of Java online submissions for Detect Pattern of Length M Repeated K or More Times.
+Memory Usage: 37.8 MB, less than 25.00% of Java online submissions for Detect Pattern of Length M Repeated K or More Times.
+
+##Solution 2##
+###Solution description###
+Finging k consecutive patterns means finding a k*m sub array.
+
+###Solution###
+class Solution {
+    public boolean containsPattern(int[] arr, int m, int k) {
+        if(arr.length<m*k){
+            return false;
+        }
+        if(k == 1){
+            return true;
+        }
+        int count = 0;
+        for(int i = 0;i<arr.length-m;i++){
+            if(arr[i]==arr[i+m]){
+                count++;
+                if(count==m*(k-1)){
+                    return true;
+                }
+            }else{
+                count = 0;
+            }
+        }
+        return false;
+    }
+}
+
+###Result###
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Detect Pattern of Length M Repeated K or More Times.
+Memory Usage: 37.3 MB, less than 100.00% of Java online submissions for Detect Pattern of Length M Repeated K or More Times.
