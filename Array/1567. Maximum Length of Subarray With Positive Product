@@ -1,0 +1,60 @@
+Given an array of integers nums, find the maximum length of a subarray where the product of all its elements is positive.
+A subarray of an array is a consecutive sequence of zero or more values taken out of that array.
+Return the maximum length of a subarray with positive product
+
+
+resolution description:
+In this problem, we just need to iterate the array once to find the result. In each position, we need to consider the following three posibilities.
+1. A positive number N, if the starPosition is -1, set startPosition N. If there are some negative number in the array from startPosition to current position,
+  we need to record how many negatice numbers and the first negative position.
+2. A Negative number N, if the starPosition is -1, set startPosition N. If there are some negative number in the array from startPosition to current position,
+  we need to record how many negatice numbers and the first negative position.
+3. 0, initial the startPosition, first negative position and the number which means how many negative numbers in current array.
+
+class Solution {
+    public int getMaxLen(int[] nums) {
+        int negPos = -1;
+        int pos = -1;
+        int result = 0;
+        int count = 0;
+        for(int i = 0;i<nums.length;i++){
+            if(nums[i]>0){
+                if(pos==-1){
+                    pos = i;
+                    result = Math.max(result,i-pos+1);
+                }else{
+                    if(negPos!=-1 && count%2==0){
+                        result = Math.max(result,i-pos+1);
+                    }else if(negPos!=-1 && count%2==1){
+                        result = Math.max(result,i-negPos);
+                    }else{
+                         result = Math.max(result,i-pos+1);
+                    }
+                }
+            }else if(nums[i]<0){
+                if(pos==-1){
+                    pos = i;
+                }
+                if(negPos==-1){
+                    negPos = i;
+                    count++;
+                }else{
+                    count++;
+                    if(count%2==0){
+                        result = Math.max(result,i-pos+1);
+                    }else{
+                        result = Math.max(result,i-negPos);
+                    }
+                }
+            }else{
+                negPos = -1;
+                pos = -1;
+                count = 0;
+            }
+        }
+        return result;
+    }
+}
+
+Runtime: 4 ms, faster than 81.35% of Java online submissions for Maximum Length of Subarray With Positive Product.
+Memory Usage: 54.2 MB, less than 90.60% of Java online submissions for Maximum Length of Subarray With Positive Product.
