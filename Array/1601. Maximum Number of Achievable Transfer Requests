@@ -7,6 +7,9 @@ For example if n = 3 and two employees are leaving building 0, one is leaving bu
 there should be two employees moving to building 0, one employee moving to building 1, and one employee moving to building 2.
 Return the maximum number of achievable requests.
 
+Solution description:
+Use BackTracking to consider all posibilities.
+
 class Solution {
     int result = 0;
     public int maximumRequests(int n, int[][] requests) {
@@ -15,7 +18,6 @@ class Solution {
     }
     
     private void helper(int[][] requests, int index, int[] count, int num) {
-        // Traverse all n buildings to see if they are all 0. (means balanced)
         if (index == requests.length) {
             for (int i : count) {
                 if (0 != i) {
@@ -25,7 +27,6 @@ class Solution {
             result = Math.max(result, num);
             return;
         }
-		// Choose this request
         if(requests[index][0]==requests[index][1]){
             helper(requests, index + 1, count, num + 1);
         }else{
@@ -34,7 +35,6 @@ class Solution {
             helper(requests, index + 1, count, num + 1);
             count[requests[index][0]]--;
             count[requests[index][1]]++;
-		    // Not Choose the request
             helper(requests, index + 1, count, num);
         }
     }
