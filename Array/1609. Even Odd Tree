@@ -1,0 +1,67 @@
+A binary tree is named Even-Odd if it meets the following conditions:
+The root of the binary tree is at level index 0, its children are at level index 1, their children are at level index 2, etc.
+For every even-indexed level, all nodes at the level have odd integer values in strictly increasing order (from left to right).
+For every odd-indexed level, all nodes at the level have even integer values in strictly decreasing order (from left to right).
+Given the root of a binary tree, return true if the binary tree is Even-Odd, otherwise return false.
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isEvenOddTree(TreeNode root) {
+        List<List<Integer>> help = new ArrayList();
+        helper(root,help,1);
+        for(int i = 0;i<help.size();i++){
+            List<Integer> temp = help.get(i);
+            if(i%2==1){
+                for(int j = 0;j<temp.size();j++){
+                    if(j==0){
+                        if(temp.get(j)%2!=0){
+                            return false;
+                        }
+                    }else if(temp.get(j)>=temp.get(j-1) || temp.get(j)%2!=0){
+                        return false;
+                    }
+                }
+            }else{
+                for(int j = 0;j<temp.size();j++){
+                    if(j==0){
+                        if(temp.get(j)%2!=1){
+                            return false;
+                        }
+                    }else if(temp.get(j)<=temp.get(j-1) || temp.get(j)%2!=1){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+    public void helper(TreeNode root,List<List<Integer>> help, int layer){
+        if(root==null){
+            return;
+        }
+        if(layer>help.size()){
+            List<Integer> newArray = new ArrayList();
+            help.add(newArray);
+        }
+        help.get(layer-1).add(root.val);
+        helper(root.left,help,layer+1);
+        helper(root.right,help,layer+1);
+    }
+}
+
+Runtime: 23 ms, faster than 30.47% of Java online submissions for Even Odd Tree.
+Memory Usage: 253.6 MB, less than 5.01% of Java online submissions for Even Odd Tree.
