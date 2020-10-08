@@ -4,6 +4,10 @@ For every even-indexed level, all nodes at the level have odd integer values in 
 For every odd-indexed level, all nodes at the level have even integer values in strictly decreasing order (from left to right).
 Given the root of a binary tree, return true if the binary tree is Even-Odd, otherwise return false.
 
+Solution description:
+In first solution, add all value in a List<List<Integer>>, each List<Integer> represent a level TreeNodes, 
+and then judge each List<Integer> weather this tree satisfy the conditions.
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -65,3 +69,63 @@ class Solution {
 
 Runtime: 23 ms, faster than 30.47% of Java online submissions for Even Odd Tree.
 Memory Usage: 253.6 MB, less than 5.01% of Java online submissions for Even Odd Tree.
+
+Solution description:
+Use a queue to record those TreeNodes. in each level, we should to iterate TreeNodes, if the TreeNode has leftchild and rightchild, add it in the queue, then judge the value
+of the current TreeNode if it satisfy the condition.
+
+class Solution {
+    public boolean isEvenOddTree(TreeNode root) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        int level = 0;
+        int pre = -1;
+        boolean flag = true;
+        queue.offer(root);
+        while(queue.size()>0){
+            pre = -1;
+            int size = queue.size();
+            while(size>0){
+                TreeNode cur = queue.poll();
+                if(level%2==0){
+                    if(cur.left!=null){
+                        queue.offer(cur.left);
+                    }
+                    if(cur.right!=null){
+                        queue.offer(cur.right);
+                    }
+                    if(cur.val>pre && cur.val%2==1){
+                        pre = cur.val;
+                    }else{
+                        return false;
+                    }
+                }else{
+                    if(cur.left!=null){
+                        queue.offer(cur.left);
+                    }
+                    if(cur.right!=null){
+                        queue.offer(cur.right);
+                    }
+                    if(pre==-1){
+                        if(cur.val%2==0){
+                            pre = cur.val;
+                        }else{
+                            return false;
+                        }
+                    }else{
+                        if(cur.val%2==0 && cur.val<pre){
+                            pre = cur.val;
+                        }else{
+                            return false;
+                        }
+                    }
+                }
+                size--;
+            }
+            level++;
+        }
+        return true;
+    }
+}
+
+Runtime: 8 ms, faster than 97.38% of Java online submissions for Even Odd Tree.
+Memory Usage: 55.6 MB, less than 90.63% of Java online submissions for Even Odd Tree.
