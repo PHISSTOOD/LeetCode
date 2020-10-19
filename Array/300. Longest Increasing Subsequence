@@ -29,7 +29,6 @@ class Solution {
 Runtime: 7 ms, faster than 70.31% of Java online submissions for Longest Increasing Subsequence.
 Memory Usage: 36.6 MB, less than 100.00% of Java online submissions for Longest Increasing Subsequence.
 
-
 public class Solution {
     public int lengthOfLIS(int[] nums) {
         int[] dp = new int[nums.length];
