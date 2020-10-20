@@ -32,5 +32,6 @@ class Solution {
     }
 }
 
+result:
 Runtime: 1 ms, faster than 98.67% of Java online submissions for Most Visited Sector in a Circular Track.
 Memory Usage: 39.7 MB, less than 88.30% of Java online submissions for Most Visited Sector in a Circular Track.
