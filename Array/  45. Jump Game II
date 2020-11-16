@@ -34,6 +34,7 @@ class Solution {
         return dp[0];
     }
 }
+Result:
 Runtime: 188 ms, faster than 22.58% of Java online submissions for Jump Game II.
 Memory Usage: 41.2 MB, less than 26.92% of Java online submissions for Jump Game II.
 
@@ -56,6 +57,6 @@ class Solution {
         return result;
     }
 }
-
+Result:
 Runtime: 1 ms, faster than 99.96% of Java online submissions for Jump Game II.
 Memory Usage: 39.1 MB, less than 100.00% of Java online submissions for Jump Game II.
