@@ -36,3 +36,6 @@ class Solution {
         return largestNumberStr;
     }
 }
+
+Runtime: 7 ms, faster than 29.75% of Java online submissions for Largest Number.
+Memory Usage: 41 MB, less than 5.03% of Java online submissions for Largest Number.
