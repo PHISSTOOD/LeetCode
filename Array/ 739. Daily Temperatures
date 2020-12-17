@@ -31,6 +31,7 @@ class Solution {
     }
 }
 
-result:
+
+Result:
 Runtime: 15 ms, faster than 61.27% of Java online submissions for Daily Temperatures.
 Memory Usage: 47.2 MB, less than 58.90% of Java online submissions for Daily Temperatures.
