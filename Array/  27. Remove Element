@@ -2,20 +2,25 @@ Given an array nums and a value val, remove all instances of that value in-place
 Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
 The order of elements can be changed. It doesn't matter what you leave beyond the new length.
 
+Solution description:
+in this question, the difficult part is in-place, which means we can not allocate an extra space to restore the numbers in oringinal array which are different with val.
+so we define a integer, and let it to record the current position of a number if it doesn't equal to val. Then iterate the array.
+
 class Solution {
     public int removeElement(int[] nums, int val) {
-        int i, j, n;
-        n = nums.length;
-        i = 0;
-        for(j = 0;j<n;j++)
-        {
-            if(nums[j]!=val)
-            {
-                nums[i] = nums [j];
-                i++;
+        int result = 0;
+        for(int i = 0;i<nums.length;i++){
+            if(nums[i]!=val){
+                nums[result] = nums[i];
+                result++;
+            }else{
+                continue;
             }
         }
-        return i;
-        
+        return result;
     }
 }
+
+result:
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Remove Element.
+Memory Usage: 37.5 MB, less than 79.35% of Java online submissions for Remove Element.
