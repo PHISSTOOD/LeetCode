@@ -1,0 +1,52 @@
+Given a string, your task is to count how many palindromic substrings in this string.
+The substrings with different start indexes or end indexes are counted as different substrings even they consist of same characters.
+
+Solution description:
+In this question, we just need to iterate each possible Axis of symmetry, for example:
+cab is not palindromic, thus acabais also not palindromic. At this time, we just need to iterate next Axis of symmetry.
+
+Solution:
+class Solution {
+    public int countSubstrings(String s) {
+        int result = 0;
+        for(int i =0;i<s.length();i++){
+            result += countPalindromicOdd(s,i);
+        }
+        for(int i =0;i<s.length()-1;i++){
+            result += countPalindromicEven(s,i+0.5);
+        }
+        return result;
+    }
+    
+    public int countPalindromicOdd(String s, int index){
+        int start = index;
+        int end = index;
+        int result = 0;
+        for(;start>=0 && end<s.length();start--,end++){
+            if(s.charAt(start) == s.charAt(end)){
+                result++;
+            }else{
+                break;
+            }
+        }
+        return result;
+    }
+    
+    public int countPalindromicEven(String s, double index){
+        int start = (int)Math.floor(index);
+        int end = (int)Math.ceil(index);
+        int result = 0;
+        for(;start>=0 && end<s.length();start--,end++){
+            if(s.charAt(start) == s.charAt(end)){
+                result++;
+            }else{
+                break;
+            }
+        }
+        return result;
+    }
+}
+
+Result:
+Runtime: 3 ms, faster than 70.79% of Java online submissions for Palindromic Substrings.
+Memory Usage: 37.1 MB, less than 80.60% of Java online submissions for Palindromic Substrings.
