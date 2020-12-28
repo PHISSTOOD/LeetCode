@@ -1,0 +1,26 @@
+You are given a list of non-negative integers, a1, a2, ..., an, and a target, S. Now you have 2 symbols + and -. 
+For each integer, you should choose one from + and - as its new symbol.
+Find out how many ways to assign symbols to make sum of integers equal to target S.
+
+class Solution {
+    public int result= 0;
+    public int findTargetSumWays(int[] nums, int S) {
+        compute(nums,S,0,0);
+        return result;
+    }
+    
+    public void compute(int[] nums,int target,int index,int cur){
+        if(index==nums.length){
+            if(cur==target){
+                result++;
+            }
+            return;
+        }
+        compute(nums,target,index+1,cur+nums[index]);
+        compute(nums,target,index+1,cur-nums[index]);
+    }
+}
+
+Result:
+Runtime: 471 ms, faster than 33.51% of Java online submissions for Target Sum.
+Memory Usage: 36.2 MB, less than 97.09% of Java online submissions for Target Sum.
