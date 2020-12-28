@@ -1,0 +1,37 @@
+Given a binary tree, you need to compute the length of the diameter of the tree. 
+The diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root.
+
+Solution:
+class Solution {
+    int result = 0;
+    public int diameterOfBinaryTree(TreeNode root) {
+        if(root==null){
+            return 0;
+        }
+        int cur = count(root);
+        return result;
+    }
+    public int count(TreeNode root){
+        if(root.left==null && root.right==null){
+            return 0;
+        }else if(root.left==null){
+            int cur = count(root.right)+1;
+            result = Math.max(cur,result);
+            return cur;
+        }else if(root.right==null){
+            int cur = count(root.left)+1;
+            result = Math.max(cur,result);
+            return cur;
+        }else{
+            int leftLevel = count(root.left)+1;
+            int rightLevel = count(root.right)+1;
+            int cur = leftLevel + rightLevel;
+            result = Math.max(cur,result);
+            return Math.max(leftLevel,rightLevel);
+        }
+    }
+}
+
+Result:
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Diameter of Binary Tree.
+Memory Usage: 38.9 MB, less than 72.04% of Java online submissions for Diameter of Binary Tree.
