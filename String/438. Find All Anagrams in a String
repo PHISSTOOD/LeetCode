@@ -1,0 +1,95 @@
+Given a string s and a non-empty string p, find all the start indices of p's anagrams in s.
+Strings consists of lowercase English letters only and the length of both strings s and p will not be larger than 20,100.
+The order of output does not matter.
+
+Solution description:
+The first soultion use hashmap to record the num of easch letter in p, and use the hashmap to judge if a new slide window is valid.
+The second solution is also use slide window, the difference is the size of window is alterable, when we found all letters have been included in the slide window,
+then we start to shrink the window and judge if the size of window is equals to the length of p.
+
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> result = new ArrayList();
+        if(s.length()<p.length()){
+            return result;
+        }
+        Map<Character,Integer> target = new HashMap();
+        for(int i = 0;i<p.length();i++){
+            char curChar = p.charAt(i);
+            target.put(curChar,target.getOrDefault(curChar,0)+1);
+        }
+        for(int i = 0;i<p.length();i++){
+            char curChar = s.charAt(i);
+            if(target.containsKey(curChar)){
+                target.put(curChar,target.get(curChar)-1);
+            }
+        }
+        for(int start = 0,end = p.length()-1;end<s.length();start++,end++){
+            if(start==0){
+                if(valid(target)){
+                    result.add(start);
+                }
+            }else{
+                if(target.containsKey(s.charAt(start-1))){
+                    target.put(s.charAt(start-1),target.get(s.charAt(start-1))+1);
+                }
+                if(target.containsKey(s.charAt(end))){
+                    target.put(s.charAt(end),target.get(s.charAt(end))-1);
+                }
+                if(valid(target)){
+                    result.add(start);
+                }
+            }
+            
+        }
+        return result;
+    }
+    public boolean valid(Map<Character,Integer> map){
+        for(Integer value : map.values()){
+            if(value!=0){
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+
+class Solution {
+  int[] freq=new int[26];
+	public List<Integer> findAnagrams(String s, String p) {
+
+		List<Integer> list = new ArrayList<>();
+		int k = p.length();
+		if (k == 0 || k > s.length()){
+            return list;
+        }
+		for(int i=0;i<p.length();i++)
+        {
+            freq[p.charAt(i)-'a']++;
+        }
+        int start = 0;
+        int end = 0;
+        int count = 0;
+        while(end<s.length()){
+            if(--freq[s.charAt(end)-'a']>=0){
+                count++;
+            }
+            while(count==p.length()){
+                if(end-start == p.length()-1){
+                    list.add(start);
+                }
+                if(++freq[s.charAt(start)-'a']>0){
+                    count--;
+                }
+                start++;
+            }
+            end++;
+        }
+        return list;
+    }
+}
+
+Result:
+Runtime: 5 ms, faster than 95.99% of Java online submissions for Find All Anagrams in a String.
+Memory Usage: 40.3 MB, less than 35.48% of Java online submissions for Find All Anagrams in a String.
