@@ -25,5 +25,7 @@ class Solution {
         return list;
     }
 }
+
+Result:
 Runtime: 5 ms, faster than 81.42% of Java online submissions for Find All Numbers Disappeared in an Array.
 Memory Usage: 48.1 MB, less than 59.61% of Java online submissions for Find All Numbers Disappeared in an Array.
