@@ -1,0 +1,25 @@
+Given a string s, find the longest palindromic subsequence's length in s. You may assume that the maximum length of s is 1000.
+
+class Solution {
+    public int longestPalindromeSubseq(String s) {
+        StringBuilder sb = new StringBuilder(s);
+        char[] c1 = s.toCharArray();
+        char[] c2 = sb.reverse().toString().toCharArray();
+        int[][] dp = new int[c1.length+1][c2.length+1];
+        for(int i  = 0;i<c1.length+1;i++){
+            for(int j = 0;j<c2.length+1;j++){
+                if(i==0 || j==0){
+                    dp[i][j] = 0;
+                }else if(c1[i-1] == c2[j-1]){
+                    dp[i][j] = dp[i-1][j-1] + 1;
+                }else{
+                    dp[i][j] = Math.max(dp[i-1][j],dp[i][j-1]);
+                }
+            }
+        }
+        return dp[s.length()][s.length()];
+    }
+}
+
+Runtime: 34 ms, faster than 67.22% of Java online submissions for Longest Palindromic Subsequence.
+Memory Usage: 48.6 MB, less than 91.90% of Java online submissions for Longest Palindromic Subsequence.
