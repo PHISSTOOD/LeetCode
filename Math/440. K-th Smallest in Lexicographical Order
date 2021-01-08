@@ -1,0 +1,35 @@
+Given integers n and k, find the lexicographically k-th smallest integer in the range from 1 to n.
+Note: 1 ≤ k ≤ n ≤ 109.
+
+Solution description:
+
+
+class Solution {
+    public int findKthNumber(int n, int k) {
+        long result = 1;
+        long rank = 1;
+        while(rank<k){
+            long count = getCount(result,(long)n);
+            if(rank+count<=k){
+                result++;
+                rank +=count;
+            }else{
+                result *= 10;
+                rank++;
+            }
+        }
+        return (int)result;
+    }
+    
+    public long getCount(long prefix, long n){
+        long count = 0;
+        for(long cur = prefix,next = cur+1;cur<=n;cur*=10,next*=10){
+            count += Math.min(next,n+1)-cur;
+        }
+        return count;
+    }
+}
+
+Result:
+Runtime: 0 ms, faster than 100.00% of Java online submissions for K-th Smallest in Lexicographical Order.
+Memory Usage: 35.4 MB, less than 93.92% of Java online submissions for K-th Smallest in Lexicographical Order.
