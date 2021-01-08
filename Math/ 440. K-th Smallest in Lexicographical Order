@@ -2,7 +2,7 @@ Given integers n and k, find the lexicographically k-th smallest integer in the 
 Note: 1 ≤ k ≤ n ≤ 109.
 
 Solution description:
-
+Make sure each bit in order, result means the current prefix, count means how many numbers are in current prefix.
 
 class Solution {
     public int findKthNumber(int n, int k) {
