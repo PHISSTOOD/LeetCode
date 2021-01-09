@@ -1,5 +1,8 @@
 Given a non-empty array nums containing only positive integers, find if the array can be partitioned into two subsets such that the sum of elements in both subsets is equal.
 
+Solution description:
+In this question, we use DP. First, we need to judge if this array is valid, like if its length is bigger than 1 and the sum of this array is even,
+Then, what we need to record in DP, is whether the numbers in this array can reach the target num.
 
 class Solution{
     public boolean canPartition(int [] nums){
@@ -35,5 +38,6 @@ class Solution{
     }
 }
 
+Result:
 Runtime: 27 ms, faster than 66.20% of Java online submissions for Partition Equal Subset Sum.
 Memory Usage: 48.8 MB, less than 38.81% of Java online submissions for Partition Equal Subset Sum.
