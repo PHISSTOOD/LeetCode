@@ -1,0 +1,34 @@
+You are given a binary tree in which each node contains an integer value.
+Find the number of paths that sum to a given value.
+The path does not need to start or end at the root or a leaf, but it must go downwards (traveling only from parent nodes to child nodes).
+The tree has no more than 1,000 nodes and the values are in the range -1,000,000 to 1,000,000.
+
+class Solution {
+    public int result = 0;
+    public int pathSum(TreeNode root, int sum) {
+        count(root,sum);
+        return result;
+    }
+    public void count(TreeNode root,int sum){
+        if(root==null){
+            return;
+        }
+        sum(root,sum);
+        count(root.left,sum);
+        count(root.right,sum);
+    }
+    
+    public void sum(TreeNode node, int sum){
+        if(node==null){
+            return;
+        }
+        if(node.val==sum){
+            result++;
+        }
+        sum(node.left,sum-node.val);
+        sum(node.right,sum-node.val);
+    }
+}
+
+Runtime: 20 ms, faster than 38.18% of Java online submissions for Path Sum III.
+Memory Usage: 38.9 MB, less than 60.36% of Java online submissions for Path Sum III.
