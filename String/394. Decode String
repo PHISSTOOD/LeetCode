@@ -1,0 +1,44 @@
+Given an encoded string, return its decoded string.
+The encoding rule is: k[encoded_string], where the encoded_string inside the square brackets is being repeated exactly k times. 
+Note that k is guaranteed to be a positive integer.
+You may assume that the input string is always valid; No extra white spaces, square brackets are well-formed, etc.
+Furthermore, you may assume that the original data does not contain any digits and that digits are only for those repeat numbers, k.
+For example, there won't be input like 3a or 2[4].
+
+class Solution {
+    public String decodeString(String s) {
+        if(s.length()==0 || s.indexOf('[')==-1){
+            return s;
+        }
+        int index = s.indexOf('[');
+        String number = "";
+        for(int l = index-1;l>=0 && s.charAt(l)>='0' && s.charAt(l)<='9';l--){
+            number = s.charAt(l)+number;
+        }
+        int num = Integer.valueOf(number);
+        int count = 0;
+        int rightIndex = 0;
+        for(int i = index;i<s.length();i++){
+            if(s.charAt(i)=='['){
+                count++;
+            }else if(s.charAt(i)==']'){
+                count--;
+            }
+            if(count==0){
+                rightIndex = i;
+                break;
+            }
+        }
+        String left = decodeString(s.substring(0,index-number.length()));
+        String right = decodeString(s.substring(rightIndex+1,s.length()));
+        String mid = decodeString(s.substring(index+1,rightIndex));
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0;i<num;i++){
+            sb.append(mid);
+        }
+        return left+sb.toString()+right;
+    }
+}
+
+Runtime: 10 ms, faster than 7.03% of Java online submissions for Decode String.
+Memory Usage: 39.8 MB, less than 5.99% of Java online submissions for Decode String.
