@@ -1,5 +1,8 @@
 Given an array nums, write a function to move all 0's to the end of it while maintaining the relative order of the non-zero elements.
 
+Solution description:
+The requirement of this question is in palce, so we can call another array. We just need to count how many 0 in this array, 
+then translate those number which are not equal 0 to left, and add 0 on the right side.
 class Solution {
     public void moveZeroes(int[] nums) {
         int count = 0;
@@ -21,5 +24,6 @@ class Solution {
     }
 }
 
+Result:
 Runtime: 0 ms, faster than 100.00% of Java online submissions for Move Zeroes.
 Memory Usage: 41.3 MB, less than 7.56% of Java online submissions for Move Zeroes.
