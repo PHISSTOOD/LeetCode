@@ -3,6 +3,10 @@ Each people[i] = [hi, ki] represents the ith person of height hi with exactly ki
 Reconstruct and return the queue that is represented by the input array people. The returned queue should be formatted as an array queue, 
 where queue[j] = [hj, kj] is the attributes of the jth person in the queue (queue[0] is the person at the front of the queue).
 
+
+Solution description:
+Override comparator function to sort people, taller people will be sorted on the left, when two people have same height, the people who has smaller k will be sorted on the left.
+then insert the people.
 class Solution {
     public int[][] reconstructQueue(int[][] people) {
         int[][] result = new int[people.length][2];
@@ -27,5 +31,6 @@ class Solution {
     }
 }
 
+Result:
 Runtime: 6 ms, faster than 72.75% of Java online submissions for Queue Reconstruction by Height.
 Memory Usage: 39.6 MB, less than 91.37% of Java online submissions for Queue Reconstruction by Height.
