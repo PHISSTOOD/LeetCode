@@ -1,0 +1,28 @@
+Given a binary tree and a sum, find all root-to-leaf paths where each path's sum equals the given sum.
+Note: A leaf is a node with no children.
+
+class Solution {
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        List<List<Integer>> result = new ArrayList();
+        List<Integer> cur = new ArrayList();
+        count(result,cur,root,sum);
+        return result;
+    }
+    
+    public void count(List<List<Integer>> result,List<Integer> cur,TreeNode root,int sum){
+        if(root==null){
+            return;
+        }
+        cur.add(root.val);
+        sum -= root.val;
+        if(sum==0 && root.left==null && root.right==null){
+            result.add(cur);
+            return;
+        }
+        count(result,new ArrayList(cur),root.left,sum);
+        count(result,new ArrayList(cur),root.right,sum);
+    }
+}
+
+Runtime: 2 ms, faster than 32.46% of Java online submissions for Path Sum II.
+Memory Usage: 41.6 MB, less than 13.90% of Java online submissions for Path Sum II.
