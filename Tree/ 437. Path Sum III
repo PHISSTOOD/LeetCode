@@ -5,7 +5,8 @@ The tree has no more than 1,000 nodes and the values are in the range -1,000,000
 
 
 Soultion description:
-At each node we need to start to a new COUNT which means let it to be the start of a path, and we also need to compute the sum of it current path.
+At each node we need to start a new COUNT which means let it to be the start of a path, and we also need to compute the sum of it current path.
+
 class Solution {
     public int result = 0;
     public int pathSum(TreeNode root, int sum) {
