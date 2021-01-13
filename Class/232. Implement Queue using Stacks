@@ -1,0 +1,55 @@
+Implement a first in first out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue (push, peek, pop, and empty).
+Implement the MyQueue class:
+void push(int x) Pushes element x to the back of the queue.
+int pop() Removes the element from the front of the queue and returns it.
+int peek() Returns the element at the front of the queue.
+boolean empty() Returns true if the queue is empty, false otherwise.
+
+
+class MyQueue {
+    Stack<Integer> main;
+    Stack<Integer> slave;
+    
+
+    /** Initialize your data structure here. */
+    public MyQueue() {
+        main = new Stack();
+        slave = new Stack();
+        
+    }
+    
+    /** Push element x to the back of queue. */
+    public void push(int x) {
+        if(main.empty()){
+            main.push(x);
+        }else{
+            while(!main.empty()){
+                slave.push(main.pop());
+            }
+            main.push(x);
+            while(!slave.empty()){
+                main.push(slave.pop());
+            }
+        }
+    }
+    
+    /** Removes the element from in front of queue and returns that element. */
+    public int pop() {
+        return main.pop();
+    }
+    
+    /** Get the front element. */
+    public int peek() {
+        int peek = main.pop();
+        main.push(peek);
+        return peek;
+    }
+    
+    /** Returns whether the queue is empty. */
+    public boolean empty() {
+        return main.empty();
+    }
+}
+
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Implement Queue using Stacks.
+Memory Usage: 37.2 MB, less than 15.43% of Java online submissions for Implement Queue using Stacks.
