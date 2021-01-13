@@ -6,6 +6,7 @@ Solution description:
 We can solve this question as so many reverse small listnode, so we use recursive to solve this question.
 We define 'count' to count how many nodes have been reverse in the current path. And the else of ListNode we just need to call another reverseKGroup.
 
+Solution:
 class Solution {
     public ListNode reverseKGroup(ListNode head, int k) {
         if(k==1){
