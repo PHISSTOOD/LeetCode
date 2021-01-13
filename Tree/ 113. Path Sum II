@@ -24,5 +24,6 @@ class Solution {
     }
 }
 
+Result:
 Runtime: 2 ms, faster than 32.46% of Java online submissions for Path Sum II.
 Memory Usage: 41.6 MB, less than 13.90% of Java online submissions for Path Sum II.
