@@ -1,0 +1,49 @@
+Given the root of a binary tree, consider all root to leaf paths: paths from the root to any leaf.  (A leaf is a node with no children.)
+A node is insufficient if every such root to leaf path intersecting this node has sum strictly less than limit.
+Delete all insufficient nodes simultaneously, and return the root of the resulting binary tree.
+
+Solution:
+class Solution {
+    public TreeNode sufficientSubset(TreeNode root, int limit) {
+        if(root == null) return root;
+        TreeNode rootNode = new TreeNode(0);
+        rootNode.left = root;
+        boolean temp = dfs(rootNode, limit, 0);
+        return rootNode.left;
+    }
+    private boolean dfs(TreeNode node, int limit, int curr){
+        if(node == null){
+            if(curr < limit){
+                return false;
+            }else{
+                return true;
+            }
+        }
+        if(node.left != null && node.right == null){
+            boolean left = dfs(node.left, limit, curr + node.val);
+            if(left == false) {
+                node.left = null;
+                node = null;
+            }
+            return left;
+        }else if(node.left == null && node.right != null){
+            boolean right = dfs(node.right, limit, curr + node.val);
+            if(right == false) {
+                node.right = null;
+                node = null;
+            }
+            return right;
+        }else{
+            boolean left = dfs(node.left, limit, curr + node.val);
+            boolean right = dfs(node.right, limit, curr + node.val);
+            if(left == false) node.left = null;
+            if(right == false) node.right = null;
+            if(left == false && right == false) node = null;
+            return left || right;
+        }
+    }
+}
+
+Result:
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Insufficient Nodes in Root to Leaf Paths.
+Memory Usage: 38.6 MB, less than 97.68% of Java online submissions for Insufficient Nodes in Root to Leaf Paths.
