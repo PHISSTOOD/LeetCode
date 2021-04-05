@@ -27,6 +27,7 @@ class Solution {
     }
 }
 
+
 Result:
-Runtime: 6 ms, faster than 14.50% of Java online submissions for Champagne Tower.
-Memory Usage: 37.8 MB, less than 85.50% of Java online submissions for Champagne Tower.
+Runtime: 4 ms, faster than 58.02% of Java online submissions for Champagne Tower.
+Memory Usage: 38.5 MB, less than 74.05% of Java online submissions for Champagne Tower.
