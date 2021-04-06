@@ -24,3 +24,7 @@ class Solution {
         return result;
     }
 }
+
+Result:
+Runtime: 2 ms, faster than 99.83% of Java online submissions for Longest Substring Without Repeating Characters.
+Memory Usage: 38.9 MB, less than 84.44% of Java online submissions for Longest Substring Without Repeating Characters.
