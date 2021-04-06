@@ -1,0 +1,26 @@
+Given a string s, find the length of the longest substring without repeating characters.
+
+Solution:
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int[] count = new int[100];
+        int start = 0;
+        int end = 0;
+        int result = 0;
+        for(;end<s.length();){
+            if(count[s.charAt(end)-' ']==0){
+                count[s.charAt(end)-' ']++;
+                end++;
+                result = Math.max(result,end-start);
+            }else{
+                while(s.charAt(start)!=s.charAt(end)){
+                    count[s.charAt(start)-' ']--;
+                    start++;
+                }
+                count[s.charAt(start)-' ']--;
+                start++;
+            }
+        }
+        return result;
+    }
+}
