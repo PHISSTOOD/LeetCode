@@ -1,0 +1,25 @@
+Find the sum of all left leaves in a given binary tree.
+
+Solution:
+class Solution {
+    int sum = 0;
+    public int sumOfLeftLeaves(TreeNode root) {
+        count(root,false);
+        return sum;
+    }
+    
+    public void count(TreeNode root,boolean flag){
+        if(root==null){
+            return;
+        }
+        if(flag && root.left == null && root.right==null){
+            sum += root.val;
+        }
+        count(root.left,true);
+        count(root.right,false);
+    }
+}
+
+Result:
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Sum of Left Leaves.
+Memory Usage: 36.6 MB, less than 81.18% of Java online submissions for Sum of Left Leaves.
