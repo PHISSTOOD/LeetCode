@@ -5,7 +5,7 @@ Given an integer n, return true if n is a perfect number, otherwise return false
 Solution description:
 In this problem, we can iterate all numbers which is smaller than the squart of num.
 
-Solution:
+Code:
 class Solution {
     public boolean checkPerfectNumber(int num) {
         if(num <= 1){
