@@ -2,7 +2,7 @@ Given the root of a binary tree, return the most frequent subtree sum. If there 
 The subtree sum of a node is defined as the sum of all the node values formed by the subtree rooted at that node (including the node itself).
 
 Solution Description:
-
+Using travel function to iterate the tree and put all numbers in the map, at the same time set a number to record the max frequent.
 
 Code:
 class Solution {
