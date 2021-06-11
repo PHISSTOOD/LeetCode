@@ -1,0 +1,44 @@
+Given the root of a binary tree, return the most frequent subtree sum. If there is a tie, return all the values with the highest frequency in any order.
+The subtree sum of a node is defined as the sum of all the node values formed by the subtree rooted at that node (including the node itself).
+
+Solution Description:
+
+
+Code:
+class Solution {
+    public int maxFrequent = 0;
+    public int count = 0;
+    public int[] findFrequentTreeSum(TreeNode root) {
+        Map<Integer,Integer> map = new HashMap();
+        int sum = travel(map,root);
+        List<Integer> list = new ArrayList<>();
+        for(int i : map.keySet()) {
+            if(map.get(i) == maxFrequent) {
+                list.add(i);
+            }
+        }
+        int response[] = new int[list.size()];
+        for(int i = 0; i < list.size(); i++) {
+            response[i] = list.get(i);
+        }
+        
+        return response;
+    }
+    
+    public int travel(Map<Integer,Integer> map, TreeNode root){
+        if(root==null){
+            return 0;
+        }
+        int left = travel(map,root.left);
+        int right = travel(map,root.right);
+        int sum = left + right + root.val;
+        int curFrequent = map.getOrDefault(sum,0) + 1;
+        map.put(sum, curFrequent);
+        maxFrequent = Math.max(maxFrequent, curFrequent);
+        return sum;
+    }
+}
+
+Result:
+Runtime: 3 ms, faster than 95.83% of Java online submissions for Most Frequent Subtree Sum.
+Memory Usage: 39.1 MB, less than 77.85% of Java online submissions for Most Frequent Subtree Sum.
