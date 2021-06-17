@@ -1,20 +1,10 @@
 Given the root of a binary tree, return the leftmost value in the last row of the tree.
 
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
+Solution description:
+In this problem, we need find the leftmost value in the last row, so the priority is level > left. So when we iterate a new node, 
+if it's level is bigger than the current result, we need modify the result.
+ 
+ 
 class Solution {
     public int result = 0;
     public int level = -1;
