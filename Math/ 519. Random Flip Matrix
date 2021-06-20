@@ -7,6 +7,7 @@ Solution Description:
 This problem's restiction is runing time and memory limitation. So, we can't initialize a real 2 dimensional array to store the numbers, we use hashset instead of it.
 In the hashSet we store the random number which can represent the position of a number.
 
+Code:
 class Solution {
     public Set<Integer> set;
     public int sum;
