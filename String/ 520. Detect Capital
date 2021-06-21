@@ -37,3 +37,7 @@ class Solution {
         return true;
     }
 }
+
+Result:
+Runtime: 1 ms, faster than 99.75% of Java online submissions for Detect Capital.
+Memory Usage: 37.7 MB, less than 32.51% of Java online submissions for Detect Capital.
