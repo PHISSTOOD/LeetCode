@@ -2,7 +2,10 @@ Given a string s and a string array dictionary, return the longest string in the
 If there is more than one possible result, return the longest word with the smallest lexicographical order. If there is no possible result, return the empty string.
 
 Solution Description:
-
+There are two implementaion difficulties in this problem, one is hwo to return the smallesr lexicographical order word, another is how to judge if the string contain a word fastly.
+1. In java, we can't compare two string directly, so we use .compareTo() to compare two String.
+2. There are two ways to judge if the initial String contains a word: one is iterate the Source word, another is iterate the target word. 
+The performance of second way is muchb better.
 
 Code:
 class Solution {
