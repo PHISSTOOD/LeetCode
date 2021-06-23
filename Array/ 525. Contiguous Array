@@ -4,6 +4,7 @@ Solution Description:
 The main idea of this probelm is record the sum, I use map to record it. When we iterate a new num, if the sum == 0, we can compare the length with the result directly, 
 if it isn't 0, we read it in the map and the length equals the current position minus the position when the result first occur.
 
+Code:
 class Solution {
     public int findMaxLength(int[] nums) {
         for(int i = 0; i<nums.length; i++){
@@ -31,3 +32,7 @@ class Solution {
         return result;
     }
 }
+
+Result:
+Runtime: 18 ms, faster than 90.86% of Java online submissions for Contiguous Array.
+Memory Usage: 48.5 MB, less than 78.97% of Java online submissions for Contiguous Array.
