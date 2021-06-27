@@ -1,0 +1,95 @@
+There is an m x n grid with a ball. The ball is initially at the position [startRow, startColumn]. 
+You are allowed to move the ball to one of the four adjacent cells in the grid (possibly out of the grid crossing the grid boundary). 
+You can apply at most maxMove moves to the ball.
+Given the five integers m, n, maxMove, startRow, startColumn, return the number of paths to move the ball out of the grid boundary. 
+Since the answer can be very large, return it modulo 109 + 7.
+
+Solution 1 Description:
+
+Code:
+class Solution {
+    public int findPaths(int m, int n, int maxMove, int startRow, int startColumn) {
+        int M = 1000000000 + 7;
+        int[][] dp = new int[m][n];
+        int count = 0;
+        dp[startRow][startColumn] = 1;
+        for(int move = 1; move <= maxMove; move++){
+            int[][] temp = new int[m][n];
+            for(int i = 0; i<m; i++){
+                for(int j = 0; j<n; j++){
+                    if(i==0){
+                        count = (count + dp[i][j])%M;
+                    }
+                    if(j==0){
+                        count = (count + dp[i][j])%M;
+                    }
+                    if(i==m-1){
+                        count = (count + dp[i][j])%M;
+                    }
+                    if(j==n-1){
+                        count = (count + dp[i][j])%M;
+                    }
+                    temp[i][j] = (((i>0 ? dp[i-1][j]:0) + (i<m-1 ? dp[i+1][j]:0))%M
+                        + ((j>0 ? dp[i][j-1]:0) + (j<n-1 ? dp[i][j+1]:0))%M)%M;
+                }
+            }
+            dp = temp;
+        }
+        return count;
+    }
+}
+
+Result:
+Runtime: 8 ms, faster than 44.67% of Java online submissions for Out of Boundary Paths.
+Memory Usage: 38.3 MB, less than 50.31% of Java online submissions for Out of Boundary Paths.
+
+
+Solution 2 Description:
+Using recursion to solve it, write another function find which 
+
+Code:
+class Solution 
+{
+    static final int MOD = (int)((1e9) + 7);
+    public int findPaths(int m, int n, int maxMove, int startRow, int startColumn) 
+    {
+        int[][][] memo = new int[m][n][maxMove+1];
+        
+        for(int[][] row:memo)
+        {
+        for(int[] col: row)
+            {
+        Arrays.fill(col, -1);
+            }
+        }
+        
+        return find(m, n, maxMove, startRow, startColumn, memo);
+        }
+    
+    public int find(int m, int n, int maxMove, int startRow, int startColumn, int[][][] memo)
+    {
+       
+        if(startRow==m || startColumn==n || startRow==-1 || startColumn==-1)
+            return 1;
+        
+        if(maxMove == 0)//No further moves left
+           return 0;
+        
+        if(memo[startRow][startColumn][maxMove]!=-1)
+            return memo[startRow][startColumn][maxMove];
+        
+        int up = find(m, n, maxMove-1, startRow-1, startColumn, memo);
+        int down = find(m, n, maxMove-1, startRow+1, startColumn, memo);
+        int left = find(m, n, maxMove-1, startRow, startColumn+1, memo);
+        int right = find(m, n, maxMove-1, startRow, startColumn-1, memo);
+        
+        int res = 0;
+        res = ((up + down)%MOD + (left + right)%MOD)%MOD;
+        memo[startRow][startColumn][maxMove] = res;
+        return res;
+    }
+}
+
+Result:
+Runtime: 3 ms, faster than 99.26% of Java online submissions for Out of Boundary Paths.
+Memory Usage: 38 MB, less than 75.46% of Java online submissions for Out of Boundary Paths.
