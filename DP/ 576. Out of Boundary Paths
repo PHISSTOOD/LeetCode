@@ -6,6 +6,7 @@ Since the answer can be very large, return it modulo 109 + 7.
 
 Solution 1 Description:
 
+
 Code:
 class Solution {
     public int findPaths(int m, int n, int maxMove, int startRow, int startColumn) {
@@ -45,7 +46,7 @@ Memory Usage: 38.3 MB, less than 50.31% of Java online submissions for Out of Bo
 
 
 Solution 2 Description:
-Using recursion to solve it, write another function find which 
+Using recursion to solve it and using a 3 dimentional matrix to record the middle numbers. 
 
 Code:
 class Solution 
