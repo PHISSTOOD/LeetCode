@@ -2,6 +2,8 @@ Given an integer array nums, return all the different possible increasing subseq
 The given array may contain duplicates, and two equal integers should also be considered a special case of increasing sequence.
 
 Soulution Description:
+Using recurison to solve this problem, the input parameter is List<List<Integer>>, nums, List<Integer> cur, pos. At each position in the array, when the current list is empty,
+add the num into the list directly and add it in a set, else compare the new number with the last number in the list.
 
 Code:
 class Solution {
