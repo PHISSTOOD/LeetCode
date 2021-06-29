@@ -4,6 +4,7 @@ Return the final string after all such duplicate removals have been made. It can
 
 Solution Description:
 Using stack to store non-duplicate letters so far, iterating the character in string, if the peek of stack is equal to character then pop else push.
+Some tricky solutions are using array or StringBuilder instead of using stack, which can have a better result.
 
 Code:
 class Solution {
