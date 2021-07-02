@@ -4,6 +4,7 @@ An integer a is closer to x than an integer b if:
 |a - x| == |b - x| and a < b
 
 Solution description:
+Using binary search to calculate the position of x in the array. Then sliding the boundary of the window while the size of window is smaller than k.
 
 class Solution {
     public List<Integer> findClosestElements(int[] arr, int k, int x) {
