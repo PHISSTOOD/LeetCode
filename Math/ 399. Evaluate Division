@@ -5,7 +5,8 @@ Return the answers to all queries. If a single answer cannot be determined, retu
 Note: The input is always valid. You may assume that evaluating the queries will not result in division by zero and that there is no contradiction.
 
 Solution Description:
-
+Create a class Edge and map<String,List<Edge>> to record each equation. And use dfs to search the answer, when we meet a new query, we search the list whose key is src in map,
+if we can not find, then use each edge's div as src to search again.
 
 Code:
 class Solution {
