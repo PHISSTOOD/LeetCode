@@ -4,6 +4,9 @@ If Teemo attacks again before the poison effect ends, the timer for it is reset,
 You are given a non-decreasing integer array timeSeries, where timeSeries[i] denotes that Teemo attacks Ashe at second timeSeries[i], and an integer duration.
 Return the total number of seconds that Ashe is poisoned.
 
+Solution description:
+Iterate the array from the second num, if the diff is samller than the duration the result should add the diff of two nums else add the duration.
+
 class Solution {
     public int findPoisonedDuration(int[] timeSeries, int duration) {
         int result = 0;
