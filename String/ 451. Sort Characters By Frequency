@@ -1,8 +1,9 @@
 Given a string s, sort it in decreasing order based on the frequency of characters, and return the sorted string.
 
 Solution description:
+Using a 2-dimention array to count the number of each character, then re-write the sort function. Iterate the array and create a new String.
 
-
+Code:
 class Solution {
     public int[][] count = new int[100][2];
     public String frequencySort(String s) {
