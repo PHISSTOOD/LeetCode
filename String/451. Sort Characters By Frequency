@@ -1,0 +1,30 @@
+Given a string s, sort it in decreasing order based on the frequency of characters, and return the sorted string.
+
+Solution description:
+
+
+class Solution {
+    public int[][] count = new int[100][2];
+    public String frequencySort(String s) {
+        for(int i = 0; i<s.length(); i++){
+            if(count[s.charAt(i)-'0'][0]!=0){
+                count[s.charAt(i)-'0'][1]++;
+            }else{
+                count[s.charAt(i)-'0'][0] = s.charAt(i);
+                count[s.charAt(i)-'0'][1]++;
+            }
+        }
+        Collections.sort(Arrays.asList(count), (a, b) -> a[1] < b[1] ? 1 : a[1]==b[1] ?a[1]-b[1]:-1);
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i<100 && count[i][1]>0; i++){
+            for(int j = 0; j<count[i][1]; j++){
+                sb.append((char)(count[i][0]));
+            }
+        }
+        return sb.toString();
+    }
+}
+
+Result:
+Runtime: 7 ms, faster than 92.89% of Java online submissions for Sort Characters By Frequency.
+Memory Usage: 39 MB, less than 98.77% of Java online submissions for Sort Characters By Frequency.
