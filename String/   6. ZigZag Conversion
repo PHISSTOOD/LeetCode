@@ -7,7 +7,11 @@ Write the code that will take a string and make this conversion given a number o
 string convert(string s, int numRows);
 
 Solution Description:
+Iterate through the string s, appending eah character in the appropriate row. The appropriate row can be computed using two variables: the current row and flag.
 
+
+
+Code:
 class Solution {
     public String convert(String s, int numRows) {
         if(numRows==1){
@@ -37,3 +41,7 @@ class Solution {
         return sb.toString();
     }
 }
+
+Result:
+Runtime: 5 ms, faster than 76.42% of Java online submissions for ZigZag Conversion.
+Memory Usage: 39.2 MB, less than 83.16% of Java online submissions for ZigZag Conversion.
