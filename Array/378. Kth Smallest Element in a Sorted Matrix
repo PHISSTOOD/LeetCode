@@ -1,0 +1,66 @@
+Given an n x n matrix where each of the rows and columns are sorted in ascending order, return the kth smallest element in the matrix.
+Note that it is the kth smallest element in the sorted order, not the kth distinct element.
+
+Solution 1 Description:
+
+Code:
+class Solution {
+    public int kthSmallest(int[][] matrix, int k) {
+        int[] array = new int[matrix.length*matrix[0].length];
+        PriorityQueue<Integer> queue = new PriorityQueue();
+        for(int i = 0; i<matrix.length; i++){
+            for(int j = 0; j<matrix[0].length; j++){
+                queue.offer(matrix[i][j]);
+            }
+        }
+        while(k>1){
+            queue.poll();
+            k--;
+        }
+        return queue.poll();
+    }
+}
+
+Result:
+Runtime: 21 ms, faster than 23.80% of Java online submissions for Kth Smallest Element in a Sorted Matrix.
+Memory Usage: 43.3 MB, less than 95.29% of Java online submissions for Kth Smallest Element in a Sorted Matrix.
+
+Solution 2 Description:
+
+Code:
+class Solution {
+    public int kthSmallest(int[][] matrix, int k) {
+        int length = matrix.length;
+        int low = matrix[0][0];
+        int high = matrix[length-1][length-1];
+        
+        while(low<high){
+            int mid = (low+high)/2;
+            if(getPosition(matrix,mid,length)<k){
+                low = mid+1;
+            }else{
+                high = mid;
+            }
+        }
+        return high;
+    }
+    
+    public int getPosition(int[][] matrix, int compare, int length){
+        int row = 0;
+        int col = length-1;
+        int position = 0;
+        while(row<length && col>=0){
+            if(matrix[row][col]<=compare){
+                position += col+1;
+                row++;
+            }else{
+                col--;
+            }
+        }
+        return position;
+    }
+}
+
+Result:
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Kth Smallest Element in a Sorted Matrix.
+Memory Usage: 44.4 MB, less than 60.21% of Java online submissions for Kth Smallest Element in a Sorted Matrix.
