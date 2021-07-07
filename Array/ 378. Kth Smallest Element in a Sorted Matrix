@@ -2,6 +2,7 @@ Given an n x n matrix where each of the rows and columns are sorted in ascending
 Note that it is the kth smallest element in the sorted order, not the kth distinct element.
 
 Solution 1 Description:
+Using priority queue(heap) to store the number, then poll the kth number.
 
 Code:
 class Solution {
@@ -26,6 +27,7 @@ Runtime: 21 ms, faster than 23.80% of Java online submissions for Kth Smallest E
 Memory Usage: 43.3 MB, less than 95.29% of Java online submissions for Kth Smallest Element in a Sorted Matrix.
 
 Solution 2 Description:
+Using binary serach in 2-D matrix, if the position of mid is smaller than kth num, then find the kth num in the rear part, else find the number in the front part.
 
 Code:
 class Solution {
