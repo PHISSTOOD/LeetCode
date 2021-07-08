@@ -1,0 +1,55 @@
+Given an array of strings words, return the words that can be typed using letters of the alphabet on only one row of American keyboard like the image below.
+In the American keyboard:
+the first row consists of the characters "qwertyuiop",
+the second row consists of the characters "asdfghjkl", and
+the third row consists of the characters "zxcvbnm".
+
+Solution Description:
+Using set to restore the three rows in keyboard, and create a new function to judge if a string's characters are all in a set.
+
+class Solution {
+    public String[] findWords(String[] words) {
+        String row1 = "qwertyuiop";
+        String row2 = "asdfghjkl";
+        String row3 = "zxcvbnm";
+        Set<Character> set1 = new HashSet();
+        Set<Character> set2 = new HashSet();
+        Set<Character> set3 = new HashSet();
+        for(int i = 0; i<row1.length(); i++){
+            set1.add(row1.charAt(i));
+        }
+        for(int i = 0; i<row2.length(); i++){
+            set2.add(row2.charAt(i));
+        }
+        for(int i = 0; i<row3.length(); i++){
+            set3.add(row3.charAt(i));
+        }
+        List<String> result = new ArrayList();
+        for(String s : words){
+            if(contain(set1,s.toLowerCase())){
+                result.add(s);
+            }else if(contain(set2,s.toLowerCase())){
+                result.add(s);
+            }else if(contain(set3,s.toLowerCase())){
+                result.add(s);
+            }
+        }
+        String[] ans = new String[result.size()];
+        for(int i = 0; i<result.size(); i++){
+            ans[i] = result.get(i);
+        }
+        return ans;
+    }
+    public boolean contain(Set<Character> set, String src){
+        for(int i = 0; i<src.length(); i++){
+            if(!set.contains(src.charAt(i))){
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+Result:
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Keyboard Row.
+Memory Usage: 37.2 MB, less than 33.25% of Java online submissions for Keyboard Row.
