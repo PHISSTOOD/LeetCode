@@ -1,8 +1,9 @@
 Given an m x n matrix mat, return an array of all the elements of the array in a diagonal order.
 
 Solution Description:
+List all posible situation and when the situation occur how to operate the x and y.
 
-
+Code:
 class Solution {
     public int[] findDiagonalOrder(int[][] mat) {
         int width = mat.length;
