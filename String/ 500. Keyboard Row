@@ -7,6 +7,7 @@ the third row consists of the characters "zxcvbnm".
 Solution Description:
 Using set to restore the three rows in keyboard, and create a new function to judge if a string's characters are all in a set.
 
+Code:
 class Solution {
     public String[] findWords(String[] words) {
         String row1 = "qwertyuiop";
