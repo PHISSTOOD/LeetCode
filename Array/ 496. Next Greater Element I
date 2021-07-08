@@ -5,7 +5,7 @@ If there is no next greater element, then the answer for this query is -1.
 Return an array ans of length nums1.length such that ans[i] is the next greater element as described above.
 
 Solution Description:
-Using stack and hashamp to solve this problem.
+Using stack and hashamp to solve this problem, stack to find next greater number map to find the answer quickly.
 1. Iterating the nums2 array, when the new num is bigger than the peak of the stack, then put the (nums2[peak],nums2[i]) into the map, else push the new num into the stack.
 2. Iterating the nums1, if map contains the key nums1[i], return the value or return -1.
 
