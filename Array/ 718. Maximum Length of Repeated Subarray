@@ -1,5 +1,8 @@
 Given two integer arrays nums1 and nums2, return the maximum length of a subarray that appears in both arrays.
 
+Solution Description:
+Using dynamic programming to calculate it, very similar to longest subsequence string.
+Code:
 class Solution {
     public int findLength(int[] nums1, int[] nums2) {
         int[][] dp = new int[nums1.length+1][nums2.length+1];
