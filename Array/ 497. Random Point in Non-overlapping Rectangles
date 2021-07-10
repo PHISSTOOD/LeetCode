@@ -1,15 +1,19 @@
-Given a list of non-overlapping axis-aligned rectangles rects, write a function pick which randomly and uniformily picks an integer point in the space covered by the rectangles.
-
+Given a list of non-overlapping axis-aligned rectangles rects, write a function pick which randomly and uniformily picks an integer point 
+in the space covered by the rectangles.
 Note:
-
 An integer point is a point that has integer coordinates. 
 A point on the perimeter of a rectangle is included in the space covered by the rectangles. 
-ith rectangle = rects[i] = [x1,y1,x2,y2], where [x1, y1] are the integer coordinates of the bottom-left corner, and [x2, y2] are the integer coordinates of the top-right corner.
+ith rectangle = rects[i] = [x1,y1,x2,y2], where [x1, y1] are the integer coordinates of the bottom-left corner, 
+and [x2, y2] are the integer coordinates of the top-right corner.
 length and width of each rectangle does not exceed 2000.
-1 <= rects.length <= 100
-pick return a point as an array of integer coordinates [p_x, p_y]
-pick is called at most 10000 times.
+1 <= rects.length <= 100 pick return a point as an array of integer coordinates [p_x, p_y] pick is called at most 10000 times.
 
+Solution Description:
+In the solution function, when we get a new rectangle, we calculate it's area and add it with the sum of all rectangles, using the current sum of area to represent the
+rectangle. When we want to pick a rectangle, we can create a random number from 0 to sum of area, thus we can ensure the probablity of all rectangles is same.
+As for the treemap, treemap is a data structure which is similar to hashmap, but it will sort the key when we put them into the map.
+
+Code:
 class Solution {
     Random random = new Random();
     TreeMap<Integer, int[]> map = new TreeMap();
