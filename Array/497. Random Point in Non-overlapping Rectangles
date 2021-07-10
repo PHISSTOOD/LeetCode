@@ -1,0 +1,47 @@
+Given a list of non-overlapping axis-aligned rectangles rects, write a function pick which randomly and uniformily picks an integer point in the space covered by the rectangles.
+
+Note:
+
+An integer point is a point that has integer coordinates. 
+A point on the perimeter of a rectangle is included in the space covered by the rectangles. 
+ith rectangle = rects[i] = [x1,y1,x2,y2], where [x1, y1] are the integer coordinates of the bottom-left corner, and [x2, y2] are the integer coordinates of the top-right corner.
+length and width of each rectangle does not exceed 2000.
+1 <= rects.length <= 100
+pick return a point as an array of integer coordinates [p_x, p_y]
+pick is called at most 10000 times.
+
+class Solution {
+    Random random = new Random();
+    TreeMap<Integer, int[]> map = new TreeMap();
+    int sum = 0;
+
+    public Solution(int[][] rects) {
+        for(int[] rect : rects){
+            int [] rectangeCoordinates = rect;
+            int area = (rect[3]-rect[1]+1)*(rect[2]-rect[0]+1);
+            sum += area;
+            map.put(sum,rectangeCoordinates);
+        }
+    }
+    
+    public int[] pick() {
+        int ran = random.nextInt(sum)+1;
+        int[] cur = new int[4];
+        for(Map.Entry<Integer, int[]> entry : map.entrySet()) {
+            if(ran<=entry.getKey()){
+                cur = entry.getValue();
+                break;
+            }
+        }
+        int width = cur[3]-cur[1]+1;
+        int length = cur[2]-cur[0]+1;
+        int[] result = new int[2];
+        result[0] = cur[0] + random.nextInt(length);
+        result[1] = cur[1] + random.nextInt(width);
+        return result;
+    }
+}
+
+Result:
+Runtime: 57 ms, faster than 47.59% of Java online submissions for Random Point in Non-overlapping Rectangles.
+Memory Usage: 45.3 MB, less than 83.45% of Java online submissions for Random Point in Non-overlapping Rectangles.
