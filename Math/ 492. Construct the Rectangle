@@ -6,6 +6,11 @@ The width W should not be larger than the length L, which means L >= W.
 The difference between length L and width W should be as small as possible.
 Return an array [L, W] where L and W are the length and width of the web page you designed in sequence.
 
+Solution Description:
+There are 3 conditions that the result should meet, and one of them is the difference between L and W should be as small as possible. So we calculate from the sqrt of area.
+And a kind of tricky thing is the stop condition in for loop shoudl be i>1, whcih can make the code more faster, it might because some test cases' result are [area, 1].
+
+Code:
 class Solution {
     public int[] constructRectangle(int area) {
         for(int i = (int)Math.sqrt(area); i>1; i--){
