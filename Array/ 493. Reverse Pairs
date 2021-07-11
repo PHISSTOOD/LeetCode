@@ -1,6 +1,10 @@
 Given an integer array nums, return the number of reverse pairs in the array.
 A reverse pair is a pair (i, j) where 0 <= i < j < nums.length and nums[i] > 2 * nums[j].
 
+Solution Description:
+Count inversions during Merge Sort.
+
+Code:
 class Solution {
     public int reversePairs(int[] nums) {
         return mergeSort(nums, 0, nums.length-1, new int[nums.length]);
