@@ -1,0 +1,34 @@
+Given an integer array nums, return the number of reverse pairs in the array.
+A reverse pair is a pair (i, j) where 0 <= i < j < nums.length and nums[i] > 2 * nums[j].
+
+class Solution {
+    public int reversePairs(int[] nums) {
+        return mergeSort(nums, 0, nums.length-1, new int[nums.length]);
+    }
+    public int merge(int[] A, int l, int m, int r, int[] M) {
+        int i = l, t = l, k = 0, res = 0;
+        for(int j = m + 1; j <= r; j++) {
+            while(t <= m && A[t] <= 2L * A[j]) t++;
+            res += m - t + 1;
+            while(i <= m && A[i] <= A[j]) M[k++] = A[i++];
+            M[k++] = A[j];
+        }
+        while(i <= m) M[k++] = A[i++];
+        for(i = l; i <= r; i++) A[i] = M[i - l];
+        return res;
+        
+
+    }
+    
+    public int mergeSort(int[] origin, int left, int right, int[] newArray){
+        if(left>=right){
+            return 0;
+        }
+        int mid = (left+right)/2;
+        return mergeSort(origin, left, mid, newArray) + mergeSort(origin, mid+1, right, newArray) + merge(origin, left, mid, right, newArray);
+    }
+}
+
+Result:
+Runtime: 40 ms, faster than 95.84% of Java online submissions for Reverse Pairs.
+Memory Usage: 49.9 MB, less than 25.19% of Java online submissions for Reverse Pairs.
