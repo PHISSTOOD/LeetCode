@@ -1,0 +1,30 @@
+You are given a license key represented as a string s that consists of only alphanumeric characters and dashes. 
+The string is separated into n + 1 groups by n dashes. You are also given an integer k.
+We want to reformat the string s such that each group contains exactly k characters, except for the first group,
+which could be shorter than k but still must contain at least one character. Furthermore, there must be a dash inserted between two groups,
+and you should convert all lowercase letters to uppercase.
+Return the reformatted license key.
+
+Solution Description:
+
+
+Code:
+class Solution {
+    public String licenseKeyFormatting(String s, int k) {
+        s = s.replaceAll("-", "").toUpperCase();
+        StringBuilder sb = new StringBuilder();
+        String dash = "";
+        if (s.length()-1 == 0 || k == 0) return s;
+        for (int i = s.length()-1; i >= 0; ) {
+            int tmp = k;
+            sb.insert(0, dash);
+            while (tmp-- > 0 && i >= 0) sb.insert(0, s.charAt(i--));
+            dash = "-";
+        }
+        return sb.toString();
+    }
+}
+
+Result:
+Runtime: 73 ms, faster than 19.00% of Java online submissions for License Key Formatting.
+Memory Usage: 39.5 MB, less than 48.50% of Java online submissions for License Key Formatting.
