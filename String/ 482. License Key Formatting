@@ -6,7 +6,8 @@ and you should convert all lowercase letters to uppercase.
 Return the reformatted license key.
 
 Solution Description:
-
+Using StringBuilder to generate a new string by iterating the string. Because the the first group can contains the number of letters samller than k, so we iterate the string 
+from the end to front.
 
 Code:
 class Solution {
