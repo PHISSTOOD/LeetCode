@@ -11,7 +11,9 @@ Given a string board, representing the row of balls on the board, and a string h
 return the minimum number of balls you have to insert to clear all the balls from the board. 
 If you cannot clear all the balls from the board using the balls in your hand, return -1.
 
-
+Solution Code:
+It most like a deep first search or a backtracking. The difference between this idea and other top solutions is using 'need' to calculate if the current situation has any solution.
+And I think some of this questions' test cases are wrong. 
 
 class Solution {
     int MAX = 6;
@@ -54,3 +56,6 @@ class Solution {
         return board;
     }
 }
+
+Result:
+Wrong!
