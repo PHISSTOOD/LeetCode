@@ -1,6 +1,10 @@
 Given two stings ransomNote and magazine, return true if ransomNote can be constructed from magazine and false otherwise.
 Each letter in magazine can only be used once in ransomNote.
 
+Solution Description:
+The main idea of two solutions is get the statistic of the letters of two strings, if magazine contains plus 1, else minus 1. Then iterate the statistic, if it contains 
+negative number return false. And the difference between two solution is one using map to count the letters anther using array. 
+
 Code 1:
 class Solution {
     public boolean canConstruct(String ransomNote, String magazine) {
