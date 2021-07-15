@@ -1,0 +1,32 @@
+order and str are strings composed of lowercase letters. In order, no letter occurs more than once.
+order was sorted in some custom order previously. We want to permute the characters of str so that they match the order that order was sorted. 
+More specifically, if x occurs before y in order, then x should occur before y in the returned string.
+Return any permutation of str (as a string) that satisfies this property.
+
+Code:
+class Solution {
+    public String customSortString(String order, String str) {
+        int[] letters = new int[26];
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i<str.length();i++){
+            letters[str.charAt(i)-'a']++;
+        }
+        for(int i = 0; i<order.length();i++){
+            while(letters[order.charAt(i)-'a']>0){
+                sb.append(order.charAt(i));
+                letters[order.charAt(i)-'a']--;
+            }
+        }
+        for(int i = 0; i<26; i++){
+            while(letters[i]>0){
+                sb.append((char)('a'+i));
+                letters[i]--;
+            }
+        }
+        return sb.toString();
+    }
+}
+
+Result:
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Custom Sort String.
+Memory Usage: 37.3 MB, less than 52.42% of Java online submissions for Custom Sort String.
