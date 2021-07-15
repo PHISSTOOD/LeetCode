@@ -3,6 +3,9 @@ order was sorted in some custom order previously. We want to permute the charact
 More specifically, if x occurs before y in order, then x should occur before y in the returned string.
 Return any permutation of str (as a string) that satisfies this property.
 
+Solution Description:
+Using array to record the times of each letter's occurence, and iterate the order string to generate a new string.
+
 Code:
 class Solution {
     public String customSortString(String order, String str) {
