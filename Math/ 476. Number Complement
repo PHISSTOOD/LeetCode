@@ -1,7 +1,7 @@
 Given a positive integer num, output its complement number. The complement strategy is to flip the bits of its binary representation.
 
 Solution Description:
-
+Divded by 2 while num > 0; if the current reminder equals 0, add result the current multiples of 2.
 
 Code:
 class Solution {
