@@ -28,3 +28,7 @@ class Solution {
         return result;
     }
 }
+
+Result:
+Runtime: 4 ms, faster than 91.98% of Java online submissions for Longest Turbulent Subarray.
+Memory Usage: 42.2 MB, less than 74.81% of Java online submissions for Longest Turbulent Subarray.
