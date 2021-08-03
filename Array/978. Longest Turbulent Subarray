@@ -1,0 +1,30 @@
+Given an integer array arr, return the length of a maximum size turbulent subarray of arr.
+A subarray is turbulent if the comparison sign flips between each adjacent pair of elements in the subarray.
+More formally, a subarray [arr[i], arr[i + 1], ..., arr[j]] of arr is said to be turbulent if and only if:
+For i <= k < j:
+arr[k] > arr[k + 1] when k is odd, and
+arr[k] < arr[k + 1] when k is even.
+Or, for i <= k < j:
+arr[k] > arr[k + 1] when k is even, and
+arr[k] < arr[k + 1] when k is odd.
+
+Solution Description:
+Using slide window to solve this problem, if the current two number is turbulent then iterate next two numbers, or start a new subarray.
+
+Code:
+class Solution {
+    public int maxTurbulenceSize(int[] arr) {
+        int result = 1;
+        int start = 0;
+        for(int i = 1; i< arr.length; i++){
+            int help = Integer.compare(arr[i-1], arr[i]);
+            if (help == 0) {
+                start = i;
+            } else if(i==arr.length-1 ||  help * Integer.compare(arr[i], arr[i+1]) != -1){
+                result = Math.max(result,i-start+1);
+                start = i;
+            }
+        }
+        return result;
+    }
+}
