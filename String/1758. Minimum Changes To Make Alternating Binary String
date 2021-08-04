@@ -1,0 +1,26 @@
+You are given a string s consisting only of the characters '0' and '1'. In one operation, you can change any '0' to '1' or vice versa.
+The string is called alternating if no two adjacent characters are equal. For example, the string "010" is alternating, while the string "0100" is not.
+Return the minimum number of operations needed to make s alternating. 
+
+Code:
+class Solution {
+    public int minOperations(String s) {
+        char chr[] = s.toCharArray();
+        int result = 0;
+        char last = chr[0];
+        for(int i = 1; i<s.length();i++){
+            if(chr[i]==last){
+                result++;
+            }
+            last=last=='0'?'1':'0';
+        }
+        if(result>s.length()/2){
+            result = s.length()-result;
+        }
+        return result;
+    }
+}
+
+Result:
+Runtime: 2 ms, faster than 92.28% of Java online submissions for Minimum Changes To Make Alternating Binary String.
+Memory Usage: 39 MB, less than 61.93% of Java online submissions for Minimum Changes To Make Alternating Binary String.
