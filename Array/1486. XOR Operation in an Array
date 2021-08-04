@@ -1,0 +1,27 @@
+Given an integer n and an integer start.
+Define an array nums where nums[i] = start + 2*i (0-indexed) and n == nums.length.
+Return the bitwise XOR of all elements of nums.
+
+Solution Description:
+Create an array which length is n to store the numbers which start with start, and then iterate the array and XOR each numebr to get the final result.
+
+Code:
+class Solution {
+    public int xorOperation(int n, int start) {
+        int result = 0;
+        int[] array = new int[n];
+        array[0] = start;
+        for(int i = 1; i<n ;i++){
+            array[i] = start + 2;
+            start += 2;
+        }
+        for(int i = 0; i<n; i++){
+            result = result ^ array[i];
+        }
+        return result;
+    }
+}
+
+Result:
+Runtime: 0 ms, faster than 100.00% of Java online submissions for XOR Operation in an Array.
+Memory Usage: 36 MB, less than 28.28% of Java online submissions for XOR Operation in an Array.
