@@ -1,0 +1,32 @@
+There are n people standing in a queue, and they numbered from 0 to n - 1 in left to right order.
+You are given an array heights of distinct integers where heights[i] represents the height of the ith person.
+A person can see another person to their right in the queue if everybody in between is shorter than both of them. 
+More formally, the ith person can see the jth person if i < j and min(heights[i], heights[j]) > max(heights[i+1], heights[i+2], ..., heights[j-1]).
+Return an array answer of length n where answer[i] is the number of people the ith person can see to their right in the queue.
+
+Solution Description:
+We process from right to left and use a stack to track the visible height. When we iterate a height, we remove those heights which are smaller than it and stop at the peek of 
+the stack is bigger than it. Then push it in the stack.
+
+Code:
+class Solution {
+    public int[] canSeePersonsCount(int[] heights) {
+        int[] result = new int[heights.length];
+        Stack<Integer> stack = new Stack();
+        for(int i = heights.length-1;i>=0 ; i--){
+            while(!stack.isEmpty() && heights[i]>stack.peek()){
+                stack.pop();
+                result[i]++;
+            }
+            if(!stack.isEmpty()){
+                result[i]++;
+            }
+            stack.push(heights[i]);
+        }
+        return result;
+    }
+}
+
+Result:
+Runtime: 30 ms, faster than 72.09% of Java online submissions for Number of Visible People in a Queue.
+Memory Usage: 53.2 MB, less than 62.15% of Java online submissions for Number of Visible People in a Queue.
