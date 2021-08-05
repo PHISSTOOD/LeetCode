@@ -1,0 +1,22 @@
+Given a valid (IPv4) IP address, return a defanged version of that IP address.
+A defanged IP address replaces every period "." with "[.]".
+
+Code:
+class Solution {
+    public String defangIPaddr(String address) {
+        StringBuilder sb = new StringBuilder();
+        char[] s = address.toCharArray();
+        for(int i =0; i<s.length; i++){
+            if(s[i]=='.'){
+                sb.append("[.]");
+            }else{
+                sb.append(s[i]);
+            }
+        }
+        return sb.toString();
+    }
+}
+
+Result:
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Defanging an IP Address.
+Memory Usage: 36.9 MB, less than 86.58% of Java online submissions for Defanging an IP Address.
