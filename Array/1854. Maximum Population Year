@@ -1,0 +1,39 @@
+You are given a 2D integer array logs where each logs[i] = [birthi, deathi] indicates the birth and death years of the ith person.
+The population of some year x is the number of people alive during that year. 
+The ith person is counted in year x's population if x is in the inclusive range [birthi, deathi - 1]. Note that the person is not counted in the year that they die.
+Return the earliest year with the maximum population.
+
+Solution Description:
+Same as most solutions, iterate all years and compute the population of the year and then to calculate the earliest year with the maximum population.
+One optimize way is make sure the range first instead of calculate from 1950 to 2050.
+
+Code:
+class Solution {
+    public int maximumPopulation(int[][] logs) {
+        int result = 0;
+        int max = 0;
+        int earlist = 2050;
+        int latest = 1950;
+        for(int i = 0; i<logs.length;i++){
+            earlist = Math.min(earlist, logs[i][0]);
+            latest = Math.max(latest,logs[i][1]);
+        }
+        for(int i = earlist; i<=latest; i++){
+            int cur = 0;
+            for(int j = 0; j<logs.length; j++){
+                if(logs[j][0]<=i && logs[j][1]>i){
+                    cur++;
+                }
+            }
+            if(cur>max){
+                max = cur;
+                result = i;
+            }
+        }
+        return result;
+    }
+}
+
+Result:
+Runtime: 1 ms, faster than 65.64% of Java online submissions for Maximum Population Year.
+Memory Usage: 36.8 MB, less than 93.13% of Java online submissions for Maximum Population Year.
