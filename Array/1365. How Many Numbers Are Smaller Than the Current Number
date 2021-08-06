@@ -1,0 +1,44 @@
+Given the array nums, for each nums[i] find out how many numbers in the array are smaller than it. 
+That is, for each nums[i] you have to count the number of valid j's such that j != i and nums[j] < nums[i].
+Return the answer in an array.
+
+Solution Description:
+First, copy nums to another array and then sort the new array. Second, iterate the new array and store each different number into a map, the value is how many numbers smaller
+than it. Third, iterate the original array and generate the result.
+
+Another solution idea is create an array thich length is 101( because the range of the numbers which could occur in the nums is 0 ~ 100), and than count each number and record 
+in the new array.
+
+Code:
+class Solution {
+    public int[] smallerNumbersThanCurrent(int[] nums) {
+        int[] array = new int[nums.length];
+        for(int i = 0; i< nums.length; i++){
+            array[i] = nums[i];
+        }
+        Arrays.sort(array);
+        Map<Integer, Integer> map = new HashMap();
+        int last = 0;
+        for(int i = 0; i < array.length; i++){
+            if(i==0){
+                map.put(array[i],0);
+            }else{
+                if(array[i]==array[last]){
+                    continue;
+                }else{
+                    map.put(array[i],i);
+                    last = i;
+                }
+            }
+        }
+        int[] result = new int[nums.length];
+        for(int i = 0; i<nums.length; i++){
+            result[i] = map.get(nums[i]);
+        }
+        return result;
+    }
+}
+
+Result:
+Runtime: 3 ms, faster than 77.75% of Java online submissions for How Many Numbers Are Smaller Than the Current Number.
+Memory Usage: 38.9 MB, less than 92.04% of Java online submissions for How Many Numbers Are Smaller Than the Current Number.
