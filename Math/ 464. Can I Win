@@ -3,6 +3,10 @@ What if we change the game so that players cannot re-use integers?
 For example, two players might take turns drawing from a common pool of numbers from 1 to 15 without replacement until they reach a total >= 100.
 Given two integers maxChoosableInteger and desiredTotal, return true if the first player to move can force a win, otherwise, return false. Assume both players play optimally.
 
+Solution Description:
+The key of this solution is bitmap and dp. Using bitmap to represent a number if it has been used.
+
+Code:
 class Solution {
     Boolean[] dp;
     public boolean canIWin(int maxChoosableInteger, int desiredTotal) {
