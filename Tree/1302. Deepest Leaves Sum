@@ -1,0 +1,35 @@
+Given the root of a binary tree, return the sum of values of its deepest leaves.
+
+Solution Description:
+Using list to record all level nodes and then sum the deepest level nodes.
+Another solution is iterate all the nodes with it's depth, and there are two global varibles which record the max deepth and the result, if the current node's depth is same
+with the max depth then add the result, else reset the max depth and result.
+
+class Solution {
+    public int deepestLeavesSum(TreeNode root) {
+        ArrayList<ArrayList<Integer>> list = new ArrayList();
+        travel(root,list,1);
+        int result = 0;
+        for(int i = 0; i<list.get(list.size()-1).size(); i++){
+            result += list.get(list.size()-1).get(i);
+        }
+        return result;
+        
+    }
+    public void travel(TreeNode root, ArrayList<ArrayList<Integer>> list, int level){
+        if(root==null){
+            return;
+        }
+        if(list.size()<level){
+            ArrayList<Integer> cur = new ArrayList();
+            list.add(cur);
+        }
+        list.get(level-1).add(root.val);
+        travel(root.left,list,level+1);
+        travel(root.right,list,level+1);
+    }
+}
+
+Result:
+Runtime: 1 ms, faster than 82.84% of Java online submissions for Deepest Leaves Sum.
+Memory Usage: 40.1 MB, less than 71.70% of Java online submissions for Deepest Leaves Sum.
