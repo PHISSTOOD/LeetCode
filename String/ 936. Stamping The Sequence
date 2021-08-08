@@ -8,7 +8,7 @@ Note that stamp must be fully contained in the boundaries of s in order to stamp
 We want to convert s to target using at most 10 * target.length turns.
 Return an array of the index of the left-most letter being stamped at each turn. If we cannot obtain target from s within 10 * target.length turns, return an empty array.
 
-Solution description:
+Solution Description:
 Think the target as multiple layers, we can find the complete stamp first and then replace the letters to *, like we peel the layers and reverse the process.
 
 Code:
