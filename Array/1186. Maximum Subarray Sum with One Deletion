@@ -1,0 +1,38 @@
+Given an array of integers, return the maximum sum for a non-empty subarray (contiguous elements) with at most one element deletion. In other words, 
+you want to choose a subarray and optionally delete one element from it so that there is still at least one element left and the sum of the remaining elements is maximum possible.
+Note that the subarray needs to be non-empty after deleting one element.
+
+Solution Description:
+Using two array to record the max sum from the front to back and from back to front at each postion, and then iterete two array to compare dp1[i], dp2[i], arr[i], 
+dp1[i-1]+dp2[i+1]
+
+Code:
+class Solution {
+    public int maximumSum(int[] arr) {
+        int[] dp1 = new int[arr.length];
+        int[] dp2 = new int[arr.length];
+        dp1[0] = arr[0];
+        dp2[arr.length-1] = arr[arr.length-1];
+        for(int i = 1; i<arr.length; i++){
+            dp1[i] = Math.max(arr[i],dp1[i-1]+arr[i]);
+        }
+        for(int i = arr.length-2; i>=0; i--){
+            dp2[i] = Math.max(arr[i],dp2[i+1]+arr[i]);
+        }
+        int max = Integer.MIN_VALUE;
+        for(int i = 0; i<arr.length; i++){
+            if(i==0){
+                max = Math.max(max,Math.max(arr[i],dp2[i]));
+            }else if(i==arr.length-1){
+                max = Math.max(max,Math.max(arr[i],dp1[i]));
+            }else{
+                max = Math.max(max,Math.max(arr[i],Math.max(dp1[i],Math.max(dp2[i],dp1[i-1]+dp2[i+1]))));
+            }
+        }
+        return max;
+    }
+}
+
+Result:
+Runtime: 3 ms, faster than 82.35% of Java online submissions for Maximum Subarray Sum with One Deletion.
+Memory Usage: 47.2 MB, less than 44.01% of Java online submissions for Maximum Subarray Sum with One Deletion.
