@@ -1,5 +1,10 @@
 Given an array of integers arr of even length, return true if and only if it is possible to reorder it such that arr[2 * i + 1] = 2 * arr[2 * i] for every 0 <= i < len(arr) / 2.
 
+Solution Description:
+Using a map to record the number of occurence of each number, and then create checkMatch function to check each number, if the number need to be check can divided by 2, then
+check n/2 until n/2can not be devided by 2. As for the number n, the way we check it is check if there are more than m (the number of occurence of n) 2*n in map.
+
+Code
 class Solution {
     public boolean canReorderDoubled(int[] arr) {
         Map<Integer, Integer> map = new HashMap();
