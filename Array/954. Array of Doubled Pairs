@@ -1,0 +1,34 @@
+Given an array of integers arr of even length, return true if and only if it is possible to reorder it such that arr[2 * i + 1] = 2 * arr[2 * i] for every 0 <= i < len(arr) / 2.
+
+class Solution {
+    public boolean canReorderDoubled(int[] arr) {
+        Map<Integer, Integer> map = new HashMap();
+        for (int i : arr) {
+            map.put(i, map.getOrDefault(i, 0) + 1);
+        }
+        for (int i : arr) {
+            if (!checkMatch(map, i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public boolean checkMatch(Map<Integer,Integer> map, int n) {
+        if (map.getOrDefault(n, 0) == 0) {
+            return true;
+        }
+        if (n != 0 && n % 2 == 0 && !checkMatch(map, n / 2)) {
+            return false;
+        }
+        int nCount = map.get(n);
+        int matchCount = map.getOrDefault(n * 2, 0);
+        map.put(n * 2, matchCount - nCount);
+        map.put(n, 0);
+        return matchCount >= nCount;
+    }
+}
+
+Result:
+Runtime: 16 ms, faster than 97.61% of Java online submissions for Array of Doubled Pairs.
+Memory Usage: 47.2 MB, less than 41.29% of Java online submissions for Array of Doubled Pairs.
