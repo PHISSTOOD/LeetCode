@@ -2,7 +2,7 @@ Given an integer n, return all the numbers in the range [1, n] sorted in lexicog
 You must write an algorithm that runs in O(n) time and uses O(1) extra space. 
 
 Solution Description:
-
+Do a DFS for a tree constructed by [0~9] nodes. Using recursion to do DFS, when the current number is bigger than limit, then break else continue toooooooooo search.
 
 Code:
 class Solution {
