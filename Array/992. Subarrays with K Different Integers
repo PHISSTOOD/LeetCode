@@ -1,0 +1,46 @@
+Given an integer array nums and an integer k, return the number of good subarrays of nums.
+A good array is an array where the number of different integers in that array is exactly k.
+For example, [1,2,3,1,2] has 3 different integers: 1, 2, and 3.
+A subarray is a contiguous part of an array.
+
+Solution Description:
+Using sliding window and hashmap to record the number of each number in the window. When
+
+Code:
+class Solution {
+    public int subarraysWithKDistinct(int[] nums, int k) {
+        int start = 0;
+        int end = 0;
+        Map<Integer, Integer> map = new HashMap();
+        int result = 0;
+        for(;start<nums.length && end<nums.length;){
+            map.put(nums[end],map.getOrDefault(nums[end],0)+1);
+            while(map.size()>k){
+                map.put(nums[start],map.get(nums[start])-1);
+                if(map.get(nums[start])<=0){
+                    map.remove(nums[start]);
+                }
+                start++;
+            }
+            int pre = start;
+            while(start<=end && map.size()==k){
+                map.put(nums[start],map.get(nums[start])-1);
+                if(map.get(nums[start])==0){
+                    map.remove(nums[start]);
+                }
+                result++;
+                start++;
+            }
+            while(pre!=start){
+                start--;
+                map.put(nums[start],map.getOrDefault(nums[start],0)+1);
+            }
+            end++;
+        }
+        return result;
+    }
+}
+
+Result:
+Runtime: 42 ms, faster than 39.87% of Java online submissions for Subarrays with K Different Integers.
+Memory Usage: 42.4 MB, less than 70.45% of Java online submissions for Subarrays with K Different Integers.
