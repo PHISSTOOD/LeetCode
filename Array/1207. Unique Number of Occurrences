@@ -1,0 +1,27 @@
+Given an array of integers arr, write a function that returns true if and only if the number of occurrences of each value in the array is unique.
+
+Solution Description:
+Using map to record the occurence of each number and then using set to record each occurence to determine if each number is unique.
+
+Code:
+class Solution {
+    public boolean uniqueOccurrences(int[] arr) {
+        Map<Integer, Integer> map = new HashMap();
+        for(int i : arr){
+            map.put(i,map.getOrDefault(i,0)+1);
+        }
+        Set<Integer> set = new HashSet();
+        for(Map.Entry entry : map.entrySet()){
+            if(set.contains(Integer.parseInt(entry.getValue().toString()))){
+                return false;
+            }else{
+                set.add(Integer.parseInt(entry.getValue().toString()));
+            }
+        }
+        return true;
+    }
+}
+
+Result:
+Runtime: 1 ms, faster than 99.57% of Java online submissions for Unique Number of Occurrences.
+Memory Usage: 37.4 MB, less than 23.93% of Java online submissions for Unique Number of Occurrences.
