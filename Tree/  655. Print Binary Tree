@@ -7,6 +7,10 @@ For each node that has been placed in the matrix at position res[r][c], place it
 Continue this process until all the nodes in the tree have been placed.
 Any empty cells should contain the empty string "".
 Return the constructed matrix res
+Solution Description:
+1. We need to count the depth of the treem, thus we can know the width(how many items in each row).
+2. Then we initialize the result list with depth and width.
+3. Iterate all nodes in the tree and replace the calue in the result list.
 
 
 Code:
