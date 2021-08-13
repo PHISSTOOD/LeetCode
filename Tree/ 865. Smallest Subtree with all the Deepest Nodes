@@ -1,11 +1,13 @@
 Given the root of a binary tree, the depth of each node is the shortest distance to the root.
-
 Return the smallest subtree such that it contains all the deepest nodes in the original tree.
-
 A node is called the deepest if it has the largest depth possible among any node in the entire tree.
-
 The subtree of a node is tree consisting of that node, plus the set of all descendants of that node.
+Solution Description:
+There are two part of this solution: 1. We need to know the depth of this tree, created getDepth to get the depth.
+2. The result of this question is the lowest ancestor of the deepest nodes, so we need to search the result by the following steps, when we get a node, if it is the deepest node,
+return itself. if it's left child or right child has the depest node, return it's Left or right. If both its' child nodes have deepest nodes, return itself. Else return null.
 
+Code:
 class Solution {
     int depth = 0;
     public TreeNode subtreeWithAllDeepest(TreeNode root) {
