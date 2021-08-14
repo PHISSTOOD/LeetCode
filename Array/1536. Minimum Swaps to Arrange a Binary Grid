@@ -1,0 +1,46 @@
+Given an n x n binary grid, in one step you can choose two adjacent rows of the grid and swap them.
+A grid is said to be valid if all the cells above the main diagonal are zeros.
+Return the minimum number of steps needed to make the grid valid, or -1 if the grid cannot be valid.
+The main diagonal of a grid is the diagonal that starts at cell (1, 1) and ends at cell (n, n).
+
+Solution Description:
+1. We count the how many continious 0 in the rear part of each array and restore them in a list.
+2.Then we just need find the minimum step to ensure the ith array's last length-is' position is 0.
+
+Code:
+class Solution {
+    public int minSwaps(int[][] grid) {
+        List<Integer> list = new ArrayList();
+        for(int i = 0; i<grid.length; i++){
+            int cur = 0;
+            for(int j = grid.length-1; j>=0; j--){
+                if(grid[i][j] == 0){
+                    cur++;
+                }else{
+                    break;
+                }
+            }
+            list.add(cur);
+        }
+        int result = 0;
+        for(int i = 0; i<grid.length; i++){
+            int s = -1;
+            for(int j = 0; j<list.size();j++){
+                if(list.get(j)>=(grid.length-1-i)){
+                    result += j;
+                    s = j;
+                    list.remove(j);
+                    break;
+                }
+            }
+            if(s==-1){
+                return -1;
+            }
+        }
+        return result;
+    }
+}
+
+Result:
+Runtime: 2 ms, faster than 60.76% of Java online submissions for Minimum Swaps to Arrange a Binary Grid.
+Memory Usage: 41.4 MB, less than 54.43% of Java online submissions for Minimum Swaps to Arrange a Binary Grid.
