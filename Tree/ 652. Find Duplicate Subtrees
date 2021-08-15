@@ -1,10 +1,9 @@
-Given the root of a binary tree, return all duplicate subtrees.
-For each kind of duplicate subtrees, you only need to return the root node of any one of them.
+Given the root of a binary tree, return all duplicate subtrees.For each kind of duplicate subtrees, you only need to return the root node of any one of them.
 Two trees are duplicate if they have the same structure with the same node values.
 
 Solution Description:
 The key of this question is how to determine two subtree is same, we can use the preorder to represent a subtree. So, we using a map to record the string the occurence of each
-string. If the occurence equals 2, we add the node into the list.
+string. If the occurence equals 2, we add the node into the result list.
 
 
 Code:
