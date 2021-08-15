@@ -1,0 +1,38 @@
+Given the root of a binary tree, return all duplicate subtrees.
+For each kind of duplicate subtrees, you only need to return the root node of any one of them.
+Two trees are duplicate if they have the same structure with the same node values.
+
+Solution Description:
+The key of this question is how to determine two subtree is same, we can use the preorder to represent a subtree. So, we using a map to record the string the occurence of each
+string. If the occurence equals 2, we add the node into the list.
+
+
+Code:
+class Solution {
+    List<TreeNode> result = new ArrayList();
+    HashMap<String, Integer> map = new HashMap();
+    public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
+        String ans = display(root);
+        return result;
+    }
+    
+    public String display(TreeNode root){
+        if(root==null){
+            return "N";
+        }
+        String cur = String.valueOf(root.val);
+        String left = display(root.left);
+        String right = display(root.right);
+        StringBuilder sb = new StringBuilder();
+        String ans = sb.append(root.val).append(',').append(left).append(',').append(right).toString();
+        map.put(ans, map.getOrDefault(ans,0)+1);
+        if(map.get(ans) == 2){
+            result.add(root);
+        }
+        return ans;
+    }
+}
+
+Result:
+Runtime: 11 ms, faster than 93.22% of Java online submissions for Find Duplicate Subtrees.
+Memory Usage: 46.4 MB, less than 48.66% of Java online submissions for Find Duplicate Subtrees.
