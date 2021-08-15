@@ -1,0 +1,33 @@
+Given a 0-indexed integer array nums, return true if it can be made strictly increasing after removing exactly one element, or false otherwise.
+If the array is already strictly increasing, return true.
+The array nums is strictly increasing if nums[i - 1] < nums[i] for each index (1 <= i < nums.length).
+
+Solution Description:
+If we want to make it as a strictly increasing array, we should consider if nums[i]>nums[i+1] in this array. Then we count this kind of situation occurence times, if it over 1, 
+return false, if it equals 0 return true. Or if nums[index-2]<nums[index] || nums[index-1]<nums[index+1]) return true;
+
+Code:
+class Solution {
+    public boolean canBeIncreasing(int[] nums) {
+        if(nums.length<=2){
+            return true;
+        }
+        int count = 0;
+        int index = -1;
+        for(int i = 1; i<nums.length; i++){
+            if(nums[i-1]>=nums[i]){
+                count++;
+                index = i;
+            }
+        }
+        if(count>1) return false;
+        if(count==0) return true;
+        if(index==1 || index==nums.length-1) return true;
+        if(nums[index-2]<nums[index] || nums[index-1]<nums[index+1]) return true;
+        return false;
+    }
+}
+
+Result:
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Remove One Element to Make the Array Strictly Increasing.
+Memory Usage: 38.5 MB, less than 80.84% of Java online submissions for Remove One Element to Make the Array Strictly Increasing.
