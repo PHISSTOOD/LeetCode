@@ -1,0 +1,30 @@
+class Solution {
+    public int[] kthSmallestPrimeFraction(int[] arr, int k) {
+        PriorityQueue<int[]> pq = new PriorityQueue<int[]>((a,b) -> (a[0]*b[1])-(a[1]*b[0]));
+        int[] res = new int[2];
+        if(arr.length == 0 || k == 0)
+            return res;
+        int i = 0,j = arr.length-1;
+        while(i < j){
+            pq.offer(new int[]{arr[i],arr[j],j});
+            i++;
+        }
+        //System.out.println(pq.size());
+        while(k-- > 0 && !pq.isEmpty()){
+            int[] cur = pq.poll();
+            //System.out.println(cur[0]+" "+cur[1]+" "+cur[2]);
+            if(k == 0){
+                res[0] = cur[0];
+                res[1] = cur[1];
+            }
+            if(cur[2] == 0)
+                continue;
+            pq.offer(new int[]{cur[0],arr[cur[2]-1],cur[2]-1});
+        }
+        return res;
+    }
+}
+
+Result:
+Runtime: 197 ms, faster than 73.45% of Java online submissions for K-th Smallest Prime Fraction.
+Memory Usage: 39.1 MB, less than 82.66% of Java online submissions for K-th Smallest Prime Fraction.
