@@ -1,0 +1,81 @@
+class MyCircularQueue {
+    
+    public int front = -1;
+    public int rear = -1;
+    public int count = 0;
+    public int[] array;
+
+    /** Initialize your data structure here. Set the size of the queue to be k. */
+    public MyCircularQueue(int k) {
+        array = new int[k];
+        front = 0;
+        rear = 0;
+    }
+    
+    /** Insert an element into the circular queue. Return true if the operation is successful. */
+    public boolean enQueue(int value) {
+        if(count==array.length){
+            return false;
+        }
+        array[rear] = value;
+        rear++;
+        if(rear>=array.length){
+            rear = 0;
+        }
+        count++;
+        return true;
+    }
+    
+    /** Delete an element from the circular queue. Return true if the operation is successful. */
+    public boolean deQueue() {
+        if(count<=0){
+            return false;
+        }
+        front++;
+        if(front>=array.length){
+            front= 0;
+        }
+        count--;
+        return true;
+    }
+    
+    /** Get the front item from the queue. */
+    public int Front() {
+        if(count==0){
+            return -1;
+        }
+        return array[front];
+    }
+    
+    /** Get the last item from the queue. */
+    public int Rear() {
+        if(count==0){
+            return -1;
+        }
+        if(rear==0){
+            return array[array.length-1];
+        }else{
+            return array[rear-1];
+        }
+    }
+    
+    /** Checks whether the circular queue is empty or not. */
+    public boolean isEmpty() {
+        if(count==0){
+            return true;
+        }
+        return false;
+    }
+    
+    /** Checks whether the circular queue is full or not. */
+    public boolean isFull() {
+        if(count==array.length){
+            return true;
+        }
+        return false;
+    }
+}
+
+Result:
+Runtime: 4 ms, faster than 97.55% of Java online submissions for Design Circular Queue.
+Memory Usage: 39.2 MB, less than 91.85% of Java online submissions for Design Circular Queue.
