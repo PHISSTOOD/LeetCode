@@ -1,0 +1,49 @@
+Given the root of a binary tree, return the lowest common ancestor of its deepest leaves.
+Recall that:
+The node of a binary tree is a leaf if and only if it has no children
+The depth of the root of the tree is 0. if the depth of a node is d, the depth of each of its children is d + 1.
+The lowest common ancestor of a set S of nodes, is the node A with the largest depth such that every node in S is in the subtree with root A.
+
+Solution Description:
+Same as 865.
+
+Code:
+class Solution {
+    int depth = 0;
+    public TreeNode lcaDeepestLeaves(TreeNode root) {
+        findDeep(root, 1);
+        return dfs(root, 1);
+    }
+    
+    public void findDeep(TreeNode root, int level){
+        if(root==null){
+            return;
+        }
+        depth = Math.max(depth, level);
+        findDeep(root.left, level+1);
+        findDeep(root.right, level+1);
+    }
+    
+    public TreeNode dfs(TreeNode root, int level){
+        if(root==null){
+            return null;
+        }
+        if(level==depth){
+            return root;
+        }
+        TreeNode left = dfs(root.left, level+1);
+        TreeNode right = dfs(root.right, level+1);
+        if(left!=null && right!=null){
+            return root;
+        }else if(left!=null){
+            return left;
+        }else if(right!=null){
+            return right;
+        }
+        return null;
+    }
+}
+
+Result:
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Lowest Common Ancestor of Deepest Leaves.
+Memory Usage: 38.8 MB, less than 48.60% of Java online submissions for Lowest Common Ancestor of Deepest Leaves.
