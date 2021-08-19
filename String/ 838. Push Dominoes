@@ -72,6 +72,8 @@ class Solution {
     }
 }
 
+Result:
+
 Solution 2: 
 Solution 2 is much faster than the first, I focus on the two adjacent position which are not '.', 
 R...L - push everything except last in between
