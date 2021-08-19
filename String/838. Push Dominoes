@@ -10,7 +10,8 @@ dominoes[i] = '.', if the ith domino has not been pushed.
 Return a string representing the final state.
 
 Solution 1:
-
+The first solution is easy to understand, I focus on the status of each second, using 0~3 to represent some status that may occur in the real dominoes, and as time goes by, to 
+get the final status of dominoes.
 
 Code:
 class Solution {
@@ -71,6 +72,15 @@ class Solution {
     }
 }
 
+Solution 2: 
+Solution 2 is much faster than the first, I focus on the two adjacent position which are not '.', 
+R...L - push everything except last in between
+..L - push all to the left
+R.. - push all to the right
+. R - change pointers
+L .. R - change pointers
+
+Code:
 class Solution {
     public String pushDominoes(String dominoes) {
         char[] s = dominoes.toCharArray();
@@ -139,3 +149,7 @@ class Solution {
         }
     }
 }
+
+Result:
+Runtime: 15 ms, faster than 66.71% of Java online submissions for Push Dominoes.
+Memory Usage: 40.4 MB, less than 56.79% of Java online submissions for Push Dominoes.
