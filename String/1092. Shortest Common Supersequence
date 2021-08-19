@@ -1,0 +1,53 @@
+Given two strings str1 and str2, return the shortest string that has both str1 and str2 as subsequences. If there are multiple valid strings, return any of them.
+A string s is a subsequence of string t if deleting some number of characters from t (possibly 0) results in the string s.
+
+Solution Description:
+Using LCS idea, find the LCS string, and print those letters once then print other letters in the original order.
+
+Code:
+class Solution {
+    public String shortestCommonSupersequence(String str1, String str2) {
+        int[][] dp = new int[str1.length()+1][str2.length()+1];
+        for(int i = 0; i<str1.length()+1; i++){
+            for(int j = 0; j<str2.length()+1; j++){
+                if(i==0 || j==0){
+                    dp[i][j] = 0;
+                }else if(str1.charAt(i-1) == str2.charAt(j-1)){
+                    dp[i][j] = dp[i-1][j-1] +1;
+                }else{
+                    dp[i][j] = Math.max(dp[i][j-1], dp[i-1][j]);
+                }
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        int i =str1.length();
+        int j =str2.length();
+        while(i>0 && j>0){
+            if(str1.charAt(i-1) == str2.charAt(j-1)){
+                sb.insert(0,str1.charAt(i-1));
+                i--;
+                j--;
+            }else if(dp[i][j-1]<=dp[i-1][j]){
+                sb.insert(0,str1.charAt(i-1));
+                i--;
+            }else{
+                sb.insert(0,str2.charAt(j-1));
+                j--;
+            }
+        }
+        while(i>0){
+            sb.insert(0,str1.charAt(i-1));
+            i--;
+        }
+        while(j>0){
+            sb.insert(0,str2.charAt(j-1));
+            j--;
+        }
+        return sb.toString();
+    }
+}
+
+Result:
+Runtime: 11 ms, faster than 62.72% of Java online submissions for Shortest Common Supersequence .
+Memory Usage: 42.5 MB, less than 89.84% of Java online submissions for Shortest Common Supersequence .
+
