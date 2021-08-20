@@ -1,0 +1,26 @@
+Given a non-empty array of non-negative integers nums, the degree of this array is defined as the maximum frequency of any one of its elements.
+
+Your task is to find the smallest possible length of a (contiguous) subarray of nums, that has the same degree as nums.
+
+class Solution {
+    public int findShortestSubArray(int[] nums) {
+        Map<Integer,Integer> map =  new HashMap();
+        Map<Integer,Integer> left =  new HashMap();
+        Map<Integer,Integer> right =  new HashMap();
+        for( int i = 0; i<nums.length; i++){
+            map.put(nums[i], map.getOrDefault(nums[i], 0)+1);
+            if(!left.containsKey(nums[i])){
+                left.put(nums[i],i);
+            }
+            right.put(nums[i],i);
+        }
+        int max = Collections.max(map.values());
+        int result = Integer.MAX_VALUE;
+        for(Map.Entry<Integer, Integer> entry : map.entrySet()){
+            if(entry.getValue()==max){
+                result = Math.min(result,(right.get(entry.getKey())-left.get(entry.getKey())+1));
+            }
+        }
+        return result;
+    }
+}
