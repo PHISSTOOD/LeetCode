@@ -1,12 +1,16 @@
 Given an array of points where points[i] = [xi, yi] represents a point on the X-Y plane and an integer k, return the k closest points to the origin (0, 0).
-
 The distance between two points on the X-Y plane is the Euclidean distance (i.e., √(x1 - x2)2 + (y1 - y2)2).
-
 You may return the answer in any order. The answer is guaranteed to be unique (except for the order that it is in).
 
+Solution Description:
+These two solutions' idea is really simillar. The first is using max heap to restore those array and remove the min distance point one by one. The second solution is 
+calculating all points' distance at first, and then sort the array. We choose the kth number as limit, and then iterate the array again to get those points whose distance
+are smaller than limit.
+
+Code:
 class Solution {
     public int[][] kClosest(int[][] points, int k) {
-        /*PriorityQueue<int[]> pq = new PriorityQueue<int[]>((a,b) -> ((int)(Math.pow(a[0],2)+Math.pow(a[1],2))-(int)(Math.pow(b[0],2)+Math.pow(b[1],2))));
+        PriorityQueue<int[]> pq = new PriorityQueue<int[]>((a,b) -> ((int)(Math.pow(a[0],2)+Math.pow(a[1],2))-(int)(Math.pow(b[0],2)+Math.pow(b[1],2))));
         for(int i = 0; i<points.length; i++){
             pq.offer(points[i]);
         }
@@ -16,7 +20,12 @@ class Solution {
             result[count] = pq.remove();
             count++;
         }
-        return result;*/
+        return result;
+    }
+}
+
+class Solution {
+    public int[][] kClosest(int[][] points, int k) {
         int[] pro = new int[points.length];
         for(int i = 0; i<points.length; i++){
             pro[i] = (int)Math.pow(points[i][0],2) + (int)Math.pow(points[i][1],2);
@@ -35,33 +44,7 @@ class Solution {
     }
 }
 
-class Solution {
-    public int[][] kClosest(int[][] points, int k) {
-        /*PriorityQueue<int[]> pq = new PriorityQueue<int[]>((a,b) -> ((int)(Math.pow(a[0],2)+Math.pow(a[1],2))-(int)(Math.pow(b[0],2)+Math.pow(b[1],2))));
-        for(int i = 0; i<points.length; i++){
-            pq.offer(points[i]);
-        }
-        int count = 0;
-        int[][] result = new int[k][2];
-        while(count < k){
-            result[count] = pq.remove();
-            count++;
-        }
-        return result;*/
-        int[] pro = new int[points.length];
-        for(int i = 0; i<points.length; i++){
-            pro[i] = (int)Math.pow(points[i][0],2) + (int)Math.pow(points[i][1],2);
-        }
-        Arrays.sort(pro);
-        int limit = pro[k-1];
-        int[][] result = new int[k][2];
-        int count = 0;
-        for(int i = 0; i<points.length; i++){
-            if((int)(Math.pow(points[i][0],2) + Math.pow(points[i][1],2))<=limit){
-                result[count] = points[i];
-                count++;
-            }
-        }
-        return result;
-    }
-}
+
+Result:
+Runtime: 11 ms, faster than 83.42% of Java online submissions for K Closest Points to Origin.
+Memory Usage: 47.9 MB, less than 34.98% of Java online submissions for K Closest Points to Origin.
