@@ -1,7 +1,11 @@
 Given a non-empty array of non-negative integers nums, the degree of this array is defined as the maximum frequency of any one of its elements.
-
 Your task is to find the smallest possible length of a (contiguous) subarray of nums, that has the same degree as nums.
 
+Solution Description:
+Using 2 hashmap to solve this probelm, one records the number of occurence of each number, one records the left index of each number, 
+the other records the right index of each number. When we know the degree, we iterate all numbers whose occurence equals degree, return the min result.
+
+Code:
 class Solution {
     public int findShortestSubArray(int[] nums) {
         Map<Integer,Integer> map =  new HashMap();
@@ -24,3 +28,7 @@ class Solution {
         return result;
     }
 }
+
+Result:
+Runtime: 18 ms, faster than 55.78% of Java online submissions for Degree of an Array.
+Memory Usage: 42.9 MB, less than 65.13% of Java online submissions for Degree of an Array.
