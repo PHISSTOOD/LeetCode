@@ -1,0 +1,111 @@
+class MyLinkedList {
+    public class ListNode{
+        public int val;
+        public ListNode next;
+        
+        public ListNode(int val){
+            this.val = val;
+            this.next = null;
+        }
+    }
+    
+    public int count = -1;
+    public ListNode head;
+    public ListNode tail;
+
+    /** Initialize your data structure here. */
+    public MyLinkedList() {
+        head = new ListNode(0);
+        count = 0;
+        tail = head;
+    }
+    
+    /** Get the value of the index-th node in the linked list. If the index is invalid, return -1. */
+    public int get(int index) {
+        if(index>=count){
+            return -1;
+        }
+        ListNode cur = head.next;
+        while(index>0){
+            cur = cur.next;
+            index--;
+        }
+        return cur.val;
+    }
+    
+    /** Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list. */
+    public void addAtHead(int val) {
+        ListNode newNode = new ListNode(val);
+        ListNode dum = head.next;
+        head.next = newNode;
+        if(tail==head){
+            tail = newNode;
+        }
+        newNode.next = dum;
+        count++;
+    }
+    
+    /** Append a node of value val to the last element of the linked list. */
+    public void addAtTail(int val) {
+        ListNode newNode = new ListNode(val);
+        tail.next = newNode;
+        tail = newNode;
+        count++;
+    }
+    
+    /** Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. */
+    public void addAtIndex(int index, int val) {
+        if(index>count){
+            return;
+        }
+        ListNode newNode = new ListNode(val);
+        if(index==count){
+            tail = newNode;
+        }
+        ListNode cur = head;
+        while(index>0){
+            cur = cur.next;
+            index--;
+        }
+        ListNode next = cur.next;
+        cur.next = newNode;
+        newNode.next = next;
+        count++;
+    }
+    
+    /** Delete the index-th node in the linked list, if the index is valid. */
+    public void deleteAtIndex(int index) {
+        if(index>=count || count==0){
+            return;
+        }
+        int help = index;
+        ListNode cur = head;
+        while(help>0){
+            cur = cur.next;
+            help--;
+        }
+        ListNode next = cur.next;
+        if(index==count-1){
+            tail = cur;
+            cur.next = null;
+        }else{
+            cur.next = next.next;
+            next.next = null;
+        }
+        count--;
+    }
+}
+
+/**
+ * Your MyLinkedList object will be instantiated and called as such:
+ * MyLinkedList obj = new MyLinkedList();
+ * int param_1 = obj.get(index);
+ * obj.addAtHead(val);
+ * obj.addAtTail(val);
+ * obj.addAtIndex(index,val);
+ * obj.deleteAtIndex(index);
+ */
+ 
+Result:
+Runtime: 7 ms, faster than 94.42% of Java online submissions for Design Linked List.
+Memory Usage: 39.6 MB, less than 67.01% of Java online submissions for Design Linked List.
