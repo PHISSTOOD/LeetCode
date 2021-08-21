@@ -9,7 +9,7 @@ The digit-logs maintain their relative ordering.
 Return the final order of the logs.
 
 Solution Description:
-
+Rewrite the comparator.
 
 Code:
 class Solution {
@@ -43,3 +43,7 @@ class Solution {
         return logs;
     }
 }
+
+Result:
+Runtime: 5 ms, faster than 69.56% of Java online submissions for Reorder Data in Log Files.
+Memory Usage: 39.9 MB, less than 21.17% of Java online submissions for Reorder Data in Log Files.
