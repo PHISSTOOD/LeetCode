@@ -1,0 +1,29 @@
+Given an array nums of integers, return the length of the longest arithmetic subsequence in nums.
+Recall that a subsequence of an array nums is a list nums[i1], nums[i2], ..., nums[ik] with 0 <= i1 < i2 < ... < ik <= nums.length - 1, 
+and that a sequence seq is arithmetic if seq[i+1] - seq[i] are all the same value (for 0 <= i < seq.length - 1).
+
+
+Solution Description:
+Using dynamic programming to solve this problem. First, we created a 2 dimensional array, and there are double loop, the outer loop iterate from 1 to n, the inner loop iterate from
+i to 0, which means the inner loop to find ith num and jth num's dif, and update the max num at dp[i][dif].
+
+Code:
+class Solution {
+    public int longestArithSeqLength(int[] nums) {
+        int result = 1;
+        int[][] dp = new int[nums.length][1001];
+        for(int i = 1; i<nums.length; i++){
+            for(int j = i-1; j>=0; j--){
+                int dif = nums[i] - nums[j] + 500;
+                int temp = Math.max(1, dp[j][dif]);
+                dp[i][dif] = Math.max(temp+1, dp[i][dif]);
+                result = Math.max(result, dp[i][dif]);
+            }
+        }
+        return result;
+    }
+}
+
+Result:
+Runtime: 50 ms, faster than 93.01% of Java online submissions for Longest Arithmetic Subsequence.
+Memory Usage: 48 MB, less than 88.74% of Java online submissions for Longest Arithmetic Subsequence.
