@@ -3,8 +3,6 @@ Every song is played at least once.
 A song can only be played again only if k other songs have been played.
 Given n, goal, and k, return the number of possible playlists that you can create. Since the answer can be very large, return it modulo 109 + 7.
 
-Solution Description:
-
 Code:
 class Solution {
     public int numMusicPlaylists(int n, int goal, int k) {
@@ -23,6 +21,8 @@ class Solution {
         return (int) dp[goal][n];
     }
 }
+
+
 Result:
 Runtime: 6 ms, faster than 73.87% of Java online submissions for Number of Music Playlists.
 Memory Usage: 37.8 MB, less than 83.42% of Java online submissions for Number of Music Playlists.
