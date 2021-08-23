@@ -1,0 +1,42 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    boolean result = false;
+    public boolean findTarget(TreeNode root, int k) {
+        List<Integer> list = new ArrayList();
+        Set<Integer> set = new HashSet();
+        travel(root, set, k);
+        return result;
+    }
+    
+    public void travel(TreeNode root, Set<Integer> set, int k){
+        if(root==null || result==true){
+            return;
+        }
+        if(set.contains(k-root.val)){
+            result = true;
+            return;
+        }else{
+            set.add(root.val);
+        }
+        travel(root.left, set, k);
+        travel(root.right, set, k);
+    }
+}
+
+Result:
+Runtime: 2 ms, faster than 97.13% of Java online submissions for Two Sum IV - Input is a BST.
+Memory Usage: 39.9 MB, less than 68.84% of Java online submissions for Two Sum IV - Input is a BST.
