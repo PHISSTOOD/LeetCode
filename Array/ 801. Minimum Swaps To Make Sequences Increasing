@@ -3,6 +3,12 @@ For example, if nums1 = [1,2,3,8], and nums2 = [5,6,7,4], you can swap the eleme
 Return the minimum number of needed operations to make nums1 and nums2 strictly increasing. The test cases are generated so that the given input always makes it possible.
 An array arr is strictly increasing if and only if arr[0] < arr[1] < arr[2] < ... < arr[arr.length - 1].
 
+
+Solution 1:
+At first, I thpught using recursion to solve this problem, copy the array and try to swap or not swap num in every index, and save those array which meet the requirement. Then
+find the minimum result. However, this solution costs more time than limited.
+
+Code:
 class Solution {
     int result = Integer.MAX_VALUE;
     public int minSwap(int[] nums1, int[] nums2) {
@@ -42,6 +48,15 @@ class Solution {
 Result:
 Time Limit Exceeded
 
+
+Solution 2:
+Using dynamic programming. We find there are 3 confitions to affect our choice:
+1. nums1[i-1] >= nums2[i] || nums2[i-1] >= nums1[i]
+2. nums1[i-1] >= nums1[i] || nums2[i-1] >= nums2[i]
+3. nums1[i] > nums1[i-1] && nums2[i] > nums2[i-1] && nums1[i] >= nums2[i-1] && nums2[i] > nums1[i-1]
+
+If the first condition happen, we should swap the current index again. If the second condition happens, we should change the keep and swap.
+Else, we should modify keep to the minimum of these two numbers and make swap equal to the keep+1.
 
 class Solution {
     public int minSwap(int[] nums1, int[] nums2) {
