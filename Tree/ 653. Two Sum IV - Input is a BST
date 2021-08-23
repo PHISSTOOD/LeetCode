@@ -1,18 +1,9 @@
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
+Given the root of a Binary Search Tree and a target number k, return true if there exist two elements in the BST such that their sum is equal to the given target.
+
+Solution Description:
+Traveerse the BST in pre-order and using a set to record the values in those nodes have been traveled. When we iterate a new node, judge if set contains k-val.
+
+Code:
 class Solution {
     boolean result = false;
     public boolean findTarget(TreeNode root, int k) {
