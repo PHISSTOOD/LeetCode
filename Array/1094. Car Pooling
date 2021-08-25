@@ -4,7 +4,7 @@ The locations are given as the number of kilometers due east from the car's init
 Return true if it is possible to pick up and drop off all passengers for all the given trips, or false otherwise.
 
 Solution Description:
-Using range addition.
+Like leetcode 370. 差分数组。
 
 Code:
 class Solution {
