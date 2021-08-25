@@ -1,0 +1,65 @@
+Design an algorithm that collects daily price quotes for some stock and returns the span of that stock's price for the current day.
+The span of the stock's price today is defined as the maximum number of consecutive days (starting from today and going backward) 
+for which the stock price was less than or equal to today's price.
+For example, if the price of a stock over the next 7 days were [100,80,60,70,60,75,85], then the stock spans would be [1,1,1,2,1,4,6].
+Implement the StockSpanner class:
+StockSpanner() Initializes the object of the class.
+int next(int price) Returns the span of the stock's price given that today's price is price.
+
+Solution 1 Description: 
+Using list to record the price of each day, and using map to record the span of each day. When we get a new price, first we compare it with the price of the day before today,
+if it is bigger, then find the next past price which is bigger pre.
+
+Code:
+class StockSpanner {
+    List<Integer> list;
+    Map<Integer, Integer> map;
+    
+    public StockSpanner() {
+        list = new ArrayList();
+        map = new HashMap();
+    }
+    
+    public int next(int price) {
+        list.add(price);
+        if(list.size()==1){
+            map.put(0,1);
+            return 1;
+        }else{
+            int pre = list.size()-2;
+            while(price>=list.get(pre)){
+                int num = map.get(pre);
+                pre -= num;
+                if(pre<0){
+                    break;
+                }
+            }
+            int num = list.size()-1-pre;
+            map.put(list.size()-1, num);
+            return num;
+        }
+    }
+}
+
+
+class StockSpanner {
+    Stack<int[]> stack;
+    
+    public StockSpanner() {
+        stack = new Stack();
+    }
+    
+    public int next(int price) {
+        int count = 0;
+        while(!stack.isEmpty() && stack.peek()[0]<=price){
+            count += stack.pop()[1];
+        }
+        count++;
+        stack.push(new int[]{price, count});
+        return count;
+    }
+}
+
+Result:
+Runtime: 23 ms, faster than 85.49% of Java online submissions for Online Stock Span.
+Memory Usage: 47.3 MB, less than 84.88% of Java online submissions for Online Stock Span.
