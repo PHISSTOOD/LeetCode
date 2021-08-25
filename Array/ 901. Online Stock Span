@@ -41,7 +41,10 @@ class StockSpanner {
     }
 }
 
+Solution 2 Description:
+Using stack to record the past price, if the new price is bigger than the peek, pop the peek and compare the price with next peek. 
 
+Code:
 class StockSpanner {
     Stack<int[]> stack;
     
