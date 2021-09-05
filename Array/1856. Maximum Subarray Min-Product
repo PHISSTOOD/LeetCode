@@ -1,0 +1,38 @@
+The min-product of an array is equal to the minimum value in the array multiplied by the array's sum.
+For example, the array [3,2,5] (minimum value is 2) has a min-product of 2 * (3+2+5) = 2 * 10 = 20.
+Given an array of integers nums, return the maximum min-product of any non-empty subarray of nums. Since the answer may be large, return it modulo 109 + 7.
+Note that the min-product should be maximized before performing the modulo operation. 
+Testcases are generated such that the maximum min-product without modulo will fit in a 64-bit signed integer.
+A subarray is a contiguous part of an array.
+
+Solution Description:
+First, create a array to store the sum of 0~n for n in original array. Then using a stack record the min value which is smaller than stack.peek.
+
+Code:
+class Solution {
+    public int maxSumMinProduct(int[] nums) {
+        int N = nums.length;
+        long result = Long.MIN_VALUE;
+        long[] sum = new long[nums.length+1];
+        for(int i = 1; i<=nums.length; i++){
+            sum[i] = sum[i-1] + nums[i-1];
+        }
+        Stack<Integer> stack = new Stack<>();
+        for(int i = 0; i<=nums.length; i++){
+            int cur = i == N ? 0 : nums[i];
+            while (!stack.isEmpty() && cur <= nums[stack.peek()]) {
+                int min = nums[stack.pop()];
+                int j = stack.isEmpty() ? 0 : stack.peek() + 1;
+                long curSum = sum[i] - sum[j];
+                long prod = min * curSum;
+                result = Math.max(result, prod);
+            }
+            stack.push(i);
+        }
+        return (int)(result%(int)(1E9+7));
+    }
+}
+
+Result:
+Runtime: 40 ms, faster than 82.13% of Java online submissions for Maximum Subarray Min-Product.
+Memory Usage: 55.3 MB, less than 42.99% of Java online submissions for Maximum Subarray Min-Product.
