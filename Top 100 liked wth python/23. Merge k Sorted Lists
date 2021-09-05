@@ -1,0 +1,38 @@
+You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.
+Merge all the linked-lists into one sorted linked-list and return it.
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        def merge2Lists(l1, l2) -> ListNode :
+            head = ListNode(0)
+            cur = head
+            while l1 or l2:
+                if l1 and l2:
+                    if l1.val <= l2.val:
+                        cur.next = l1
+                        l1 = l1.next
+                    else:
+                        cur.next = l2
+                        l2 = l2.next
+                elif l1:
+                    cur.next = l1
+                    l1 = l1.next
+                else:
+                    cur.next = l2
+                    l2 = l2.next
+                cur = cur.next
+            return head.next
+        if not lists:
+            return None
+        elif len(lists) == 1:
+            return lists[0]
+        else:
+            mid = len(lists)//2
+            list1 = self.mergeKLists(lists[:mid])
+            list2 = self.mergeKLists(lists[mid:])
+            return merge2Lists(list1,list2)
