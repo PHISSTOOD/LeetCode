@@ -1,0 +1,31 @@
+Implement next permutation, which rearranges numbers into the lexicographically next greater permutation of numbers.
+If such an arrangement is not possible, it must rearrange it as the lowest possible order (i.e., sorted in ascending order).
+The replacement must be in place and use only constant extra memory.
+
+class Solution:
+    def nextPermutation(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        def reverse(nums, i1, i2):
+            while i1 < i2:
+                cur = nums[i1]
+                nums[i1] = nums[i2]
+                nums[i2] = cur
+                i1 += 1
+                i2 -= 1
+        if len(nums) <= 1:
+            return
+        i = len(nums)-2
+        while i>=0 and nums[i]>=nums[i+1]:
+            i -=1
+        if i>=0:
+            j = len(nums)-1
+            while nums[j]<=nums[i]:
+                j -=1
+            temp = nums[j]
+            nums[j] = nums[i]
+            nums[i] = temp
+        
+        reverse(nums,i+1,len(nums)-1)
+        
