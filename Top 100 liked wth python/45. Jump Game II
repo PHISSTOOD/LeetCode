@@ -1,0 +1,17 @@
+Given an array of non-negative integers nums, you are initially positioned at the first index of the array.
+Each element in the array represents your maximum jump length at that position.
+Your goal is to reach the last index in the minimum number of jumps.
+You can assume that you can always reach the last index.
+
+class Solution:
+    def jump(self, nums: List[int]) -> int:
+        result = 0
+        start = 0
+        end = 0
+        while end < len(nums)-1:
+            old = end
+            for i in range(start,old+1):
+                end = max(end, i+nums[i])
+            start = old+1
+            result += 1
+        return result
