@@ -1,0 +1,19 @@
+Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.
+
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        ans = []
+        def dfs(seen, per):
+            for num in nums:
+                if num not in seen:
+                    p = per.copy()
+                    p.append(num)
+                    s = seen.copy()
+                    s.add(num)
+                    if len(p) == len(nums):
+                        ans.append(p)
+                    else: 
+                        dfs(s, p)
+                
+        dfs(set(), [])
+        return ans
