@@ -1,0 +1,21 @@
+Given two integer arrays of equal length target and arr.
+In one step, you can select any non-empty sub-array of arr and reverse it. You are allowed to make any number of steps.
+Return True if you can make arr equal to target, or False otherwise.
+
+Solution Description:
+Using an array to record the occurence of each num and check is any number is not 0.
+
+Code:
+class Solution {
+    public boolean canBeEqual(int[] target, int[] arr) {
+        int[] map = new int[1001];
+        for (int i : target) map[i]++;
+        for (int i : arr) map[i]--;
+        for (int i : map) if(i!=0) return false;          
+        return true;
+    }
+}
+
+Result:
+Runtime: 4 ms, faster than 52.29% of Java online submissions for Make Two Arrays Equal by Reversing Sub-arrays.
+Memory Usage: 43.1 MB, less than 16.60% of Java online submissions for Make Two Arrays Equal by Reversing Sub-arrays.
