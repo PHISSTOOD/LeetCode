@@ -1,0 +1,65 @@
+There is an integer array nums that consists of n unique elements, but you have forgotten it. However, you do remember every pair of adjacent elements in nums.
+You are given a 2D integer array adjacentPairs of size n - 1 where each adjacentPairs[i] = [ui, vi] indicates that the elements ui and vi are adjacent in nums.
+It is guaranteed that every adjacent pair of elements nums[i] and nums[i+1] will exist in adjacentPairs, either as [nums[i], nums[i+1]] or [nums[i+1], nums[i]].
+The pairs can appear in any order.
+Return the original array nums. If there are multiple solutions, return any of them.
+
+Solution Description:
+Using map to store the numbers which is adjacent by each nums. From the map, we can know the start and the end of the originial array.
+Then we iterate each num and remove it after iterating it, when the size of map becomes 0, we have iterate all nums.
+
+Code:
+class Solution {
+    public int[] restoreArray(int[][] adjacentPairs) {
+        if(adjacentPairs.length==1){
+            return adjacentPairs[0];
+        }
+        HashMap<Integer,List<Integer>> map = new HashMap<Integer,List<Integer>>();
+        for(int[] i :adjacentPairs){
+            if(map.containsKey(i[0])){
+                map.get(i[0]).add(i[1]);
+            }else{
+                List<Integer> list = new ArrayList<Integer>();
+                list.add(i[1]);
+                map.put(i[0],list);
+            }
+            if(map.containsKey(i[1])){
+                map.get(i[1]).add(i[0]);
+            }else{
+                List<Integer> list = new ArrayList<Integer>();
+                list.add(i[0]);
+                map.put(i[1],list);
+            }
+        }
+        int start = -1;
+        for(Map.Entry<Integer,List<Integer>> entry : map.entrySet()){
+            if(entry.getValue().size()==1){
+                start = entry.getKey();
+                break;
+            }
+        }
+        int[] result = new int[map.size()];
+        int index = 0;
+        while(map.size()>=1){
+            result[index++] = start;
+            List<Integer> cur = map.get(start);
+            if(cur.size()==1){
+                start = cur.get(0);
+                map.remove(result[index-1]);
+            }else{
+                for(int j = 0; j<cur.size(); j++){
+                    if(cur.get(j)!=result[index-2]){
+                        start = cur.get(j);
+                        break;
+                    }
+                }
+                map.remove(result[index-1]);
+            }
+        }
+        return result;
+    }
+}
+
+Result:
+Runtime: 126 ms, faster than 78.02% of Java online submissions for Restore the Array From Adjacent Pairs.
+Memory Usage: 158.9 MB, less than 46.17% of Java online submissions for Restore the Array From Adjacent Pairs.
