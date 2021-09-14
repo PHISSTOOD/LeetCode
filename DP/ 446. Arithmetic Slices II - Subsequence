@@ -6,6 +6,12 @@ A subsequence of an array is a sequence that can be formed by removing some elem
 For example, [2,5,10] is a subsequence of [1,2,1,2,4,1,5,10].
 The test cases are generated so that the answer fits in 32-bit integer.
 
+
+Solution Description:
+For this problem, using dynamic programming for this problem. Create a List whose element is a map to help us record. For each map in list, it record the index th number's number
+For each number n in nums, we just need to iterate the map of the numbers in front of n, if the map contains the key which equals n - nums[j], we add it.
+
+Code:
 class Solution {
     public int numberOfArithmeticSlices(int[] nums) {
         if(nums==null||nums.length<3) return 0;
