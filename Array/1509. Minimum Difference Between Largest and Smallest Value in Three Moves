@@ -1,0 +1,28 @@
+Given an array nums, you are allowed to choose one element of nums and change it by any value in one move.
+Return the minimum difference between the largest and smallest value of nums after perfoming at most 3 moves.
+
+Solution Description:
+Different solutions depends on different situations. If the length of nums is smaller than 5, return 0;
+else sort the array and iterate 4 pairs.
+
+
+Code:
+class Solution {
+    public int minDifference(int[] nums) {
+        if(nums.length<=4){
+            return 0;
+        }
+        Arrays.sort(nums);
+        int start = 0;
+        int end = nums.length-1;
+        int result = Integer.MAX_VALUE;
+        for(int i = 0; i<=3; i++){
+            result = Math.min(nums[end-i]-nums[start+3-i],result);
+        }
+        return result;
+    }
+}
+
+Result:
+Runtime: 14 ms, faster than 95.37% of Java online submissions for Minimum Difference Between Largest and Smallest Value in Three Moves.
+Memory Usage: 54.6 MB, less than 54.49% of Java online submissions for Minimum Difference Between Largest and Smallest Value in Three Moves.
