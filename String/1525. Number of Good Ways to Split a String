@@ -1,0 +1,42 @@
+You are given a string s, a split is called good if you can split s into 2 non-empty strings p and q where its concatenation is equal to s and the number of distinct 
+letters in p and q are the same.
+Return the number of good splits you can make in s.
+
+Optimize:
+The optimize solution is using two array to record the distinct character from 0 to i and form end to i.
+
+class Solution {
+    public int numSplits(String s) {
+        if(s==null || s.length()<=1){
+            return 0;
+        }
+        HashMap<Character,Integer> map1 = new HashMap();
+        HashMap<Character,Integer> map2 = new HashMap();
+        char[] charOfS = s.toCharArray();
+        for(int i = 0; i<charOfS.length; i++){
+            map2.put(charOfS[i],map2.getOrDefault(charOfS[i],0)+1);
+        }
+        int splitIndex = 0;
+        int result = 0;
+        while(splitIndex<s.length()-1){
+            map1.put(charOfS[splitIndex],map1.getOrDefault(charOfS[splitIndex],0)+1);
+            if(map2.get(charOfS[splitIndex])==1){
+                map2.remove(charOfS[splitIndex]);
+            }else{
+                map2.put(charOfS[splitIndex],map2.get(charOfS[splitIndex])-1);
+            }
+            if(map1.size()==map2.size()){
+                result++;
+            }
+            if(map1.size()>map2.size()){
+                break;
+            }
+            splitIndex++;
+        }
+        return result;
+    }
+}
+
+Result:
+Runtime: 47 ms, faster than 14.79% of Java online submissions for Number of Good Ways to Split a String.
+Memory Usage: 52.1 MB, less than 6.79% of Java online submissions for Number of Good Ways to Split a String.
