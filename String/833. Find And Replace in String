@@ -38,3 +38,7 @@ class Solution {
         return sb.toString();
     }
 }
+
+Result:
+Runtime: 3 ms, faster than 46.26% of Java online submissions for Find And Replace in String.
+Memory Usage: 40.4 MB, less than 7.13% of Java online submissions for Find And Replace in String.
