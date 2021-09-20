@@ -1,0 +1,53 @@
+We are given an array asteroids of integers representing asteroids in a row.
+For each asteroid, the absolute value represents its size, and the sign represents its direction (positive meaning right, negative meaning left). 
+Each asteroid moves at the same speed.
+Find out the state of the asteroids after all collisions. If two asteroids meet, the smaller one will explode. If both are the same size, both will explode. 
+Two asteroids moving in the same direction will never meet.
+
+
+Code:
+class Solution {
+    public int[] asteroidCollision(int[] asteroids) {
+        List<Integer> result = new ArrayList();
+        Stack<Integer> stack = new Stack();
+        for(int i : asteroids){
+            if(i<0){
+                int cur = Math.abs(i);
+                if(stack.isEmpty()){
+                    result.add(i);
+                }else{
+                    boolean collide = false;
+                    while(!stack.isEmpty()){
+                        if(cur>stack.peek()){
+                            stack.pop();
+                        }else if(stack.peek()==cur){
+                            collide = true;
+                            stack.pop();
+                            break;
+                        }else{
+                            break;
+                        }
+                    }
+                    if(stack.isEmpty()&&collide==false){
+                        result.add(i);
+                    }
+                }
+            }else{
+                stack.push(i);
+            }
+        }
+        int index = result.size();
+        while(!stack.isEmpty()){
+            result.add(index,stack.pop());
+        }
+        int[] ans = new int[result.size()];
+        for(int i = 0; i<result.size();i++){
+            ans[i] = result.get(i);
+        }
+        return ans;
+    }
+}
+
+Result:
+Runtime: 4 ms, faster than 89.82% of Java online submissions for Asteroid Collision.
+Memory Usage: 39.6 MB, less than 83.86% of Java online submissions for Asteroid Collision.
