@@ -1,0 +1,30 @@
+There are several cards arranged in a row, and each card has an associated number of points. The points are given in the integer array cardPoints.
+In one step, you can take one card from the beginning or from the end of the row. You have to take exactly k cards.
+Your score is the sum of the points of the cards you have taken.
+Given the integer array cardPoints and the integer k, return the maximum score you can obtain.
+
+Solution Description:
+Because we can only pick the card from the start or the end. First, we get the sum of the first k numbers.
+And then we movefoeard the window.
+
+Code:
+class Solution {
+    public int maxScore(int[] cardPoints, int k) {
+        int sum = 0;
+        for(int i = 0;i<k; i++){
+            sum += cardPoints[i];
+        }
+        
+        int result = sum;
+        for(int i = 0; i<k; i++){
+            sum -= cardPoints[k-1-i];
+            sum += cardPoints[cardPoints.length-1-i];
+            result = Math.max(result,sum);
+        }
+        return result;
+    }
+}
+
+Result:
+Runtime: 3 ms, faster than 32.11% of Java online submissions for Maximum Points You Can Obtain from Cards.
+Memory Usage: 62.3 MB, less than 11.20% of Java online submissions for Maximum Points You Can Obtain from Cards.
