@@ -6,6 +6,7 @@ The distance between these two cars is ignored (i.e., they are assumed to have t
 A car fleet is some non-empty set of cars driving at the same position and same speed. Note that a single car is also a car fleet.
 If a car catches up to a car fleet right at the destination point, it will still be considered as one car fleet.
 Return the number of car fleets that will arrive at the destination.
+Solution Description:
 
 
 Code:
