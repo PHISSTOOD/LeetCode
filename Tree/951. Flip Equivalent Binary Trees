@@ -1,0 +1,19 @@
+class Solution {
+    public boolean flipEquiv(TreeNode root1, TreeNode root2) {
+        // determinen if the input is null
+        if(root1==null && root2==null){
+            return true;
+        }else if (root1==null || root2==null){
+            return false;
+        }
+        //determine the value of two nodes
+        if(root1.val!=root2.val){
+            return false;
+        }
+        return (flipEquiv(root1.left, root2.right) && flipEquiv(root1.right, root2.left))||(flipEquiv(root1.left, root2.left) && flipEquiv(root1.right, root2.right));
+    }
+}
+
+Result:
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Flip Equivalent Binary Trees.
+Memory Usage: 36.4 MB, less than 90.40% of Java online submissions for Flip Equivalent Binary Trees.
