@@ -7,6 +7,7 @@
 每个单词的长度大于 0 且不会超过 10。
 1 ≤ rows, cols ≤ 20,000.
 
+Code:
 class Solution {
     public int wordsTyping(String[] sentence, int rows, int cols) {
         int cur = cols;
