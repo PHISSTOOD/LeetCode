@@ -1,0 +1,33 @@
+Given an m x n integers matrix, return the length of the longest increasing path in matrix.
+From each cell, you can either move in four directions: left, right, up, or down. You may not move diagonally or move outside the boundary (i.e., wrap-around is not allowed).
+
+class Solution {
+    public int longestIncreasingPath(int[][] matrix) {
+        int[][] dir = {{0,1},{1,0},{0,-1},{-1,0}};
+        int[][] dp = new int[matrix.length][matrix[0].length];
+        int result = 0;
+        for(int i =0; i<matrix.length; i++){
+            for(int j = 0; j<matrix[0].length;j++){
+                result = Math.max(result,dfs(i,j,matrix,dp,dir));
+            }
+        }
+        return result;
+    }
+    
+    public int dfs(int xpos, int ypos,int[][]mat, int[][] dp, int[][] dir){
+        if(dp[xpos][ypos]!=0){
+            return dp[xpos][ypos];
+        }
+        dp[xpos][ypos] = 1;
+        for(int i = 0; i<4; i++){
+            int newXpos = xpos + dir[i][0];
+            int newYpos = ypos + dir[i][1];
+            if(newXpos>=0 && newYpos>=0 && newXpos<dp.length && newYpos<dp[0].length){
+                if(mat[xpos][ypos]>mat[newXpos][newYpos]){
+                    dp[xpos][ypos] = Math.max(dp[xpos][ypos],dfs(newXpos, newYpos, mat,dp,dir)+1);
+                }
+            }
+        }
+        return dp[xpos][ypos];
+    }
+}
