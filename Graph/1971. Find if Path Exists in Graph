@@ -1,0 +1,54 @@
+There is a bi-directional graph with n vertices, where each vertex is labeled from 0 to n - 1 (inclusive). 
+The edges in the graph are represented as a 2D integer array edges, where each edges[i] = [ui, vi] denotes a bi-directional edge between vertex ui and vertex vi. 
+Every vertex pair is connected by at most one edge, and no vertex has an edge to itself.
+You want to determine if there is a valid path that exists from vertex start to vertex end.
+Given edges and the integers n, start, and end, return true if there is a valid path from start to end, or false otherwise
+
+Solution Description:
+DFS
+
+Code:
+class Solution {
+    public boolean validPath(int n, int[][] edges, int start, int end) {
+        if(start==end){
+            return true;
+        }
+        if(edges.length==0){
+            return false;
+        }
+        ArrayList<Integer>[] graph = new ArrayList[n];
+        for(int i = 0; i<n ;i++){
+            graph[i] = new ArrayList();
+        }
+        for(int[] edge:edges){
+            graph[edge[0]].add(edge[1]);
+            graph[edge[1]].add(edge[0]);
+        }
+        boolean[] visited = new boolean[n];
+        if(dfs(graph,start,end,visited)){
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean dfs(ArrayList<Integer>[] graph, int start, int end, boolean[] visited){
+        if(start == end){
+            return true;
+        }
+        visited[start] = true;
+        for(int i : graph[start]){
+            if(visited[i] == true)
+            {
+                continue;
+            }
+            if(dfs(graph,i,end,visited)){
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+Result:
+Runtime: 125 ms, faster than 60.51% of Java online submissions for Find if Path Exists in Graph.
+Memory Usage: 130.4 MB, less than 73.81% of Java online submissions for Find if Path Exists in Graph.
