@@ -2,7 +2,7 @@ Given a directed acyclic graph (DAG) of n nodes labeled from 0 to n - 1, find al
 The graph is given as follows: graph[i] is a list of all nodes you can visit from node i (i.e., there is a directed edge from node i to node graph[i][j]).
 
 Solution Description:
-DFS
+Using DFS
 
 Code:
 class Solution {
@@ -10,25 +10,28 @@ class Solution {
         List<List<Integer>> result = new ArrayList();
         List<Integer> cur = new ArrayList();
         cur.add(0);
-        dfs(result,0,cur,graph,graph.length-1);
+        boolean visited[]=new boolean[graph.length];
+        dfs(result,0,cur,graph,graph.length-1,visited);
         return result;
     }
     
-    public void dfs(List<List<Integer>> result, int src,List<Integer> cur, int[][] graph, int dest){
+    public void dfs(List<List<Integer>> result, int src,List<Integer> cur, int[][] graph, int dest,boolean[] visited){
         if(cur.size()!=0 && cur.get(cur.size()-1)==dest){
             result.add(new ArrayList(cur));
             return;
         }
+        visited[src] = true;
         for(int i:graph[src]){
-            if(!cur.contains(i)){
+            if(visited[i]==false){
                 cur.add(i);
-                dfs(result,i,cur,graph,dest);
+                dfs(result,i,cur,graph,dest,visited);
                 cur.remove(cur.size()-1);
             }
         }
+        visited[src] = false;
     }
 }
 
 Result:
-Runtime: 4 ms, faster than 50.31% of Java online submissions for All Paths From Source to Target.
-Memory Usage: 40.7 MB, less than 73.04% of Java online submissions for All Paths From Source to Target.
+Runtime: 2 ms, faster than 95.45% of Java online submissions for All Paths From Source to Target.
+Memory Usage: 40.3 MB, less than 92.76% of Java online submissions for All Paths From Source to Target.
