@@ -1,0 +1,34 @@
+Given a directed acyclic graph (DAG) of n nodes labeled from 0 to n - 1, find all possible paths from node 0 to node n - 1 and return them in any order.
+The graph is given as follows: graph[i] is a list of all nodes you can visit from node i (i.e., there is a directed edge from node i to node graph[i][j]).
+
+Solution Description:
+DFS
+
+Code:
+class Solution {
+    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        List<List<Integer>> result = new ArrayList();
+        List<Integer> cur = new ArrayList();
+        cur.add(0);
+        dfs(result,0,cur,graph,graph.length-1);
+        return result;
+    }
+    
+    public void dfs(List<List<Integer>> result, int src,List<Integer> cur, int[][] graph, int dest){
+        if(cur.size()!=0 && cur.get(cur.size()-1)==dest){
+            result.add(new ArrayList(cur));
+            return;
+        }
+        for(int i:graph[src]){
+            if(!cur.contains(i)){
+                cur.add(i);
+                dfs(result,i,cur,graph,dest);
+                cur.remove(cur.size()-1);
+            }
+        }
+    }
+}
+
+Result:
+Runtime: 4 ms, faster than 50.31% of Java online submissions for All Paths From Source to Target.
+Memory Usage: 40.7 MB, less than 73.04% of Java online submissions for All Paths From Source to Target.
