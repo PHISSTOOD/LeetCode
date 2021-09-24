@@ -1,6 +1,10 @@
 Given an m x n integers matrix, return the length of the longest increasing path in matrix.
 From each cell, you can either move in four directions: left, right, up, or down. You may not move diagonally or move outside the boundary (i.e., wrap-around is not allowed).
 
+Solution Description:
+DFS + DP
+
+Code:
 class Solution {
     public int longestIncreasingPath(int[][] matrix) {
         int[][] dir = {{0,1},{1,0},{0,-1},{-1,0}};
@@ -31,3 +35,7 @@ class Solution {
         return dp[xpos][ypos];
     }
 }
+
+Result:
+Runtime: 8 ms, faster than 77.78% of Java online submissions for Longest Increasing Path in a Matrix.
+Memory Usage: 39.3 MB, less than 71.71% of Java online submissions for Longest Increasing Path in a Matrix
