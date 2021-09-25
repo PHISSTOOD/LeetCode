@@ -1,0 +1,38 @@
+给你一棵二叉树，请按以下要求的顺序收集它的全部节点：
+依次从左到右，每次收集并删除所有的叶子节点
+重复如上过程直到整棵树为空
+Solution Description:
+
+
+Code：
+class Solution {
+    public List<List<Integer>> findLeaves(TreeNode root) {
+        List<List<Integer>> result = new ArrayList();
+        while(root!=null){
+            List<Integer> cur = new ArrayList();
+            root = dfs(root,cur);
+            result.add(cur);
+        }
+        return result;
+    }
+
+    public TreeNode dfs(TreeNode node, List<Integer> list){
+        if(node.left==null && node.right==null){
+            list.add(node.val);
+            return null;
+        }else{
+            if(node.left != null){
+                node.left = dfs(node.left,list);
+            }
+            if(node.right != null){
+                node.right = dfs(node.right,list);
+            }
+            return node;
+        }
+        
+    }
+}
+
+Result:
+执行用时：0 ms, 在所有 Java 提交中击败了100.00%的用户
+内存消耗：36.9 MB, 在所有 Java 提交中击败了19.16%的用户
