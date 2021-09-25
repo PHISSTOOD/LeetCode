@@ -1,0 +1,60 @@
+There is an infrastructure of n cities with some number of roads connecting these cities. 
+Each roads[i] = [ai, bi] indicates that there is a bidirectional road between cities ai and bi.
+The network rank of two different cities is defined as the total number of directly connected roads to either city. 
+If a road is directly connected to both cities, it is only counted once.
+The maximal network rank of the infrastructure is the maximum network rank of all pairs of different cities.
+Given the integer n and the array roads, return the maximal network rank of the entire infrastructure.
+
+Solution Description:
+Create a array of list to record the graph. traverse the pairs can formed by the top 2 rank nodes.
+
+Code:
+class Solution {
+    public int maximalNetworkRank(int n, int[][] roads) {
+        int result = 0;
+        List<Integer>[] graph= new ArrayList[n];
+        for(int i = 0; i<n; i++){
+            graph[i] = new ArrayList();
+        }
+        
+        for(int[] edge : roads){
+            graph[edge[0]].add(edge[1]);
+            graph[edge[1]].add(edge[0]);
+        }
+        
+        Map<Integer,List<Integer>> map = new HashMap();
+        int max1 = 0;
+        int max2 = 0;
+        for(int i = 0; i<n; i++){
+            if(!map.containsKey(graph[i].size())){
+                map.put(graph[i].size(),new ArrayList());
+            }
+            map.get(graph[i].size()).add(i);
+            if(graph[i].size()>max1){
+                max2 = max1;
+                max1 = graph[i].size();
+            }else if(graph[i].size()!=max1 && graph[i].size()>max2){
+                max2 = graph[i].size();
+            }
+        }
+        List<Integer> list = new ArrayList();
+        list.addAll(map.get(max1));
+        if(list.size()<2 && map.containsKey(max2)){
+            list.addAll(map.get(max2));
+        }
+        for(int i = 0; i<list.size();i++){
+            for(int j = i+1; j<list.size(); j++){
+                int cur = graph[list.get(i)].size()+ graph[list.get(j)].size();
+                if( graph[list.get(i)].contains(list.get(j))){
+                    cur--;
+                }
+                result = Math.max(result,cur);
+            }
+        }
+        return result;
+    }
+}
+
+Result：
+Runtime: 14 ms, faster than 40.44% of Java online submissions for Maximal Network Rank.
+Memory Usage: 52 MB, less than 13.85% of Java online submissions for Maximal Network Rank.
