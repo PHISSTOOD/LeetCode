@@ -2,7 +2,7 @@
 依次从左到右，每次收集并删除所有的叶子节点
 重复如上过程直到整棵树为空
 Solution Description:
-
+Traverse the tree while the root is not null, and create a dfs function, if the current node has not numm child return itself, else return null and add it in a list.
 
 Code：
 class Solution {
