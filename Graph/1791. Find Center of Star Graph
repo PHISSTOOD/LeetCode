@@ -1,0 +1,26 @@
+There is an undirected star graph consisting of n nodes labeled from 1 to n. 
+A star graph is a graph where there is one center node and exactly n - 1 edges that connect the center node with every other node.
+You are given a 2D integer array edges where each edges[i] = [ui, vi] indicates that there is an edge between the nodes ui and vi. Return the center of the given star graph.
+
+Solution Description:
+Traverse all edges in this graph, and return the node when the degree of the current node bigger than 1.
+
+Code:
+class Solution {
+    public int findCenter(int[][] edges) {
+        HashMap<Integer, Integer> map = new HashMap();
+        for(int[] edge : edges){
+            map.put(edge[0],map.getOrDefault(edge[0],0)+1);
+            if(map.get(edge[0]) > 1)
+                    return edge[0];
+            map.put(edge[1],map.getOrDefault(edge[1],0)+1);
+            if(map.get(edge[1]) > 1)
+                    return edge[1];
+        }
+        return 0;
+        
+    }
+}
+
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Find Center of Star Graph.
+Memory Usage: 90 MB, less than 25.97% of Java online submissions for Find Center of Star Graph.
