@@ -1,0 +1,46 @@
+Implement a SnapshotArray that supports the following interface:
+SnapshotArray(int length) initializes an array-like data structure with the given length.  Initially, each element equals 0.
+void set(index, val) sets the element at the given index to be equal to val.
+int snap() takes a snapshot of the array and returns the snap_id: the total number of times we called snap() minus 1.
+int get(index, snap_id) returns the value at the given index, at the time we took the snapshot with the given snap_id
+
+class SnapshotArray {
+    HashMap<Integer,Integer> [] snapShotHistory;
+    int totalSnaps;
+    HashMap<Integer, Integer> deltaUpdate;
+    
+    public SnapshotArray(int length) {
+        deltaUpdate=new HashMap<>();
+        snapShotHistory=new HashMap[length];
+        for(int i=0; i<length; i++){
+            snapShotHistory[i]=new HashMap<>();
+        }
+    }
+    
+    public void set(int index, int val) {
+        deltaUpdate.put(index,val);
+    }
+    
+    public int snap() {
+        for (int key: deltaUpdate.keySet()){
+            HashMap<Integer, Integer> snapHistoryAtIndex = snapShotHistory[key];
+            snapHistoryAtIndex.put(totalSnaps, deltaUpdate.get(key));
+        }
+        deltaUpdate=new HashMap<>();
+        totalSnaps++;
+        return totalSnaps-1;
+    }
+    
+    public int get(int index, int snap_id) {
+        while(snap_id>=0){
+            if(snapShotHistory[index].containsKey(snap_id))
+                 return snapShotHistory[index].get(snap_id);
+            snap_id--;
+        }
+        return 0;
+    }
+}
+
+Result:
+Runtime: 32 ms, faster than 89.97% of Java online submissions for Snapshot Array.
+Memory Usage: 64.1 MB, less than 90.47% of Java online submissions for Snapshot Array.
