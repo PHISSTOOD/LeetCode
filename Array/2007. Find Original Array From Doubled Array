@@ -1,0 +1,38 @@
+An integer array original is transformed into a doubled array changed by appending twice the value of every element in original, and then randomly shuffling the resulting array.
+Given an array changed, return original if changed is a doubled array. If changed is not a doubled array, return an empty array. 
+The elements in original may be returned in any order.
+
+Solution Description:
+chack corner case -> sort -> traverse the array from end to start -> if map contains 2n, put n into result array, else put n into the map
+
+Code:
+class Solution {
+    public int[] findOriginalArray(int[] changed) {
+        if(changed.length%2==1){
+            return new int[0];
+        }
+        int index = 0;
+        int[] result = new int[changed.length/2];
+        Arrays.sort(changed);
+        HashMap<Integer, Integer> map = new HashMap();
+        for(int i = changed.length-1; i>=0; i--){
+            if(map.containsKey(changed[i]*2)){
+                map.put(changed[i]*2,map.get(changed[i]*2)-1);
+                result[index++] = changed[i];
+                if(map.get(changed[i]*2)==0){
+                    map.remove(changed[i]*2);
+                }
+            }else{
+                map.put(changed[i],map.getOrDefault(changed[i],0)+1);
+            }
+        }
+        if(index!=result.length){
+            return new int[0];
+        }
+        return result;
+    }
+}
+
+result:
+Runtime: 89 ms, faster than 73.38% of Java online submissions for Find Original Array From Doubled Array.
+Memory Usage: 58.2 MB, less than 64.32% of Java online submissions for Find Original Array From Doubled Array.
