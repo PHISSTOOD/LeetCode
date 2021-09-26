@@ -1,7 +1,8 @@
 You are given an integer array nums and you have to return a new counts array. 
 The counts array has the property where counts[i] is the number of smaller elements to the right of nums[i].
-Soltuion Description:
 
+Soltuion Description:
+Maintain a sorted list which represent those integer we have traversed. Using binary search to find the index in the sorted list.
 
 Code:
 class Solution {
