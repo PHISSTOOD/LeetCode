@@ -7,6 +7,8 @@ MyCalendar() Initializes the calendar object.
 boolean book(int start, int end) Returns true if the event can be added to the calendar successfully without causing a double booking. 
 Otherwise, return false and do not add the event to the calendar.
 
+Solution Description:
+Using two arraylist to record the start time and end time. Using binary search when we want to add a new event.
 
 Code:
 class MyCalendar {
