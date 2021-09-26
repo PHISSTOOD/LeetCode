@@ -1,0 +1,45 @@
+You are given an integer array nums and you have to return a new counts array. 
+The counts array has the property where counts[i] is the number of smaller elements to the right of nums[i].
+Soltuion Description:
+
+
+Code:
+class Solution {
+    public List<Integer> countSmaller(int[] nums) {
+        List<Integer> list = new ArrayList();
+        List<Integer> sorted = new ArrayList();
+        for(int i = nums.length-1; i>=0; i--){
+            int cur = nums[i];
+            if(sorted.size()==0){
+                list.add(0);
+                sorted.add(cur);
+            }else if(cur>sorted.get(sorted.size()-1)){
+                list.add(0,sorted.size());
+                sorted.add(cur);
+            }else{
+                int index = find(sorted,cur);
+                list.add(0,index);
+                sorted.add(index,cur);
+            }
+        }
+        return list;
+    }
+    
+    public int find(List<Integer> sorted, int cur){
+        int left = 0;
+        int right = sorted.size()-1;
+        while(left<right){
+            int mid = (left+right)/2;
+            if(sorted.get(mid)<cur){
+                left = mid+1;
+            }else{
+                right = mid;
+            }
+        }
+        return right;
+    }
+}
+
+Result:
+Runtime: 2159 ms, faster than 5.02% of Java online submissions for Count of Smaller Numbers After Self.
+Memory Usage: 57.9 MB, less than 60.66% of Java online submissions for Count of Smaller Numbers After Self.
