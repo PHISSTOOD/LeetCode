@@ -6,6 +6,8 @@ Implement the RLEIterator class:
 RLEIterator(int[] encoded) Initializes the object with the encoded array encoded.
 int next(int n) Exhausts the next n elements and returns the last element exhausted in this way. If there is no element left to exhaust, return -1 instead.
 
+
+Code:
 class RLEIterator {
     int index;
     List<Integer> list ;
