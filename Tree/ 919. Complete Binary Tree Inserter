@@ -6,7 +6,7 @@ int insert(int v) Inserts a TreeNode into the tree with value Node.val == val so
 TreeNode get_root() Returns the root node of the tree.
 
 Solution Description:
-
+Using a queue to record those nodes don't have two child node. When we want to insert a node, we should add the node as the child node of the peek of queue.
 
 Code:
 class CBTInserter {
