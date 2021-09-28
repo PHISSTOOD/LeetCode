@@ -1,0 +1,41 @@
+class Solution {
+    public int[] findOrder(int n, int[][] prerequisites) {
+        List<Integer>[] graph = new ArrayList[n];
+        int[] degree = new int[n];
+        for(int i = 0; i<n; i++){
+            graph[i] = new ArrayList();
+        }
+        for(int[] i: prerequisites){
+            graph[i[1]].add(i[0]);
+            degree[i[0]]++;
+        }
+        Queue<Integer> queue = new LinkedList();
+        int index = 0;
+        int[] result = new int[n];
+        for(int i = 0; i<n; i++){
+            if(degree[i]==0){
+                queue.offer(i);
+                result[index++] = i;
+            }
+        }
+        while(!queue.isEmpty() && index<n){
+            int cur = queue.poll();
+            for(int i :graph[cur]){
+                degree[i]--;
+                if(degree[i]==0){
+                    queue.offer(i);
+                    result[index++] = i;
+                }
+            }
+        }
+        if(index==n){
+            return result;
+        }else{
+            return new int[0];
+        }
+    }
+}
+
+Result:
+Runtime: 3 ms, faster than 95.72% of Java online submissions for Course Schedule II.
+Memory Usage: 40 MB, less than 72.58% of Java online submissions for Course Schedule II.
