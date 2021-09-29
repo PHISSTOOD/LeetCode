@@ -1,3 +1,5 @@
+Given an integer array nums sorted in non-decreasing order, return an array of the squares of each number sorted in non-decreasing order.
+
 class Solution {
     public int[] sortedSquares(int[] nums) {
         int[] result = new int[nums.length];
