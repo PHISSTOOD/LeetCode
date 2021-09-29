@@ -1,0 +1,25 @@
+class Solution {
+    public int maximumSwap(int num) {
+        String s = String.valueOf(num);
+        char[] c = s.toCharArray();
+        for(int i = 0; i<c.length-1; i++){
+            int max = i;
+            for(int j = i+1; j<c.length; j++){
+                if(c[j]>c[max] || (c[j]==c[max] && max!=i)){
+                    max = j;
+                }
+            }
+            if(max!=i){
+                char temp = c[max];
+                c[max] = c[i];
+                c[i] = temp;
+                break;
+            }
+        }
+        return Integer.valueOf(String.valueOf(c));
+    }
+}
+
+Result:
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Maximum Swap.
+Memory Usage: 35.9 MB, less than 63.54% of Java online submissions for Maximum Swap.
