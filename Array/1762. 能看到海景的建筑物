@@ -1,0 +1,28 @@
+有 n 座建筑物。给你一个大小为 n 的整数数组 heights 表示每一个建筑物的高度。
+建筑物的右边是海洋。如果建筑物可以无障碍地看到海洋，则建筑物能看到海景。确切地说，如果一座建筑物右边的所有建筑都比它 矮 时，就认为它能看到海景。
+返回能看到海景建筑物的下标列表（下标 从 0 开始 ），并按升序排列。
+
+Code：
+
+class Solution {
+    public int[] findBuildings(int[] heights) {
+        int max = -1;
+        List<Integer> ans = new ArrayList();
+        for(int i = heights.length-1; i>=0 ;i--){
+            if(heights[i]>max){
+                ans.add(0,i);
+                max = heights[i];
+            }
+        }
+        int[] result = new int[ans.size()];
+        for(int i = 0; i<result.length; i++){
+            result[i] = ans.get(i);
+        }
+        return result;
+    }
+}
+
+Result:
+执行用时：
+529 ms, 在所有 Java 提交中击败了 5.26%的用户内存消耗：
+52 MB, 在所有 Java 提交中击败了82.46%的用户
