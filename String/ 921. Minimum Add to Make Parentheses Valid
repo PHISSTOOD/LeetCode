@@ -6,6 +6,9 @@ You are given a parentheses string s. In one move, you can insert a parenthesis 
 For example, if s = "()))", you can insert an opening parenthesis to be "(()))" or a closing parenthesis to be "())))".
 Return the minimum number of moves required to make s valid.
 
+
+
+Code:
 class Solution {
     public int minAddToMakeValid(String s) {
         int result  = 0;
@@ -25,3 +28,7 @@ class Solution {
         return result+stack.size();
     }
 }
+
+Result:
+Runtime: 1 ms, faster than 55.11% of Java online submissions for Minimum Add to Make Parentheses Valid.
+Memory Usage: 36.8 MB, less than 97.24% of Java online submissions for Minimum Add to Make Parentheses Valid.
