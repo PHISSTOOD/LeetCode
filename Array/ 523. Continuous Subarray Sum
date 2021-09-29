@@ -36,32 +36,29 @@ Runtime: 22 ms, faster than 28.04% of Java online submissions for Continuous Sub
 Memory Usage: 49.4 MB, less than 5.88% of Java online submissions for Continuous Subarray Sum.
 
 
-Set:
+HashMap:
 class Solution {
     public boolean checkSubarraySum(int[] nums, int k) {
+        int count = 0;
         if(nums.length<2){
             return false;
         }
-        for(int i = 1;i<nums.length;i++){
-            if((nums[i-1]+nums[i])==0){
-                return true;
+        HashMap<Integer,Integer> map = new HashMap();
+        map.put(0,-1);
+        for(int i = 0;i<nums.length;i++){
+            count += nums[i];
+            int cur = count%k;
+            if(!map.containsKey(cur)){
+                map.put(cur,i);
+            }else{
+                if((i-map.get(cur))>1){
+                    return true;
+                }
             }
-        }
-        if(k==0){
-            return false;
-        }
-        Set<Integer> set = new HashSet();
-        int count = 0;
-        for(int i = 1;i<nums.length;i++){
-            set.add(count%k);
-            if(set.contains((count + nums[i-1] + nums[i])%k)){
-                return true;
-            }
-            count += nums[i-1];
         }
         return false;
     }
 }
 
-Runtime: 3 ms, faster than 46.77% of Java online submissions for Continuous Subarray Sum.
-Memory Usage: 48 MB, less than 5.88% of Java online submissions for Continuous Subarray Sum
+Runtime: 14 ms, faster than 95.35% of Java online submissions for Continuous Subarray Sum.
+Memory Usage: 55.3 MB, less than 71.95% of Java online submissions for Continuous Subarray Sum.
