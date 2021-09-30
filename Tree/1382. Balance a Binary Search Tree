@@ -1,0 +1,36 @@
+Given the root of a binary search tree, return a balanced binary search tree with the same node values. If there is more than one answer, return any of them.
+A binary search tree is balanced if the depth of the two subtrees of every node never differs by more than 1.
+
+Code:
+class Solution {
+    List<TreeNode> list;
+    public TreeNode balanceBST(TreeNode root) {
+        list = new ArrayList();
+        traverse(root);
+        return construct(list, 0, list.size()-1);
+    }
+    
+    public void traverse(TreeNode node){
+        if(node==null){
+            return;
+        }
+        traverse(node.left);
+        list.add(node);
+        traverse(node.right);
+    }
+    
+    public TreeNode construct(List<TreeNode> list, int left, int right){
+        if(left>right){
+            return null;
+        }
+        int mid = (left+right)/2;
+        TreeNode newNode = list.get(mid);
+        newNode.left = construct(list, left, mid-1);
+        newNode.right = construct(list, mid+1, right);
+        return newNode;
+    }
+}
+
+Result:
+Runtime: 2 ms, faster than 99.87% of Java online submissions for Balance a Binary Search Tree.
+Memory Usage: 41.5 MB, less than 77.51% of Java online submissions for Balance a Binary Search Tree.
