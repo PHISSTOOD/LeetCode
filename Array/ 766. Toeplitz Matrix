@@ -1,6 +1,7 @@
 Given an m x n matrix, return true if the matrix is Toeplitz. Otherwise, return false.
 A matrix is Toeplitz if every diagonal from top-left to bottom-right has the same elements.
 
+Code:
 class Solution {
     public boolean isToeplitzMatrix(int[][] matrix) {
         int width = matrix.length;
@@ -27,3 +28,7 @@ class Solution {
         return true;
     }
 }
+
+Result:
+Runtime: 1 ms, faster than 78.48% of Java online submissions for Toeplitz Matrix.
+Memory Usage: 38.8 MB, less than 88.83% of Java online submissions for Toeplitz Matrix.
