@@ -1,0 +1,22 @@
+class Solution {
+    public int totalHammingDistance(int[] nums) {
+        int[] count  = new int[32];
+        for(int num : nums){
+            int index = 0;
+            while(index<32){
+                count[index] += (num>>index) & 1;
+                index++;
+            }
+        }
+        int sum = 0;
+        for(int i =0; i<32; i++){
+            sum += (nums.length-count[i])*count[i];
+        }
+        return sum;
+    }
+
+}
+
+Result:
+Runtime: 5 ms, faster than 67.82% of Java online submissions for Total Hamming Distance.
+Memory Usage: 39.8 MB, less than 76.62% of Java online submissions for Total Hamming Distance.
