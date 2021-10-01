@@ -1,7 +1,6 @@
 Given two numbers, hour and minutes. Return the smaller angle (in degrees) formed between the hour and the minute hand.
 
 class Solution {
-    
     public double angleClock(int hour, int minutes) {
         double hourHand = (double)(hour%12)*30+(double)minutes/60.0*30;
         double minuteHand = (double)minutes*6;
@@ -14,3 +13,7 @@ class Solution {
         }
     }
 }
+
+Result:
+Runtime: 3 ms, faster than 51.33% of Java online submissions for Angle Between Hands of a Clock.
+Memory Usage: 36 MB, less than 75.01% of Java online submissions for Angle Between Hands of a Clock.
