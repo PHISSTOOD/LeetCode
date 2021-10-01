@@ -31,3 +31,7 @@ class Solution {
         return dp[days[days.length-1]];
     }
 }
+
+Result:
+Runtime: 1 ms, faster than 83.70% of Java online submissions for Minimum Cost For Tickets.
+Memory Usage: 38.7 MB, less than 31.78% of Java online submissions for Minimum Cost For Tickets.
