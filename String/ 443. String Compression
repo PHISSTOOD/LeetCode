@@ -43,3 +43,7 @@ class Solution {
         return index;
     }
 }
+
+Result:
+Runtime: 2 ms, faster than 45.47% of Java online submissions for String Compression.
+Memory Usage: 41.2 MB, less than 11.58% of Java online submissions for String Compression.
