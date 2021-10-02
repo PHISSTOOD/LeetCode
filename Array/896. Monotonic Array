@@ -1,0 +1,36 @@
+An array is monotonic if it is either monotone increasing or monotone decreasing.
+An array nums is monotone increasing if for all i <= j, nums[i] <= nums[j]. An array nums is monotone decreasing if for all i <= j, nums[i] >= nums[j].
+Given an integer array nums, return true if the given array is monotonic, or false otherwise.
+
+class Solution {
+    public boolean isMonotonic(int[] nums) {
+        if(nums.length<2){
+            return true;
+        }
+        int index = 0;
+        while(index<nums.length-1){
+            if(nums[index+1]<nums[index]){
+                break;
+            }
+            index++;
+        }
+        if(index==nums.length-1){
+            return true;
+        }
+        index =0;
+        while(index<nums.length-1){
+            if(nums[index+1]>nums[index]){
+                break;
+            }
+            index++;
+        }
+        if(index==nums.length-1){
+            return true;
+        }
+        return false;
+    }
+}
+
+Result:
+Runtime: 1 ms, faster than 100.00% of Java online submissions for Monotonic Array.
+Memory Usage: 114.7 MB, less than 17.65% of Java online submissions for Monotonic Array.
