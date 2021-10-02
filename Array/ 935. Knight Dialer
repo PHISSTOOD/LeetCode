@@ -65,4 +65,6 @@ class Solution {
     }
 }
 
-
+Result:
+Runtime: 126 ms, faster than 42.33% of Java online submissions for Knight Dialer.
+Memory Usage: 113.9 MB, less than 5.53% of Java online submissions for Knight Dialer.
