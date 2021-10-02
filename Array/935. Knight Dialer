@@ -1,0 +1,68 @@
+The chess knight has a unique movement, it may move two squares vertically and one square horizontally, 
+or two squares horizontally and one square vertically (with both forming the shape of an L). 
+The possible movements of chess knight are shown in this diagaram:
+A chess knight can move as indicated in the chess diagram below:
+
+class Solution {
+    //         [0,1,2,3,4,5,6,7,8,9]
+    // step1 : [1,1,1,1,1,1,1,1,1,1]
+    // step2 : [2,2,2,2,3,0,3,2,2,2]
+    public int knightDialer(int n) {
+        if(n==1){
+            return 10;
+        }
+        int mod = 1000000007;
+        List<Integer>[] jump = new ArrayList[10];
+        full(jump);
+        int[] count = new int[10];
+        for(int i = 0; i<10; i++){
+            if(i==5){
+                count[i] = 0;
+            }else{
+                count[i] = 1;
+            }
+        }
+        for(int i = 1; i<n; i++){
+            int[] newCount = new int[10];
+            for(int j = 0;j<10; j++){
+                for(int k : jump[j]){
+                    newCount[k] = (newCount[k]+count[j])%mod;
+                }
+            }
+            count = newCount;
+        }
+        int sum = 0;
+        for(int i = 0; i<10; i++){
+            sum = (sum+count[i])%mod;
+        }
+        return sum;
+    }
+
+    public void full(List<Integer>[] jump){
+        for(int i = 0 ; i<10; i++){
+            jump[i] = new ArrayList();
+        }
+        jump[0].add(4);
+        jump[0].add(6);
+        jump[1].add(6);
+        jump[1].add(8);
+        jump[2].add(7);
+        jump[2].add(9);
+        jump[3].add(4);
+        jump[3].add(8);
+        jump[4].add(3);
+        jump[4].add(9);
+        jump[4].add(0);
+        jump[6].add(1);
+        jump[6].add(7);
+        jump[6].add(0);
+        jump[7].add(2);
+        jump[7].add(6);
+        jump[8].add(1);
+        jump[8].add(3);
+        jump[9].add(2);
+        jump[9].add(4);
+    }
+}
+
+
