@@ -1,0 +1,17 @@
+class Solution {
+    public int change(int amount, int[] coins) {
+        int []dp = new int[amount + 1];
+        dp[0] = 1;
+        for(int i = 0;i<coins.length;i++){
+            for(int j = coins[i]; j <= amount;j++){
+                dp[j] = dp[j] + dp[j - coins[i]];
+            }
+        }
+        return dp[amount];
+    }
+}
+
+
+Result:
+Runtime: 2 ms, faster than 100.00% of Java online submissions for Coin Change 2.
+Memory Usage: 36.4 MB, less than 82.41% of Java online submissions for Coin Change 2.
