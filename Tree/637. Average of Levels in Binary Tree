@@ -1,0 +1,58 @@
+Given the root of a binary tree, return the average value of the nodes on each level in the form of an array. Answers within 10-5 of the actual answer will be accepted.
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    //      1          =1  = 1
+    //   2      3       =5   =2.5
+    // 4   5   6  7     =22  =5.5
+    public List<Double> averageOfLevels(TreeNode root) {
+        // check the corner case
+        if(root==null){
+            return new ArrayList();
+        }
+        List<List<Integer>> values = new ArrayList();
+        // traverse the nodes in the tree with its' level
+        dfs(root, 0, values);
+        // calculate the average
+        List<Double> result = new ArrayList();
+        for(List<Integer> list :values){
+            double sum = 0;
+            for(int cur : list){
+                sum += (double)cur;
+            }
+            result.add(sum / list.size());
+        }
+        return result;
+    }
+    
+    public void dfs(TreeNode node, int level, List<List<Integer>> values){
+        if(node==null){
+            return;
+        }
+        if(level>values.size()-1){
+            List<Integer> cur = new ArrayList();
+            values.add(cur);
+        }
+        values.get(level).add(node.val);
+        dfs(node.left, level+1, values);
+        dfs(node.right, level+1, values);
+    }
+}
+
+Result:
+Runtime: 2 ms, faster than 83.83% of Java online submissions for Average of Levels in Binary Tree.
+Memory Usage: 41.8 MB, less than 34.00% of Java online submissions for Average of Levels in Binary Tree.
