@@ -1,0 +1,65 @@
+A transformation sequence from word beginWord to word endWord using a dictionary wordList is a sequence of words beginWord -> s1 -> s2 -> ... -> sk such that:
+Every adjacent pair of words differs by a single letter.
+Every si for 1 <= i <= k is in wordList. Note that beginWord does not need to be in wordList.
+sk == endWord
+Given two words, beginWord and endWord, and a dictionary wordList, return all the shortest transformation sequences from beginWord to endWord, 
+or an empty list if no such sequence exists. Each sequence should be returned as a list of the words [beginWord, s1, s2, ..., sk].
+
+
+class Solution {
+    public class Node{
+        String last;
+        List<String> list;
+
+        public Node(){
+            this.last = "";
+            list = new ArrayList();
+        }
+    }
+    public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
+        List<List<String>> result = new ArrayList();
+        HashSet<String> set = new HashSet(wordList);
+        if(!set.contains(endWord)){
+            return result;
+        }
+        Queue<Node> queue = new LinkedList();
+        Node beginNode = new Node();
+        beginNode.last = beginWord;
+        beginNode.list.add(beginWord);
+        queue.offer(beginNode);
+        while(!queue.isEmpty() && result.size()==0){
+            int size = queue.size();
+            Set<String> delete = new HashSet();
+            for(int i = 0; i<size; i++){
+                Node cur = queue.poll();
+                String word = cur.last;
+                char[] word2char = word.toCharArray();
+                for(int j = 0; j<word2char.length; j++){
+                    for(int k = 0; k<26; k++){
+                        word2char[j] = (char)('a'+k);
+                        String newWord = String.valueOf(word2char);
+                        if(newWord.equals(endWord)){
+                            List<String> list = new ArrayList(cur.list);
+                            list.add(newWord);
+                            result.add(list);
+                        }else if(set.contains(newWord)){
+                            delete.add(newWord);
+                            Node newNode = new Node();
+                            newNode.last = newWord;
+                            newNode.list = new ArrayList(cur.list);
+                            newNode.list.add(newWord);
+                            queue.offer(newNode);
+                        }
+                    }
+                    word2char[j] = word.charAt(j);
+                }
+            }
+            for(String word: delete){
+                set.remove(word);
+            }
+        }
+        return result;
+    }
+}
+
+Result:
