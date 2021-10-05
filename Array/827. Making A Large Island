@@ -1,0 +1,65 @@
+class Solution {
+   int[][] dirs = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
+    
+  public int largestIsland(int[][] grid){
+    int result = 0;
+    // traverse all positions to get the area for each island
+    int[] areaIndex = new int[grid.length*grid[0].length+2];
+    int index = 2;
+    for(int i = 0; i<grid.length; i++){
+      for(int j = 0; j<grid[0].length; j++){
+        if(grid[i][j]==1){
+          int area = dfs(i,j,grid,index);
+          areaIndex[index] = area;
+          index++;
+        }
+      }
+    }
+    for(int area: areaIndex){
+        result = Math.max(result,area);
+    }
+    // traverse all position whose value is 0 to get the biggest area
+    for(int i = 0; i<grid.length; i++){
+      for(int j = 0; j<grid[0].length; j++){
+        if(grid[i][j]==0){
+          Set<Integer> set = new HashSet();
+          int newArea = 1;
+          for(int[] dir : dirs){
+            int newX = i+dir[0];
+            int newY = j+dir[1];
+            if(newX>=0 && newX<grid.length && newY>=0 && newY<grid[0].length){
+              if(grid[newX][newY] > 1 && !set.contains(grid[newX][newY])){
+                newArea += areaIndex[grid[newX][newY]];
+                set.add(grid[newX][newY]);
+              }
+            }
+          }
+          result = Math.max(result,newArea);
+        }
+      }
+    }
+    return result;
+  }
+  
+  
+  // search the island by dfs
+  public int dfs(int x, int y, int[][] grid, int areaIndex){
+    grid[x][y] = areaIndex;
+    int area = 1;
+    // traverse all directions
+    for(int[] dir : dirs){
+      int newX = x+dir[0];
+      int newY = y+dir[1];
+      if(newX>=0 && newX<grid.length && newY>=0 && newY<grid[0].length){
+        if(grid[newX][newY] ==1){
+          area += dfs(newX, newY, grid,areaIndex);
+        }
+      }
+    }
+    return area;
+  }
+}
+
+Result:
+Runtime: 64 ms, faster than 96.78% of Java online submissions for Making A Large Island.
+Memory Usage: 75.1 MB, less than 74.69% of Java online submissions for Making A Large Island.
