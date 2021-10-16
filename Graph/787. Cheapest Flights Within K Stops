@@ -1,0 +1,47 @@
+There are n cities connected by some number of flights. 
+You are given an array flights where flights[i] = [fromi, toi, pricei] indicates that there is a flight from city fromi to city toi with cost pricei.
+You are also given three integers src, dst, and k, return the cheapest price from src to dst with at most k stops. If there is no such route, return -1.
+
+
+class Solution {
+    
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+        int[][] graph = new int[n][n];
+        for(int[] flight :  flights){
+            graph[flight[0]][flight[1]] = flight[2];
+        }
+        int stop = 0;
+        if(k==0){
+            return graph[src][dst]==0 ? -1 : graph[src][dst];
+        }
+        int[] visited = new int[n];
+        Arrays.fill(visited, Integer.MAX_VALUE);
+        int result = Integer.MAX_VALUE;
+        Queue<int[]> queue = new LinkedList();
+        queue.offer(new int[]{src,0});
+        while(!queue.isEmpty() && stop<=k){
+            int size = queue.size();
+            for(int i = 0; i<size; i++){
+                int[] cur = queue.poll();
+                for(int j = 0; j<n; j++){
+                    if(j==dst && graph[cur[0]][j]!=0){
+                        result = Math.min(result,cur[1]+graph[cur[0]][j]);
+                    }else if(graph[cur[0]][j]!=0){
+                        if(cur[1]+graph[cur[0]][j]<visited[j]){
+                            visited[j] = cur[1]+graph[cur[0]][j];
+                            queue.offer(new int[]{j,cur[1]+graph[cur[0]][j]});
+                        }
+                    }
+                }
+            }
+            stop++;
+        }
+        if(result==Integer.MAX_VALUE){
+            return -1;
+        }
+        return result;
+    }
+}
+
+Runtime: 6 ms, faster than 70.11% of Java online submissions for Cheapest Flights Within K Stops.
+Memory Usage: 44.1 MB, less than 27.72% of Java online submissions for Cheapest Flights Within K Stops.
