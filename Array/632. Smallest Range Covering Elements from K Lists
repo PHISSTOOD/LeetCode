@@ -1,0 +1,56 @@
+class Solution {
+    
+    public class Node{
+        int listIndex;
+        int index;
+        int val;
+        public Node(int listIndex, int index, int val){
+            this.listIndex = listIndex;
+            this.index = index;
+            this.val = val;
+        }
+    }
+    
+    public int[] smallestRange(List<List<Integer>> nums) {
+        PriorityQueue<Node> queue = new PriorityQueue(new myComp());
+        int max = Integer.MIN_VALUE;
+        for(int i = 0; i<nums.size();i++){
+            int cur = nums.get(i).get(0);
+            queue.offer(new Node(i, 0, cur));
+            max = Math.max(max,cur);
+        }
+        int min = queue.peek().val;
+        int curMin = min;
+        int curMax = max;
+        while(true){
+            Node cur = queue.poll();
+            int curList = cur.listIndex;
+            if(cur.index==nums.get(curList).size()-1){
+                break;
+            }else{
+                int nextval = nums.get(curList).get(cur.index+1);
+                if(nextval>curMax){
+                    curMax = nextval;
+                }
+                Node newNode = new Node(curList, cur.index+1, nextval);
+                queue.offer(newNode);
+                if((curMax-queue.peek().val) < (max-min)){
+                    max = curMax;
+                    min = queue.peek().val;
+                }
+            }
+        }
+        return new int[]{min,max};
+    }
+    
+    class myComp implements Comparator<Node>{
+        @Override
+        public int compare(Node n1, Node n2){
+            return n1.val-n2.val;
+        }
+    }
+}
+
+Result:
+Runtime: 29 ms, faster than 68.96% of Java online submissions for Smallest Range Covering Elements from K Lists.
+Memory Usage: 54.7 MB, less than 25.79% of Java online submissions for Smallest Range Covering Elements from K Lists.
