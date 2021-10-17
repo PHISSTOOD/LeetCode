@@ -1,0 +1,46 @@
+You are given an array of integers nums (0-indexed) and an integer k.
+The score of a subarray (i, j) is defined as min(nums[i], nums[i+1], ..., nums[j]) * (j - i + 1). A good subarray is a subarray where i <= k <= j.
+Return the maximum possible score of a good subarray.
+
+
+Code:
+class Solution {
+    public int maximumScore(int[] nums, int k) {
+        int n = nums.length;
+        int i = k - 1, j = k + 1;
+        int min = nums[k];
+        int ans = min;
+        
+        while(i >= 0 || j < n) {
+            int v1 = 0, v2 = 0;
+            int min1 = min, min2 = min;
+            
+            if(i >= 0) {
+                min1 = Math.min(min, nums[i]);
+                v1 = min1 * (j - i);
+            }
+            
+            if(j < n) {
+                min2 = Math.min(min, nums[j]);
+                v2 = min2 * (j - i);
+            }
+            
+            if(v1 > v2) {
+                --i;
+                ans = Math.max(v1, ans);
+                min = min1;
+            }
+            else {
+                ++j;
+                ans = Math.max(ans, v2);
+                min = min2;
+            }
+        }
+        
+        return ans;
+    }
+}
+
+Result:
+Runtime: 6 ms, faster than 71.50% of Java online submissions for Maximum Score of a Good Subarray.
+Memory Usage: 49.2 MB, less than 68.65% of Java online submissions for Maximum Score of a Good Subarray.
