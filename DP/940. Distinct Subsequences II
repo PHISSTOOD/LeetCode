@@ -1,0 +1,30 @@
+Given a string s, return the number of distinct non-empty subsequences of s. Since the answer may be very large, return it modulo 109 + 7.
+A subsequence of a string is a new string that is formed from the original string by deleting some (can be none) of the characters without disturbing
+the relative positions of the remaining characters. (i.e., "ace" is a subsequence of "abcde" while "aec" is not.
+
+class Solution {
+    public int distinctSubseqII(String s) {
+        int MOD = (int)1e9+7;
+        int[] dp = new int[s.length()+1];
+        dp[0] = 1;
+        int[] count = new int[26];
+        Arrays.fill(count, -1);
+        for(int i = 0; i<s.length(); i++){
+            dp[i+1] = 2*dp[i] % MOD;
+            if(count[s.charAt(i)-'a']>=0){
+                dp[i+1] -= dp[count[s.charAt(i)-'a']];
+            }
+            dp[i+1] %= MOD;
+            count[s.charAt(i)-'a'] = i;
+        }
+        dp[dp.length-1]--;
+        if(dp[dp.length-1]<0){
+            dp[dp.length-1] += MOD;
+        }
+        return dp[dp.length-1];
+    }
+}
+
+Result:
+Runtime: 3 ms, faster than 84.32% of Java online submissions for Distinct Subsequences II.
+Memory Usage: 37.4 MB, less than 92.97% of Java online submissions for Distinct Subsequences II.
