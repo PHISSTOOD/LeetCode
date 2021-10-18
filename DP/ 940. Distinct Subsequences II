@@ -2,6 +2,8 @@ Given a string s, return the number of distinct non-empty subsequences of s. Sin
 A subsequence of a string is a new string that is formed from the original string by deleting some (can be none) of the characters without disturbing
 the relative positions of the remaining characters. (i.e., "ace" is a subsequence of "abcde" while "aec" is not.
 
+
+Code:
 class Solution {
     public int distinctSubseqII(String s) {
         int MOD = (int)1e9+7;
