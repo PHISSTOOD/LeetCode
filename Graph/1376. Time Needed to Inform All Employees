@@ -1,0 +1,29 @@
+class Solution {
+    public int numOfMinutes(int n, int headID, int[] manager, int[] informTime) {
+        List<Integer>[] graph = new ArrayList[n];
+        for(int i = 0; i<n; i++){
+            graph[i] = new ArrayList();
+        }
+        
+        for(int i = 0; i<n; i++){
+            if(manager[i]!=-1){
+                graph[manager[i]].add(i);
+            }
+        }
+        
+        return dfs(headID, informTime, graph, 0);
+    }
+    
+    public int dfs(int head, int[] informTime, List<Integer>[] graph, int time){
+        int cur = time + informTime[head];
+        int total = cur;
+        for(int neighbor : graph[head]){
+            total = Math.max(total, dfs(neighbor, informTime, graph, cur));
+        }
+        return total;
+    }
+}
+
+Result:
+Runtime: 100 ms, faster than 71.73% of Java online submissions for Time Needed to Inform All Employees.
+Memory Usage: 118.6 MB, less than 31.67% of Java online submissions for Time Needed to Inform All Employees.
