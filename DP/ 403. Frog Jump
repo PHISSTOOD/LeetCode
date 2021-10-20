@@ -25,3 +25,7 @@ class Solution {
         return false;
     }
 }
+
+Result:
+Runtime: 8 ms, faster than 98.85% of Java online submissions for Frog Jump.
+Memory Usage: 41.1 MB, less than 96.09% of Java online submissions for Frog Jump.
