@@ -30,3 +30,7 @@ class Solution {
         return (int) res;
     }
 }
+
+
+Runtime: 190 ms, faster than 39.86% of Java online submissions for Student Attendance Record II.
+Memory Usage: 68.2 MB, less than 35.09% of Java online submissions for Student Attendance Record II.
