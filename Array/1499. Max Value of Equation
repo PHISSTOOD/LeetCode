@@ -1,0 +1,30 @@
+You are given an array points containing the coordinates of points on a 2D plane,
+sorted by the x-values, where points[i] = [xi, yi] such that xi < xj for all 1 <= i < j <= points.length. You are also given an integer k.
+Return the maximum value of the equation yi + yj + |xi - xj| where |xi - xj| <= k and 1 <= i < j <= points.length.
+It is guaranteed that there exists at least one pair of points that satisfy the constraint |xi - xj| <= k.
+
+class Solution {
+    public int findMaxValueOfEquation(int[][] points, int k) {
+        Deque<Integer> queue = new ArrayDeque();
+        int result = Integer.MIN_VALUE;
+        for(int i = 0; i<points.length; i++){
+            int curx = points[i][0];
+            int cury = points[i][1];
+            while(!queue.isEmpty() && curx - points[queue.peek()][0] > k){
+                queue.poll();
+            }
+            if(!queue.isEmpty()){
+                result = Math.max(result, curx+cury+points[queue.peek()][1]-points[queue.peek()][0]);
+            }
+            while(!queue.isEmpty() && points[queue.peekLast()][1]-points[queue.peekLast()][0] < cury-curx){
+                queue.pollLast();
+            }
+            queue.addLast(i);
+        }
+        return result;
+    }
+}
+
+Result:
+Runtime: 33 ms, faster than 30.30% of Java online submissions for Max Value of Equation.
+Memory Usage: 121.5 MB, less than 33.55% of Java online submissions for Max Value of Equation.
