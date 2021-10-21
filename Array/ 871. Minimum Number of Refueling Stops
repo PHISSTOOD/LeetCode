@@ -37,3 +37,7 @@ class Solution {
         return result;
     }
 }
+
+Result:
+Runtime: 6 ms, faster than 50.02% of Java online submissions for Minimum Number of Refueling Stops.
+Memory Usage: 46.2 MB, less than 18.16% of Java online submissions for Minimum Number of Refueling Stops.
