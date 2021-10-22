@@ -1,0 +1,64 @@
+Design an algorithm that accepts a stream of characters and checks if a suffix of these characters is a string of a given array of strings words.
+For example, if words = ["abc", "xyz"] and the stream added the four characters (one by one) 'a', 'x', 'y', and 'z', 
+your algorithm should detect that the suffix "xyz" of the characters "axyz" matches "xyz" from words.
+Implement the StreamChecker class:
+StreamChecker(String[] words) Initializes the object with the strings array words.
+boolean query(char letter) Accepts a new character from the stream and returns true if any non-empty suffix from the stream forms a word that is in words.
+
+class StreamChecker {
+    class Trie{
+        Trie[] branch;
+        boolean end;
+        public Trie(){
+            branch = new Trie[26];
+            end = false;
+        }
+        
+        public void add(String suf, Trie root){
+            Trie cur = root;
+            for(int i = suf.length()-1; i>=0; i--){
+                if(cur.branch[suf.charAt(i)-'a']==null){
+                    cur.branch[suf.charAt(i)-'a'] = new Trie();
+                }
+                cur = cur.branch[suf.charAt(i)-'a'];
+            }
+            cur.end = true;
+        }
+    }
+
+    Trie root;
+    StringBuilder sb;
+    public StreamChecker(String[] words) {
+        root = new Trie();
+        for(String suf : words){
+            root.add(suf, root);
+        }
+        sb = new StringBuilder();
+    }
+    
+    public boolean query(char letter) {
+        sb.append(letter);
+        return search(sb);
+    }
+    
+    public boolean search(StringBuilder word){
+        Trie cur = root;
+        for(int i = word.length()-1; i>=0; i--){
+            if(cur.end==true){
+                return true;
+            }
+            if(cur.branch[word.charAt(i)-'a']==null){
+                return false;
+            }
+            cur = cur.branch[word.charAt(i)-'a'];
+        }
+        if(cur.end==true){
+            return true;
+        }
+        return false;
+    }
+}
+
+Result:
+Runtime: 80 ms, faster than 96.32% of Java online submissions for Stream of Characters.
+Memory Usage: 71.5 MB, less than 80.41% of Java online submissions for Stream of Characters.
