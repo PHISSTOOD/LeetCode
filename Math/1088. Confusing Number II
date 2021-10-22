@@ -1,0 +1,53 @@
+A confusing number is a number that when rotated 180 degrees becomes a different number with each digit valid.
+We can rotate digits of a number by 180 degrees to form new digits.
+When 0, 1, 6, 8, and 9 are rotated 180 degrees, they become 0, 1, 9, 8, and 6 respectively.
+When 2, 3, 4, 5, and 7 are rotated 180 degrees, they become invalid.
+Note that after rotating a number, we can ignore leading zeros.
+For example, after rotating 8000, we have 0008 which is considered as just 8.
+Given an integer n, return the number of confusing numbers in the inclusive range [1, n].
+
+
+
+class Solution {
+    int[] a = new int[]{0,1,6,8,9};
+    int[] change = new int[]{0,1,2,3,4,5,9,7,8,6};
+    int res =0;
+    public int confusingNumberII(int N) {
+        for(int i=1;i<5&&a[i]<=N;i++){
+            dfs(N,a[i]);
+        }
+        return res;
+    }
+
+    private boolean check(int x){
+        if(x==0||x==1||x==8){
+            return false;
+        }
+        int pre = x;
+        int y = 0;
+        while(x!=0){
+            y = y*10+change[x%10];
+            x /= 10;
+        }
+        return pre!=y;
+    }
+
+    private void dfs(int N,int cur){
+        if(cur>N){
+            return;
+        }
+        if(check(cur)){
+            res++;
+        }
+        for(int i=0;i<5;i++){
+            if(cur>Integer.MAX_VALUE/10){
+                continue;
+            }
+            dfs(N,cur*10+a[i]);
+        }
+    }
+}
+
+Result:
+执行用时：132 ms, 在所有 Java 提交中击败了70.59%的用户
+内存消耗：35.2 MB, 在所有 Java 提交中击败了64.71%的用户
