@@ -1,0 +1,46 @@
+Given a string s and an array of strings words, return the number of words[i] that is a subsequence of s.
+A subsequence of a string is a new string generated from the original string with some characters
+(can be none) deleted without changing the relative order of the remaining characters.
+For example, "ace" is a subsequence of "abcde".
+
+class Solution {
+    public class wordNode{
+        String word;
+        int cur;
+        
+        public wordNode(String word){
+            this.word = word;
+            cur = 0;
+        }
+    }
+    
+    public int numMatchingSubseq(String s, String[] words) {
+        Queue<wordNode>[] dic = new LinkedList[26];
+        for(int i = 0; i<26; i++){
+            dic[i] = new LinkedList();
+        }
+        for(String word : words){
+            wordNode node = new wordNode(word);
+            dic[word.charAt(0)-'a'].offer(node);
+        }
+        int result = 0;
+        for(int i = 0; i<s.length(); i++){
+            int cur = s.charAt(i)-'a';
+            int num = dic[cur].size();
+            for(int j = 0; j<num; j++){
+                wordNode node = dic[cur].poll();
+                node.cur++;
+                if(node.cur==node.word.length()){
+                    result++;
+                }else{
+                    dic[node.word.charAt(node.cur)-'a'].offer(node);
+                }
+            }
+        }
+        return result;
+    }
+}
+
+Result:
+Runtime: 43 ms, faster than 96.54% of Java online submissions for Number of Matching Subsequences.
+Memory Usage: 72 MB, less than 38.70% of Java online submissions for Number of Matching Subsequences.
