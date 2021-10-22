@@ -40,3 +40,40 @@ class Solution {
 Result:
 Runtime: 47 ms, faster than 14.79% of Java online submissions for Number of Good Ways to Split a String.
 Memory Usage: 52.1 MB, less than 6.79% of Java online submissions for Number of Good Ways to Split a String.
+
+
+
+class Solution {
+    public int numSplits(String s) {
+        if(s==null || s.length()<=1){
+            return 0;
+        }
+        int[] count1 = new int[s.length()];
+        int[] count2 = new int[s.length()];
+        Set<Character> set = new HashSet();
+        char[] str = s.toCharArray();
+        for(int i = 0; i<str.length; i++){
+            set.add(str[i]);
+            count1[i] = set.size();
+        }
+        set = new HashSet();
+        for(int i = str.length-1; i>=0; i--){
+            set.add(str[i]);
+            count2[i] = set.size();
+        }
+        int index = 0;
+        int result = 0;
+        while(index<count1.length-1 && count1[index]<=count2[index+1]){
+            if(count1[index]==count2[index+1]){
+                result++;
+            }
+            index++;
+        }
+        return result;
+    }
+}
+
+
+Result:
+Runtime: 13 ms, faster than 71.25% of Java online submissions for Number of Good Ways to Split a String.
+Memory Usage: 39.2 MB, less than 89.48% of Java online submissions for Number of Good Ways to Split a String.
