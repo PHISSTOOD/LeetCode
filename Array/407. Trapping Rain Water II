@@ -1,0 +1,60 @@
+Given an m x n integer matrix heightMap representing the height of each unit cell in a 2D elevation map, return the volume of water it can trap after raining.
+
+class Solution {
+    int[][] directions = new int[][]{{1,0},{-1,0},{0,1},{0,-1}};
+    public int trapRainWater(int[][] heightMap) {
+        if(heightMap.length <=2 || heightMap[0].length<=2)
+            return 0;
+        
+        int rows = heightMap.length;
+        int cols = heightMap[0].length;
+        
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b) -> a[2] - b[2]);
+        
+        boolean[][] visited = new boolean[rows][cols];
+        
+        // Fill the first col and last col border elements and add to PQ
+        for(int i=0; i<rows; i++) {
+            visited[i][0] = true;
+            visited[i][cols - 1] = true;
+            pq.offer(new int[]{i, 0, heightMap[i][0]});
+            pq.offer(new int[]{i, cols - 1, heightMap[i][cols - 1]});
+        }
+        
+         // Fill the first row and last row border elements and add to PQ
+        for(int i=1; i<cols-1; i++) {
+            visited[0][i] = true;
+            visited[rows - 1][i] = true;
+            pq.offer(new int[]{0, i, heightMap[0][i]});
+            pq.offer(new int[]{rows - 1, i, heightMap[rows - 1][i]});
+        }
+        
+        int res = 0;
+        
+        while(!pq.isEmpty()) {
+            int[] current = pq.poll();
+            int row = current[0];
+            int col = current[1];
+            int height = current[2];
+            
+            // Explore neighbors
+            for(int[] d : directions) {
+                int r = d[0] + row;
+                int c = d[1] + col;
+                
+                if(r>0 && r<rows-1 && c>0 && c<cols-1 && !visited[r][c]) {
+                    visited[r][c] = true;
+                    
+                    res += Math.max(0, height - heightMap[r][c]); // so that we can get positive heights
+                    pq.offer(new int[]{r, c, Math.max(height, heightMap[r][c])});
+                }
+            } 
+        }
+        
+        return res;
+    }
+}
+
+Result:
+Runtime: 27 ms, faster than 58.41% of Java online submissions for Trapping Rain Water II.
+Memory Usage: 51.4 MB, less than 46.54% of Java online submissions for Trapping Rain Water II.
