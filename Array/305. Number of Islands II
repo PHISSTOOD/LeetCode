@@ -1,0 +1,66 @@
+You are given an empty 2D binary grid grid of size m x n. The grid represents a map where 0's represent water and 1's represent land.
+Initially, all the cells of grid are water cells (i.e., all the cells are 0's).
+We may perform an add land operation which turns the water at position into a land. 
+You are given an array positions where positions[i] = [ri, ci] is the position (ri, ci) at which we should operate the ith operation.
+Return an array of integers answer where answer[i] is the number of islands after turning the cell (ri, ci) into a land.
+An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
+
+class Solution {
+    int[][] dirs = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
+    public List<Integer> numIslands2(int m, int n, int[][] positions) {
+        int[][] grid = new int[m][n];
+        HashSet<Integer> set = new HashSet();
+        int curIndex = 2;
+        List<Integer> result = new ArrayList();
+        for(int[] pos : positions){
+            Set<Integer> neighbor = explore(pos[0], pos[1], grid);
+            if(grid[pos[0]][pos[1]]!=0){
+                result.add(set.size());
+                continue;
+            }
+            if(neighbor.size()==0){
+                grid[pos[0]][pos[1]] = curIndex;
+                set.add(curIndex);
+                result.add(set.size());
+                curIndex++;
+            }else if(neighbor.size()==1){
+                Iterator it = neighbor.iterator();
+                grid[pos[0]][pos[1]] = (int)it.next();
+                result.add(set.size());
+            }else{
+                Iterator it = neighbor.iterator();
+                dfs(pos[0], pos[1], grid, curIndex);
+                while(it.hasNext()){
+                    set.remove((int)it.next());
+                }
+                set.add(curIndex);
+                result.add(set.size());
+                curIndex++;
+            }
+        }
+        return result;
+    }
+
+    public Set<Integer> explore(int curX, int curY, int[][] grid){
+        HashSet<Integer> set = new HashSet();
+        for(int[] dir : dirs){
+            if(curX+dir[0]>=0 && curX+dir[0]<grid.length && curY+dir[1]>=0 && curY+dir[1]<grid[0].length && grid[curX+dir[0]][curY+dir[1]] !=0){
+                set.add(grid[curX+dir[0]][curY+dir[1]]);
+            }
+        }
+        return set;
+    }
+
+    public void dfs(int curX, int curY, int[][] grid, int curIndex){
+        grid[curX][curY] = curIndex;
+        for(int[] dir : dirs){
+            if(curX+dir[0]>=0 && curX+dir[0]<grid.length && curY+dir[1]>=0 && curY+dir[1]<grid[0].length && grid[curX+dir[0]][curY+dir[1]] !=0 && grid[curX+dir[0]][curY+dir[1]] !=curIndex){
+                dfs(curX+dir[0], curY+dir[1], grid, curIndex);
+            }
+        }
+    }
+}
+
+Result:
+执行用时：110 ms, 在所有 Java 提交中击败了7.58%的用户
+内存消耗：41.1 MB, 在所有 Java 提交中击败了95.45%的用户
