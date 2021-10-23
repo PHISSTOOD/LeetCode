@@ -1,3 +1,6 @@
+Given an m x n binary matrix mat, return the distance of the nearest 0 for each cell.
+The distance between two adjacent cells is 1.
+
 class Solution {
     public int[][] updateMatrix(int[][] mat) {
         if (mat == null || mat.length == 0 || mat[0].length == 0) {
@@ -43,3 +46,7 @@ class Solution {
         return result;
     }
 }
+
+Result:
+Runtime: 9 ms, faster than 83.24% of Java online submissions for 01 Matrix.
+Memory Usage: 83.9 MB, less than 41.68% of Java online submissions for 01 Matrix.
