@@ -1,0 +1,51 @@
+Given a 2D grid consists of 0s (land) and 1s (water). 
+An island is a maximal 4-directionally connected group of 0s and a closed island is an island totally (all left, top, right, bottom) surrounded by 1s.
+Return the number of closed islands.
+
+
+class Solution {
+    int[][] dirs = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
+    public int closedIsland(int[][] grid) {
+        for(int i = 0; i<grid.length; i++){
+            if(grid[i][0]==0){
+                dfs(i, 0, grid);
+            }
+            if(grid[i][grid[0].length-1]==0){
+                dfs(i, grid[0].length-1, grid);
+            }
+        }
+        for(int i = 1; i<grid[0].length-1; i++){
+            if(grid[0][i]==0){
+                dfs(0, i, grid);
+            }
+            if(grid[grid.length-1][i]==0){
+                dfs(grid.length-1, i, grid);
+            }
+        }
+        int result = 0;
+        for(int i = 1; i<grid.length-1; i++){
+            for(int j = 1; j<grid[0].length-1; j++){
+                if(grid[i][j]==0){
+                    result++;
+                    dfs(i, j, grid);
+                }
+            }
+        }
+        return result;
+    }
+    
+    public void dfs(int x, int y, int[][] grid){
+        grid[x][y] = 1;
+        for(int[] dir : dirs){
+            int newx=  x+dir[0];
+            int newy = y+dir[1];
+            if(newx>=0 && newx<grid.length && newy>=0 && newy<grid[0].length && grid[newx][newy]==0){
+                dfs(newx, newy, grid);
+            }
+        }
+    }
+}
+
+Result:
+Runtime: 2 ms, faster than 81.49% of Java online submissions for Number of Closed Islands.
+Memory Usage: 43.8 MB, less than 37.56% of Java online submissions for Number of Closed Islands.
