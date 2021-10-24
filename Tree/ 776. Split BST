@@ -6,6 +6,7 @@ Additionally, most of the structure of the original tree should remain. Formally
 for any child c with parent p in the original tree, if they are both in the same subtree after the split, then node c should still have the parent p.
 Return an array of the two roots of the two subtrees.
 
+Code:
 class Solution {
     public TreeNode[] splitBST(TreeNode root, int target) {
         if(root==null){
