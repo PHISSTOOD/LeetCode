@@ -1,0 +1,46 @@
+Given an array of integers nums and a positive integer k, find whether it is possible to divide this array into sets of k consecutive numbers.
+Return true if it is possible. Otherwise, return false.
+
+class Solution {
+    public boolean isPossibleDivide(int[] nums, int k) {
+        if(nums.length%k!=0){
+            return false;
+        }
+        HashMap<Integer,Integer> count = new HashMap();
+        for(int num : nums){
+            count.put(num, count.getOrDefault(num, 0)+1);
+        }
+        int[][] zip = new int[count.size()][2];
+        int index = 0;
+        for(Map.Entry<Integer,Integer> entry : count. entrySet()){
+            zip[index][0] = entry.getKey();
+            zip[index][1] = entry.getValue();
+            index++;
+        }
+        Arrays.sort(zip, (a,b)->a[0]-b[0]);
+        
+        index = 0;
+        while(index<zip.length){
+            int cur = zip[index][1];
+            if(cur==0){
+                index++;
+                continue;
+            }else if(cur<0){
+                return false;
+            }else{
+                if(index+k>zip.length || zip[index+k-1][0]!=zip[index][0]+k-1){
+                    return false;
+                }
+                for(int i = index; i<index+k; i++){
+                    zip[i][1] -= cur;
+                }
+                index++;
+            }
+        }
+        return true;
+    }
+}
+
+Result:
+Runtime: 102 ms, faster than 75.71% of Java online submissions for Divide Array in Sets of K Consecutive Numbers.
+Memory Usage: 78.1 MB, less than 37.32% of Java online submissions for Divide Array in Sets of K Consecutive Numbers.
