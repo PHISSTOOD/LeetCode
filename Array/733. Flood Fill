@@ -1,0 +1,26 @@
+class Solution {
+    int[][] dirs = new int[][]{{-1,0},{1,0},{0,-1},{0,1}};
+    public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+        if(image[sr][sc] == newColor){
+            return image;
+        }
+        dfs(sr, sc, newColor, image);
+        return image;
+    }
+    
+    public void dfs(int x, int y, int newColor, int[][] grid){
+        int cur = grid[x][y];
+        grid[x][y] = newColor;
+        for(int[] dir : dirs){
+            int curx =x+dir[0];
+            int cury = y+dir[1];
+            if(curx >= 0 && curx<grid.length && cury>=0 && cury<grid[0].length && grid[curx][cury]==cur){
+                dfs(curx, cury, newColor, grid);
+            }
+        }
+    }
+}
+
+Result:
+Runtime: 2 ms, faster than 27.36% of Java online submissions for Flood Fill.
+Memory Usage: 45.1 MB, less than 19.71% of Java online submissions for Flood Fill.
