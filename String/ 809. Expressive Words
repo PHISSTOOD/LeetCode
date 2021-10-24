@@ -10,6 +10,7 @@ Also, we could do another extension like "ll" -> "lllll" to get "helllllooo". If
 then the query word "hello" would be stretchy because of these two extension operations: query = "hello" -> "hellooo" -> "helllllooo" = s.
 Return the number of query strings that are stretchy.
 
+Code:
 class Solution {
     public int expressiveWords(String s, String[] words) {
         int count = 0;
