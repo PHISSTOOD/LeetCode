@@ -1,0 +1,25 @@
+Given an integer n, return the number of strings of length n that consist only of vowels (a, e, i, o, u) and are lexicographically sorted.
+A string s is lexicographically sorted if for all valid i, s[i] is the same as or comes before s[i+1] in the alphabet.
+
+class Solution {
+    public int countVowelStrings(int n) {
+        int[][] dp = new int[6][n];
+        for(int i = 1; i<6; i++){
+            dp[i][0] = 1;
+        }
+        for(int i = 1; i<n; i++){
+            for(int j = 1; j<6; j++){
+                dp[j][i] = dp[j][i-1] + dp[j-1][i];
+            }
+        }
+        int result = 0;
+        for(int i = 1; i<6; i++){
+            result += dp[i][n-1];
+        }
+        return result;
+    }
+}
+
+Result:
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Count Sorted Vowel Strings.
+Memory Usage: 37.6 MB, less than 39.85% of Java online submissions for Count Sorted Vowel Strings.
