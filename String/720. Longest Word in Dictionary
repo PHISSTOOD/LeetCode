@@ -1,0 +1,57 @@
+class Solution {
+    public class Trie{
+        Trie[] branch;
+        public Trie(){
+            branch = new Trie[26];
+        }
+        
+    }
+    
+    public boolean canInsert(String word, Trie root){
+        Trie cur = root;
+        if(word.length()==1){
+            cur.branch[word.charAt(0)-'a'] = new Trie();
+            return true;
+        }else{
+            for(int i = 0; i<word.length()-1; i++){
+                if(cur.branch[word.charAt(i)-'a']!=null){
+                    cur = cur.branch[word.charAt(i)-'a'];
+                }else{
+                    return false;
+                }
+            }
+            cur.branch[word.charAt(word.length()-1)-'a'] = new Trie();
+            return true;
+        }
+    }
+    
+    public String longestWord(String[] words) {
+        Trie root = new Trie();
+        HashMap<Integer, List<String>> count = new HashMap();
+        for(String word : words){
+            if(!count.containsKey(word.length())){
+                count.put(word.length(), new ArrayList());
+            }
+            count.get(word.length()).add(word);
+        }
+        String result = "";
+        for(int i = 1; i<=count.size(); i++){
+            if(!count.containsKey(i)){
+                return result;
+            }
+            List<String> cur = count.get(i);
+            for(String word : cur){
+                if(canInsert( word, root)){
+                    if(result.compareTo(word)>0 || result.length()<word.length()){
+                        result = word;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+}
+
+Result:
+Runtime: 8 ms, faster than 88.75% of Java online submissions for Longest Word in Dictionary.
+Memory Usage: 39 MB, less than 90.76% of Java online submissions for Longest Word in Dictionary.
