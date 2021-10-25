@@ -57,3 +57,7 @@ class Solution {
         }
     }
 }
+
+Result:
+Runtime: 20 ms, faster than 99.66% of Java online submissions for Minimum Cost to Hire K Workers.
+Memory Usage: 39.6 MB, less than 98.49% of Java online submissions for Minimum Cost to Hire K Workers.
