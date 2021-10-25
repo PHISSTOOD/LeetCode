@@ -6,6 +6,7 @@ If you guess the wrong number, then I will tell you whether the number I picked 
 Every time you guess a wrong number x, you will pay x dollars. If you run out of money, you lose the game.
 Given a particular n, return the minimum amount of money you need to guarantee a win regardless of what number I pick.
 
+Code:
 class Solution {
     public int getMoneyAmount(int n) {
         int[][]dp = new int[n+1][n+1];
