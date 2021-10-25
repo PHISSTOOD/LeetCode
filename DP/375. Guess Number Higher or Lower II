@@ -1,0 +1,36 @@
+We are playing the Guessing Game. The game will work as follows:
+I pick a number between 1 and n.
+You guess a number.
+If you guess the right number, you win the game.
+If you guess the wrong number, then I will tell you whether the number I picked is higher or lower, and you will continue guessing.
+Every time you guess a wrong number x, you will pay x dollars. If you run out of money, you lose the game.
+Given a particular n, return the minimum amount of money you need to guarantee a win regardless of what number I pick.
+
+class Solution {
+    public int getMoneyAmount(int n) {
+        int[][]dp = new int[n+1][n+1];
+        return guess(1, n, dp);
+    }
+    
+    public int guess(int left, int right, int[][] dp){
+        if(left==right+1){
+            return 0;
+        }
+        if(dp[left][right]!=0){
+            return dp[left][right];
+        }
+        if(left==right){
+            return 0;
+        }
+        int result = Integer.MAX_VALUE;
+        for(int i = left; i<=right; i++){
+            result = Math.min(result, i + Math.max(guess(left, i-1, dp),guess(i+1, right, dp)));
+        }
+        dp[left][right] = result;
+        return result;
+    }
+}
+
+Result:
+Runtime: 52 ms, faster than 37.94% of Java online submissions for Guess Number Higher or Lower II.
+Memory Usage: 38 MB, less than 89.26% of Java online submissions for Guess Number Higher or Lower II.
