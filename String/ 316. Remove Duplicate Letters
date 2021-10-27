@@ -28,3 +28,8 @@ class Solution {
         return sb.toString();
     }
 }
+
+
+Result:
+Runtime: 3 ms, faster than 85.26% of Java online submissions for Remove Duplicate Letters.
+Memory Usage: 39.4 MB, less than 48.32% of Java online submissions for Remove Duplicate Letters.
