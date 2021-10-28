@@ -7,6 +7,7 @@ MyCalendarTwo() Initializes the calendar object.
 boolean book(int start, int end) Returns true if the event can be added to the calendar successfully without causing a triple booking. 
 Otherwise, return false and do not add the event to the calendar.
 
+Code:
 class MyCalendarTwo {
     TreeMap<Integer,Integer> map;
     
