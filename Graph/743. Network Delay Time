@@ -1,0 +1,39 @@
+class Solution {
+    public int networkDelayTime(int[][] times, int n, int k) {
+       int[][] graph = new int[n+1][n+1];
+        for(int i = 0; i<graph.length; i++){
+            Arrays.fill(graph[i], -1);
+        }
+        for(int[] edge : times){
+            graph[edge[0]][edge[1]] = edge[2];
+        }
+        int[] dis = new int[n+1];
+        Arrays.fill(dis, Integer.MAX_VALUE);
+        PriorityQueue<int[]> queue = new PriorityQueue<>((a,b)->a[1]-b[1]);
+        queue.offer(new int[]{k, 0});
+        HashSet<Integer> set = new HashSet();
+        int result = 0;
+        while(!queue.isEmpty()){
+            int[] cur = queue.poll();
+            if(set.contains(cur[0])){
+                continue;
+            }
+            set.add(cur[0]);
+            result = Math.max(result, cur[1]);
+            dis[cur[0]] = cur[1];
+            for(int i = 1;i<=n; i++){
+                if(i!=cur[0] && graph[cur[0]][i]!=-1){
+                    queue.offer(new int[]{i, cur[1]+graph[cur[0]][i]});
+                }
+            }
+        }
+        if(set.size()!=n){
+            return -1;
+        }
+        return result;
+    }
+}
+
+Result:
+Runtime: 21 ms, faster than 57.96% of Java online submissions for Network Delay Time.
+Memory Usage: 42.9 MB, less than 72.58% of Java online submissions for Network Delay Time.
