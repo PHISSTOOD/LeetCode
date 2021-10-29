@@ -1,0 +1,62 @@
+Design a special dictionary with some words that searchs the words in it by a prefix and a suffix.
+Implement the WordFilter class:
+WordFilter(string[] words) Initializes the object with the words in the dictionary.
+f(string prefix, string suffix) Returns the index of the word in the dictionary, which has the prefix prefix and the suffix suffix. 
+If there is more than one valid index, return the largest of them. If there is no such word in the dictionary, return -1.
+
+class WordFilter { 
+    public class Trie{
+        Trie[] childs;
+        int id;
+        public Trie(int id){
+            childs = new Trie[27];
+            id = id;
+        }
+        
+        public void addWord(String word, Trie root, int id){
+            Trie cur = root;
+            for(int i = 0; i<word.length(); i++){
+                if(cur.childs[word.charAt(i)-'a']==null){
+                    cur.childs[word.charAt(i)-'a'] = new Trie(id);
+                }
+                cur = cur.childs[word.charAt(i)-'a'];
+                cur.id = id;
+            }
+            
+        }
+    }
+    
+    Trie root;
+    public WordFilter(String[] words) {
+        root = new Trie(-1);
+        for(int j = 0; j<words.length; j++){
+            for(int i = 1; i<=words[j].length(); i++){
+                root.addWord(words[j].substring(words[j].length()-i, words[j].length())+"{"+words[j], root, j);
+            }
+        }
+    }
+    
+    public int f(String prefix, String suffix) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(suffix).append('{').append(prefix);
+        char[] str = sb.toString().toCharArray();
+        Trie cur = root;
+        for(int i = 0; i<str.length; i++){
+            if(cur.childs[str[i]-'a']==null){
+                return -1;
+            }
+            cur = cur.childs[str[i]-'a'];
+        }
+        return cur.id;
+    }
+}
+
+/**
+ * Your WordFilter object will be instantiated and called as such:
+ * WordFilter obj = new WordFilter(words);
+ * int param_1 = obj.f(prefix,suffix);
+ */
+
+Result:
+Runtime: 203 ms, faster than 93.49% of Java online submissions for Prefix and Suffix Search.
+Memory Usage: 81.4 MB, less than 68.60% of Java online submissions for Prefix and Suffix Search.
