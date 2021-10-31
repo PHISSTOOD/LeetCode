@@ -1,0 +1,44 @@
+class Solution {
+    class node{
+        int x;
+        int y;
+        int t;
+        public node(int x, int y, int t){
+            this.x = x;
+            this.y = y;
+            this.t = t;
+        }
+    }
+    
+    public int swimInWater(int[][] grid) {
+        int len = grid.length;
+        int[][] dirs = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
+        PriorityQueue<node> queue = new PriorityQueue<>((a,b)->a.t-b.t);
+        node start = new node(0,0,grid[0][0]);
+        boolean[][] visited = new boolean[len][len];
+        queue.offer(start);
+        while(!queue.isEmpty()){
+            node cur = queue.poll();
+            if(cur.x==len-1 && cur.y==len-1){
+                return cur.t;
+            }
+            for(int[] dir : dirs){
+                int newx = cur.x+dir[0];
+                int newy = cur.y+dir[1];
+                if(newx>=0 && newx<len && newy>=0 && newy<len && visited[newx][newy]==false){
+                    if(grid[newx][newy]<=cur.t){
+                        queue.offer(new node(newx, newy, cur.t));
+                    }else{
+                        queue.offer(new node(newx, newy, grid[newx][newy]));
+                    }
+                    visited[newx][newy] = true;
+                }
+            }
+        }
+        return -1;
+    }
+}
+
+Result:
+Runtime: 6 ms, faster than 90.93% of Java online submissions for Swim in Rising Water.
+Memory Usage: 38.5 MB, less than 98.12% of Java online submissions for Swim in Rising Water.
