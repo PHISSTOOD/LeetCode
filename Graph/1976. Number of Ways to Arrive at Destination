@@ -1,0 +1,46 @@
+You are in a city that consists of n intersections numbered from 0 to n - 1 with bi-directional roads between some intersections. 
+The inputs are generated such that you can reach any intersection from any other intersection and that there is at most one road between any two intersections.
+You are given an integer n and a 2D integer array roads where roads[i] = [ui, vi, timei] means that there is a road 
+between intersections ui and vi that takes timei minutes to travel. 
+You want to know in how many ways you can travel from intersection 0 to intersection n - 1 in the shortest amount of time.
+Return the number of ways you can arrive at your destination in the shortest amount of time. Since the answer may be large, return it modulo 109 + 7.
+
+class Solution {
+    public int countPaths(int n, int[][] roads) {
+        int MOD = 1000000007;
+        int[][] graph = new int[n][n];
+        for(int[] edge : roads){
+            graph[edge[0]][edge[1]] = edge[2];
+            graph[edge[1]][edge[0]] = edge[2];
+        }
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b)->a[1]-b[1]);
+        int result = 0;
+        pq.offer(new int[]{0,0});
+        long[] ways = new long[n];
+        ways[0] = 1;
+        int[] dis = new int[n];
+        Arrays.fill(dis, Integer.MAX_VALUE);
+        dis[0] = 0;
+        while(!pq.isEmpty()){
+            int[] cur = pq.poll();
+            int cost = cur[1];
+            int curNode = cur[0];
+            for(int i = 0; i<n; i++){
+                if(graph[curNode][i]!=0 && cost+graph[curNode][i]<dis[i]){
+                    dis[i] = cost+graph[curNode][i];
+                    ways[i] = ways[curNode];
+                    pq.offer(new int[]{i, cost+graph[curNode][i]});
+                }
+                else if(graph[curNode][i]!=0 && cost+graph[curNode][i]==dis[i]){
+                    ways[i] += ways[curNode];
+                    ways[i] %= MOD;
+                }
+            }
+        }
+        return (int)ways[n-1];
+    }
+}
+
+Result:
+Runtime: 6 ms, faster than 90.33% of Java online submissions for Number of Ways to Arrive at Destination.
+Memory Usage: 46.3 MB, less than 87.23% of Java online submissions for Number of Ways to Arrive at Destination.
