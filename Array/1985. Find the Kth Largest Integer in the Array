@@ -1,0 +1,30 @@
+You are given an array of strings nums and an integer k. Each string in nums represents an integer without leading zeros.
+Return the string that represents the kth largest integer in nums.
+ 
+class Solution {
+    public String kthLargestNumber(String[] nums, int k) {
+        PriorityQueue<String> pq = new PriorityQueue<String>(new mycom());
+        for(String s : nums){
+            pq.offer(s);
+            if(pq.size()>k){
+                pq.poll();
+            }
+        }
+        return pq.poll();
+    }
+    
+    class mycom implements Comparator<String>{
+        @Override
+        public int compare(String s1, String s2){
+            if(s1.length()==s2.length()){
+                return s1.compareTo(s2);
+            }else{
+                return s1.length()-s2.length();
+            }
+        }
+    }
+}
+
+Result:
+Runtime: 51 ms, faster than 67.58% of Java online submissions for Find the Kth Largest Integer in the Array.
+Memory Usage: 47.3 MB, less than 56.99% of Java online submissions for Find the Kth Largest Integer in the Array.
