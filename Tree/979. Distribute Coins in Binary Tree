@@ -1,0 +1,30 @@
+
+class Solution {
+    int result = 0;
+    public int distributeCoins(TreeNode root) {
+        dfs(root);
+        return result;
+    }
+    
+    public int dfs(TreeNode node){
+        if(node==null){
+            return 0;
+        }
+        int cur = node.val-1;
+        int left = dfs(node.left);
+        int right = dfs(node.right);
+        if(left!=0){
+            result += Math.abs(left);
+        }
+        if(right!=0){
+            result += Math.abs(right);
+        }
+        cur += left;
+        cur += right;
+        return cur;
+    }
+}
+
+Result:
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Distribute Coins in Binary Tree.
+Memory Usage: 37.9 MB, less than 98.66% of Java online submissions for Distribute Coins in Binary Tree.
