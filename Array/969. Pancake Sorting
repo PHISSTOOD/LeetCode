@@ -1,0 +1,39 @@
+class Solution {
+    public List<Integer> pancakeSort(int[] arr) {
+        List<Integer> result = new ArrayList();
+        for(int i = arr.length-1; i>=1; i--){
+            int next = 0;
+            for(int j = 0; j<=i; j++){
+                if(arr[j]>=arr[next]){
+                    next = j;
+                }
+            }
+            if(next==i){
+                continue;
+            }else{
+                if(next!=0){
+                    reverse(arr, next);
+                    result.add(next+1);
+                }
+                reverse(arr, i);
+                result.add(i+1);
+            }
+        }
+        return result;
+    }
+    
+    public void reverse(int[] arr, int end){
+        int i = 0;
+        while(i<end){
+            int temp = arr[i];
+            arr[i] = arr[end];
+            arr[end] = temp;
+            i++;
+            end--;
+        }
+    }
+}
+
+Result:
+Runtime: 1 ms, faster than 100.00% of Java online submissions for Pancake Sorting.
+Memory Usage: 38.8 MB, less than 92.31% of Java online submissions for Pancake Sorting.
